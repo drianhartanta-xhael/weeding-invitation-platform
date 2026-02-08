@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --wedding-primary: #D4A373;
+  --wedding-secondary: #FEFAE0;
+  --wedding-accent: #606C38;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body), 'Lato', sans-serif;
+}

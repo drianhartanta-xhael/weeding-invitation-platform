@@ -1,0 +1,29 @@
+{
+  "name": "wedding-invitation-platform",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "server"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "dev:web": "turbo run dev --filter=web",
+    "dev:invitation": "turbo run dev --filter=invitation",
+    "dev:server": "turbo run dev --filter=server",
+    "build:web": "turbo run build --filter=web",
+    "build:invitation": "turbo run build --filter=invitation",
+    "build:server": "turbo run build --filter=server",
+    "generate": "node scripts/generate.js"
+  },
+  "devDependencies": {
+    "turbo": "^2.3.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "npm@10.8.2"
+}
