@@ -179,7 +179,7 @@ export function SectionDecor({
   variant,
 }: DecorProps & { variant: SectionVariant }) {
   const isDark = variant === 'dark';
-  const flowerColor = isDark ? '#fff8f0' : colors.primary;
+  const flowerColor = isDark ? colors.bg : colors.primary;
   const flowerOpacity = 0.15;
 
   // 6 flowers spread evenly across the top
