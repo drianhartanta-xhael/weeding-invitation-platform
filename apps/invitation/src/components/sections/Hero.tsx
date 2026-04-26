@@ -13,7 +13,10 @@ interface HeroProps {
 
 export default function Hero({ groomName, brideName, eventDate, guestName, decorConfig }: HeroProps) {
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center bg-wedding-secondary relative overflow-hidden">
+    <section
+      className="min-h-screen flex flex-col items-center justify-center bg-wedding-secondary relative overflow-hidden"
+      style={decorConfig?.colors.bg ? { backgroundColor: decorConfig.colors.bg } : undefined}
+    >
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -86,7 +89,7 @@ export default function Hero({ groomName, brideName, eventDate, guestName, decor
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2 }}
-        className="absolute bottom-8"
+        className="absolute bottom-8 z-10"
       >
         <p className="text-sm text-gray-400 animate-bounce">Scroll Down</p>
       </motion.div>

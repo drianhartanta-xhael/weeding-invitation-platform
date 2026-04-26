@@ -34,6 +34,8 @@ interface SectionRendererProps {
   decorConfig?: DecorationConfig;
 }
 
+const VALID_VARIANTS = new Set<string>(['light', 'dark', 'accent', 'image-1', 'image-2']);
+
 export default function SectionRenderer({
   sections,
   stylePresets,
@@ -136,7 +138,7 @@ export default function SectionRenderer({
               <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0 }}>
                 <decorConfig.SectionDecor
                   colors={decorConfig.colors}
-                  variant={(section.style as SectionVariant) ?? 'light'}
+                  variant={(VALID_VARIANTS.has(section.style) ? section.style : 'light') as SectionVariant}
                 />
               </div>
             )}
