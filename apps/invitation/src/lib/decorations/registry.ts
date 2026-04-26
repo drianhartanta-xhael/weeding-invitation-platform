@@ -4,6 +4,7 @@ import { HeroDecor, SectionDecor, FooterDecor, jawaColors } from './jawa';
 import { HeroDecor as BaliHeroDecor, SectionDecor as BaliSectionDecor, FooterDecor as BaliFooterDecor, baliColors } from './bali';
 import { HeroDecor as SundaHeroDecor, SectionDecor as SundaSectionDecor, FooterDecor as SundaFooterDecor, sundaColors } from './sunda';
 import { HeroDecor as MinangHeroDecor, SectionDecor as MinangSectionDecor, FooterDecor as MinangFooterDecor, minangColors } from './minang';
+import { HeroDecor as BetawiHeroDecor, SectionDecor as BetawiSectionDecor, FooterDecor as BetawiFooterDecor, betawiColors } from './betawi';
 
 const NullDecor: React.FC<DecorProps> = () => null;
 const NullSectionDecor: React.FC<DecorProps & { variant: SectionVariant }> = () => null;
@@ -46,5 +47,11 @@ export const DECORATION_REGISTRY: Record<string, DecorationConfig> = {
     HeroDecor: MinangHeroDecor,
     SectionDecor: MinangSectionDecor,
     FooterDecor: MinangFooterDecor,
+  },
+  betawi: {
+    colors: betawiColors,
+    HeroDecor: BetawiHeroDecor,
+    SectionDecor: BetawiSectionDecor,
+    FooterDecor: BetawiFooterDecor,
   },
 };
