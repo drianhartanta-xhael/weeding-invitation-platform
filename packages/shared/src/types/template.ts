@@ -15,6 +15,7 @@ export interface ITemplate {
   description: string;
   isActive: boolean;
   config: ITemplateConfig;
+  decorationStyle?: string;
   createdAt: Date;
   updatedAt: Date;
 }

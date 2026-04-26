@@ -14,6 +14,7 @@ export interface ITemplateDocument extends Document {
     fontBody: string;
     [key: string]: string;
   };
+  decorationStyle: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -53,6 +54,10 @@ const templateSchema = new Schema<ITemplateDocument>(
         fontHeading: 'Playfair Display',
         fontBody: 'Lato',
       },
+    },
+    decorationStyle: {
+      type: String,
+      default: 'none',
     },
   },
   {
