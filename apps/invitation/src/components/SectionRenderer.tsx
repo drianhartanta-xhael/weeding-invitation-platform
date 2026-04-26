@@ -1,36 +1,147 @@
 'use client';
 
+import Couple from './sections/Couple';
+import Events from './sections/Events';
+import Gallery from './sections/Gallery';
+import Countdown from './sections/Countdown';
+import RSVP from './sections/RSVP';
+import Wishes from './sections/Wishes';
+import Gift from './sections/Gift';
+import Story from './sections/Story';
+import LocationMap from './sections/LocationMap';
 import type { DecorationConfig, SectionVariant } from '@/lib/decorations/types';
 
-interface Section {
-  _id?: string;
+interface SectionData {
+  id: string;
   componentId: string;
-  style?: string;
-  props?: Record<string, unknown>;
+  data: Record<string, any>;
+  style: string;
+  order: number;
+}
+
+interface StylePreset {
+  bg: string;
+  text: string;
 }
 
 interface SectionRendererProps {
-  sections: Section[];
+  sections: SectionData[];
+  stylePresets: Record<string, StylePreset>;
+  clientId: string;
+  clientSlug: string;
+  guestSlug?: string;
+  guestRsvpStatus?: string;
   decorConfig?: DecorationConfig;
 }
 
-export default function SectionRenderer({ sections, decorConfig }: SectionRendererProps) {
-  if (!sections || sections.length === 0) return null;
+export default function SectionRenderer({
+  sections,
+  stylePresets,
+  clientId,
+  clientSlug,
+  guestSlug,
+  guestRsvpStatus,
+  decorConfig,
+}: SectionRendererProps) {
+  const sorted = [...sections].sort((a, b) => a.order - b.order);
 
   return (
     <>
-      {sections.map((section, index) => {
-        const variant = (section.style as SectionVariant) ?? 'light';
+      {sorted.map((section) => {
+        const preset = stylePresets[section.style] || { bg: '#FEFAE0', text: '#333333' };
+
+        const wrapperStyle = {
+          backgroundColor: preset.bg,
+          color: preset.text,
+          position: 'relative' as const,
+          overflow: 'hidden' as const,
+        };
+
+        let content: React.ReactNode = null;
+
+        switch (section.componentId) {
+          case 'couple-profile':
+            content = (
+              <Couple
+                groomName={section.data.groomName || ''}
+                brideName={section.data.brideName || ''}
+                groomPhoto={section.data.groomPhoto || ''}
+                bridePhoto={section.data.bridePhoto || ''}
+                groomParents={section.data.groomParents || { father: '', mother: '' }}
+                brideParents={section.data.brideParents || { father: '', mother: '' }}
+              />
+            );
+            break;
+
+          case 'event-detail':
+            content = <Events events={section.data.events || []} />;
+            break;
+
+          case 'gallery':
+            content = <Gallery images={section.data.images || []} />;
+            break;
+
+          case 'donation':
+            content = (
+              <Gift
+                clientId={clientId}
+                bankAccounts={section.data.bankAccounts || []}
+              />
+            );
+            break;
+
+          case 'rsvp':
+            if (guestSlug) {
+              content = (
+                <RSVP
+                  clientSlug={clientSlug}
+                  guestSlug={guestSlug}
+                  currentStatus={guestRsvpStatus || 'pending'}
+                />
+              );
+            }
+            break;
+
+          case 'wishes':
+            content = <Wishes clientId={clientId} initialWishes={[]} />;
+            break;
+
+          case 'countdown':
+            content = <Countdown eventDate={section.data.eventDate || ''} />;
+            break;
+
+          case 'story':
+            content = <Story stories={section.data.stories || []} layout={section.data.layout || 'vertical'} />;
+            break;
+
+          case 'location-map':
+            content = (
+              <LocationMap
+                venue={section.data.venue || ''}
+                address={section.data.address || ''}
+                mapUrl={section.data.mapUrl || ''}
+              />
+            );
+            break;
+
+          default:
+            content = null;
+        }
+
+        if (!content) return null;
+
         return (
-          <div key={section._id ?? index} style={{ position: 'relative', overflow: 'hidden' }}>
+          <div key={section.id} style={wrapperStyle}>
             {decorConfig && (
               <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0 }}>
-                <decorConfig.SectionDecor colors={decorConfig.colors} variant={variant} />
+                <decorConfig.SectionDecor
+                  colors={decorConfig.colors}
+                  variant={(section.style as SectionVariant) ?? 'light'}
+                />
               </div>
             )}
             <div style={{ position: 'relative', zIndex: 1 }}>
-              {/* Section content rendered here by slot system */}
-              {section.componentId}
+              {content}
             </div>
           </div>
         );

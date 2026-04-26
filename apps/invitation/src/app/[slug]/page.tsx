@@ -13,6 +13,7 @@ import Wishes from '@/components/sections/Wishes';
 import Gift from '@/components/sections/Gift';
 import Footer from '@/components/sections/Footer';
 import MusicPlayer from '@/components/sections/MusicPlayer';
+import SectionRenderer from '@/components/SectionRenderer';
 import { DECORATION_REGISTRY } from '@/lib/decorations/registry';
 import type { DecorationConfig } from '@/lib/decorations/types';
 
@@ -40,6 +41,14 @@ interface InvitationData {
   templateId?: {
     decorationStyle?: string;
   };
+  sections?: {
+    id: string;
+    componentId: string;
+    data: Record<string, any>;
+    style: string;
+    order: number;
+  }[];
+  stylePresets?: Record<string, { bg: string; text: string }>;
 }
 
 interface GuestData {
@@ -133,35 +142,49 @@ export default function InvitationPage() {
         decorConfig={decorConfig}
       />
 
-      <Couple
-        groomName={invitation.groomName}
-        brideName={invitation.brideName}
-        groomPhoto={invitation.groomPhoto}
-        bridePhoto={invitation.bridePhoto}
-        groomParents={invitation.groomParents}
-        brideParents={invitation.brideParents}
-      />
-
-      <Events events={invitation.events} />
-
-      <Countdown eventDate={invitation.eventDate} />
-
-      <Gallery images={invitation.gallery || []} />
-
-      {guest && (
-        <RSVP
+      {invitation.sections && invitation.sections.length > 0 ? (
+        <SectionRenderer
+          sections={invitation.sections}
+          stylePresets={invitation.stylePresets || {}}
+          clientId={invitation._id}
           clientSlug={invitation.slug}
-          guestSlug={guest.slug}
-          currentStatus={guest.rsvpStatus}
+          guestSlug={guest?.slug}
+          guestRsvpStatus={guest?.rsvpStatus}
+          decorConfig={decorConfig}
         />
+      ) : (
+        <>
+          <Couple
+            groomName={invitation.groomName}
+            brideName={invitation.brideName}
+            groomPhoto={invitation.groomPhoto}
+            bridePhoto={invitation.bridePhoto}
+            groomParents={invitation.groomParents}
+            brideParents={invitation.brideParents}
+          />
+
+          <Events events={invitation.events} />
+
+          <Countdown eventDate={invitation.eventDate} />
+
+          <Gallery images={invitation.gallery || []} />
+
+          {guest && (
+            <RSVP
+              clientSlug={invitation.slug}
+              guestSlug={guest.slug}
+              currentStatus={guest.rsvpStatus}
+            />
+          )}
+
+          <Wishes clientId={invitation._id} initialWishes={wishes} />
+
+          <Gift
+            clientId={invitation._id}
+            bankAccounts={invitation.bankAccounts}
+          />
+        </>
       )}
-
-      <Wishes clientId={invitation._id} initialWishes={wishes} />
-
-      <Gift
-        clientId={invitation._id}
-        bankAccounts={invitation.bankAccounts}
-      />
 
       <Footer
         groomName={invitation.groomName}
