@@ -1,3 +1,5 @@
+export type GuestCategory = 'family' | 'friend' | 'officeFriend' | 'fatherFriend' | 'motherFriend' | 'neighbor' | 'other';
+
 export interface IGuest {
   _id: string;
   clientId: string;
@@ -6,6 +8,7 @@ export interface IGuest {
   email: string;
   invitationName: string;
   slug: string;
+  category: GuestCategory;
   rsvpStatus: 'pending' | 'attending' | 'notAttending';
   numberOfGuests: number;
   rsvpDate: Date | null;

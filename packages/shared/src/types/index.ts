@@ -4,3 +4,4 @@ export * from './guest';
 export * from './wish';
 export * from './gift';
 export * from './template';
+export * from './components';
