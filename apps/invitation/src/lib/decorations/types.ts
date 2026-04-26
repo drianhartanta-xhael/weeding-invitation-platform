@@ -16,6 +16,8 @@ export type SectionVariant = 'light' | 'dark' | 'accent' | 'image-1' | 'image-2'
 
 export interface DecorationConfig {
   colors: DecorColors;
+  fontHeading?: string;   // Google Font URL override (optional)
+  fontBody?: string;
   HeroDecor: FC<DecorProps>;
   SectionDecor: FC<DecorProps & { variant: SectionVariant }>;
   FooterDecor: FC<DecorProps>;

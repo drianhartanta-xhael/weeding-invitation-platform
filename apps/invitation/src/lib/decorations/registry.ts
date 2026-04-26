@@ -1,6 +1,8 @@
-import type { DecorationConfig } from './types';
+import React from 'react';
+import type { DecorationConfig, DecorProps, SectionVariant } from './types';
 
-const NullDecor = () => null;
+const NullDecor: React.FC<DecorProps> = () => null;
+const NullSectionDecor: React.FC<DecorProps & { variant: SectionVariant }> = () => null;
 
 const noneConfig: DecorationConfig = {
   colors: {
@@ -11,7 +13,7 @@ const noneConfig: DecorationConfig = {
     dark: '#2D2D2D',
   },
   HeroDecor: NullDecor,
-  SectionDecor: NullDecor,
+  SectionDecor: NullSectionDecor,
   FooterDecor: NullDecor,
 };
 
