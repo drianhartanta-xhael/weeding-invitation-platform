@@ -1,5 +1,6 @@
 import React from 'react';
 import type { DecorationConfig, DecorProps, SectionVariant } from './types';
+import { HeroDecor, SectionDecor, FooterDecor, jawaColors } from './jawa';
 
 const NullDecor: React.FC<DecorProps> = () => null;
 const NullSectionDecor: React.FC<DecorProps & { variant: SectionVariant }> = () => null;
@@ -19,4 +20,10 @@ const noneConfig: DecorationConfig = {
 
 export const DECORATION_REGISTRY: Record<string, DecorationConfig> = {
   none: noneConfig,
+  jawa: {
+    colors: jawaColors,
+    HeroDecor,
+    SectionDecor,
+    FooterDecor,
+  },
 };
