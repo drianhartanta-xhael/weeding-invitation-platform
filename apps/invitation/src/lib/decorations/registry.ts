@@ -2,6 +2,7 @@ import React from 'react';
 import type { DecorationConfig, DecorProps, SectionVariant } from './types';
 import { HeroDecor, SectionDecor, FooterDecor, jawaColors } from './jawa';
 import { HeroDecor as BaliHeroDecor, SectionDecor as BaliSectionDecor, FooterDecor as BaliFooterDecor, baliColors } from './bali';
+import { HeroDecor as SundaHeroDecor, SectionDecor as SundaSectionDecor, FooterDecor as SundaFooterDecor, sundaColors } from './sunda';
 
 const NullDecor: React.FC<DecorProps> = () => null;
 const NullSectionDecor: React.FC<DecorProps & { variant: SectionVariant }> = () => null;
@@ -32,5 +33,11 @@ export const DECORATION_REGISTRY: Record<string, DecorationConfig> = {
     HeroDecor: BaliHeroDecor,
     SectionDecor: BaliSectionDecor,
     FooterDecor: BaliFooterDecor,
+  },
+  sunda: {
+    colors: sundaColors,
+    HeroDecor: SundaHeroDecor,
+    SectionDecor: SundaSectionDecor,
+    FooterDecor: SundaFooterDecor,
   },
 };
