@@ -179,7 +179,7 @@ export function SectionDecor({
   variant,
 }: DecorProps & { variant: SectionVariant }) {
   const isDark = variant === 'dark';
-  const motifColor = isDark ? '#c9920a' : colors.accent;
+  const motifColor = colors.accent;
   const baseOpacity = isDark ? 0.20 : 0.14;
 
   if (isDark) {
