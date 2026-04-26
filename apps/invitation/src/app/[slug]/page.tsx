@@ -13,6 +13,8 @@ import Wishes from '@/components/sections/Wishes';
 import Gift from '@/components/sections/Gift';
 import Footer from '@/components/sections/Footer';
 import MusicPlayer from '@/components/sections/MusicPlayer';
+import { DECORATION_REGISTRY } from '@/lib/decorations/registry';
+import type { DecorationConfig } from '@/lib/decorations/types';
 
 interface InvitationData {
   _id: string;
@@ -35,6 +37,9 @@ interface InvitationData {
   music: { url: string; autoplay: boolean };
   bankAccounts: { bank: string; accountNumber: string; accountName: string }[];
   gallery?: string[];
+  templateId?: {
+    decorationStyle?: string;
+  };
 }
 
 interface GuestData {
@@ -109,8 +114,12 @@ export default function InvitationPage() {
     );
   }
 
+  const decorationStyle = invitation.templateId?.decorationStyle;
+  const decorConfig: DecorationConfig =
+    DECORATION_REGISTRY[decorationStyle ?? 'none'] ?? DECORATION_REGISTRY['none'];
+
   return (
-    <main>
+    <main style={{ backgroundColor: decorConfig.colors.bg }}>
       <MusicPlayer
         url={invitation.music.url}
         autoplay={invitation.music.autoplay}
@@ -121,6 +130,7 @@ export default function InvitationPage() {
         brideName={invitation.brideName}
         eventDate={invitation.eventDate}
         guestName={guest?.invitationName}
+        decorConfig={decorConfig}
       />
 
       <Couple
@@ -156,6 +166,7 @@ export default function InvitationPage() {
       <Footer
         groomName={invitation.groomName}
         brideName={invitation.brideName}
+        decorConfig={decorConfig}
       />
     </main>
   );

@@ -1,15 +1,17 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import type { DecorationConfig } from '@/lib/decorations/types';
 
 interface HeroProps {
   groomName: string;
   brideName: string;
   eventDate: string;
   guestName?: string;
+  decorConfig?: DecorationConfig;
 }
 
-export default function Hero({ groomName, brideName, eventDate, guestName }: HeroProps) {
+export default function Hero({ groomName, brideName, eventDate, guestName, decorConfig }: HeroProps) {
   return (
     <section className="min-h-screen flex flex-col items-center justify-center bg-wedding-secondary relative overflow-hidden">
       <motion.div
@@ -88,6 +90,12 @@ export default function Hero({ groomName, brideName, eventDate, guestName }: Her
       >
         <p className="text-sm text-gray-400 animate-bounce">Scroll Down</p>
       </motion.div>
+
+      {decorConfig && (
+        <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0 }}>
+          <decorConfig.HeroDecor colors={decorConfig.colors} />
+        </div>
+      )}
     </section>
   );
 }
