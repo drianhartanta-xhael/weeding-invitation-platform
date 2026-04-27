@@ -32,14 +32,19 @@ export default function Gallery({ images }: GalleryProps) {
 
   return (
     <section className="py-20 px-4">
-      <motion.h2
-        initial={{ opacity: 0, y: 40 }}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="font-heading text-3xl md:text-4xl text-center text-wedding-accent mb-12"
+        className="text-center mb-12"
       >
-        Our Gallery
-      </motion.h2>
+        <p className="text-xs tracking-[0.25em] uppercase mb-2" style={{ color: 'var(--wedding-primary, #6B1020)' }}>
+          Galeri
+        </p>
+        <h2 className="font-heading text-3xl md:text-4xl italic" style={{ color: 'var(--wedding-primary, #6B1020)' }}>
+          Momen Berharga
+        </h2>
+      </motion.div>
 
       <div className="max-w-5xl mx-auto relative">
         {/* Carousel */}
