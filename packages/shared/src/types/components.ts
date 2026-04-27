@@ -1,8 +1,7 @@
-// ============================================================
-// Component Registry — defines all available invitation components
-// ============================================================
+// packages/shared/src/types/components.ts
 
 export const COMPONENT_IDS = [
+  'cover',
   'couple-profile',
   'event-detail',
   'gallery',
@@ -16,7 +15,9 @@ export const COMPONENT_IDS = [
 
 export type ComponentId = (typeof COMPONENT_IDS)[number];
 
-// --- Per-component data schemas ---
+export interface CoverData {
+  coverText?: string;
+}
 
 export interface CoupleProfileData {
   groomName: string;
@@ -25,6 +26,7 @@ export interface CoupleProfileData {
   bridePhoto: string;
   groomParents: { father: string; mother: string };
   brideParents: { father: string; mother: string };
+  culturalQuotes?: { ethnic: string; quote: string }[];
 }
 
 export interface EventDetailData {
@@ -50,13 +52,8 @@ export interface DonationData {
   }[];
 }
 
-export interface RsvpData {
-  // RSVP uses clientSlug + guestSlug from context, no extra data needed
-}
-
-export interface WishesData {
-  // Wishes uses clientId from context, no extra data needed
-}
+export interface RsvpData {}
+export interface WishesData {}
 
 export interface CountdownData {
   eventDate: string;
@@ -78,8 +75,8 @@ export interface LocationMapData {
   mapUrl: string;
 }
 
-// Union type for all component data
 export type ComponentData =
+  | CoverData
   | CoupleProfileData
   | EventDetailData
   | GalleryData
@@ -89,8 +86,6 @@ export type ComponentData =
   | CountdownData
   | StoryData
   | LocationMapData;
-
-// --- Section (a component placed in a slot) ---
 
 export const STYLE_PRESETS = ['light', 'dark', 'accent', 'image-1', 'image-2'] as const;
 export type StylePreset = (typeof STYLE_PRESETS)[number];
@@ -102,8 +97,6 @@ export interface ISection {
   style: StylePreset;
   order: number;
 }
-
-// --- Component metadata (for admin UI) ---
 
 export interface ComponentFieldOption {
   value: string;
@@ -128,13 +121,20 @@ export interface ComponentMeta {
   fields: ComponentField[];
 }
 
-// --- Component registry ---
-
 export const COMPONENT_REGISTRY: ComponentMeta[] = [
+  {
+    id: 'cover',
+    label: 'Cover / Opening',
+    description: 'Layar pembuka amplop animasi sebelum undangan dibuka',
+    icon: 'mail',
+    fields: [
+      { key: 'coverText', label: 'Teks Pembuka', type: 'text', placeholder: 'Kepada Yth.' },
+    ],
+  },
   {
     id: 'couple-profile',
     label: 'Couple Profile',
-    description: 'Display bride & groom info with photos and parents',
+    description: 'Display bride & groom info with photos, parents, and cultural quotes',
     icon: 'heart',
     fields: [
       { key: 'groomName', label: 'Groom Name', type: 'text', required: true },
@@ -157,6 +157,15 @@ export const COMPONENT_REGISTRY: ComponentMeta[] = [
         arrayFields: [
           { key: 'father', label: 'Father', type: 'text' },
           { key: 'mother', label: 'Mother', type: 'text' },
+        ],
+      },
+      {
+        key: 'culturalQuotes',
+        label: 'Kutipan Budaya',
+        type: 'array',
+        arrayFields: [
+          { key: 'ethnic', label: 'Nama Suku/Budaya', type: 'text', placeholder: 'e.g. BETAWI' },
+          { key: 'quote', label: 'Kutipan', type: 'text', placeholder: 'e.g. Ade mate niku asal ati' },
         ],
       },
     ],
@@ -187,9 +196,7 @@ export const COMPONENT_REGISTRY: ComponentMeta[] = [
     label: 'Gallery',
     description: 'Photo gallery section',
     icon: 'image',
-    fields: [
-      { key: 'images', label: 'Image URLs', type: 'image-list' },
-    ],
+    fields: [{ key: 'images', label: 'Image URLs', type: 'image-list' }],
   },
   {
     id: 'donation',
@@ -228,9 +235,7 @@ export const COMPONENT_REGISTRY: ComponentMeta[] = [
     label: 'Countdown',
     description: 'Countdown timer to event date',
     icon: 'clock',
-    fields: [
-      { key: 'eventDate', label: 'Event Date', type: 'date', required: true },
-    ],
+    fields: [{ key: 'eventDate', label: 'Event Date', type: 'date', required: true }],
   },
   {
     id: 'story',
@@ -277,11 +282,28 @@ export function getComponentMeta(id: ComponentId): ComponentMeta | undefined {
   return COMPONENT_REGISTRY.find((c) => c.id === id);
 }
 
-// Default empty data for each component
+const DEFAULT_CULTURAL_QUOTES = [
+  { ethnic: 'BETAWI', quote: 'Ade mate niku asal ati' },
+  { ethnic: 'SUNDA', quote: 'Silih asah, silih asih, silih asuh' },
+  { ethnic: 'BATAK', quote: 'Haholongi ma donganmu' },
+  { ethnic: 'BALI', quote: 'Menyama beraya' },
+  { ethnic: 'PADANG', quote: 'Duduak surang basampik, duduak basamo balapang' },
+];
+
 export function getDefaultComponentData(id: ComponentId): Record<string, any> {
   switch (id) {
+    case 'cover':
+      return { coverText: '' };
     case 'couple-profile':
-      return { groomName: '', brideName: '', groomPhoto: '', bridePhoto: '', groomParents: { father: '', mother: '' }, brideParents: { father: '', mother: '' } };
+      return {
+        groomName: '',
+        brideName: '',
+        groomPhoto: '',
+        bridePhoto: '',
+        groomParents: { father: '', mother: '' },
+        brideParents: { father: '', mother: '' },
+        culturalQuotes: DEFAULT_CULTURAL_QUOTES,
+      };
     case 'event-detail':
       return { events: [] };
     case 'gallery':
