@@ -75,6 +75,7 @@ export default function SectionRenderer({
                 bridePhoto={section.data.bridePhoto || ''}
                 groomParents={section.data.groomParents || { father: '', mother: '' }}
                 brideParents={section.data.brideParents || { father: '', mother: '' }}
+                culturalQuotes={section.data.culturalQuotes}
               />
             );
             break;

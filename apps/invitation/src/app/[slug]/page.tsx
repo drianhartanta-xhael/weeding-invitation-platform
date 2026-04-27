@@ -185,7 +185,7 @@ export default function InvitationPage() {
   const heroSubtitle = cc?.heroSubtitle || templateConfig?.config?.heroSubtitle || 'you are cordially invited';
   const bodyGreeting = cc?.bodyGreeting || templateConfig?.config?.bodyGreeting || '';
   const footerTitle = cc?.footerTitle || templateConfig?.config?.footerTitle || 'Thank You';
-  const footerMessage = cc?.footerMessage || templateConfig?.config?.footerMessage || 'We are looking forward to celebrating with you';
+  const footerMessage = cc?.footerMessage || templateConfig?.config?.footerMessage || '';
 
   const defaultStylePresets = {
     light: { bg: '#FEFAE0', text: '#333333' },

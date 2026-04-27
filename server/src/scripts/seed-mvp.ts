@@ -142,6 +142,13 @@ async function seed() {
           bridePhoto: 'https://picsum.photos/seed/bride/400/500',
           groomParents: { father: 'H. Bambang Santoso', mother: 'Hj. Sri Hartati' },
           brideParents: { father: 'H. Agus Wulandari', mother: 'Hj. Dewi Rahayu' },
+          culturalQuotes: [
+            { ethnic: 'Betawi', quote: 'Rumah tangga yang sakinah adalah rumah tangga yang penuh cinta dan kasih sayang.' },
+            { ethnic: 'Sunda', quote: 'Salaki pamingpin, pamajikan pangrojong — suami pemimpin, istri penyokong.' },
+            { ethnic: 'Batak', quote: 'Marhusip do na dumadap, marhata do na mangolu — kasih sayang diungkapkan, hidup bersama dijalani.' },
+            { ethnic: 'Bali', quote: 'Yadnya sesa, suka duka sawitra — bersama dalam suka dan duka adalah yadnya sejati.' },
+            { ethnic: 'Padang', quote: 'Saciok bak ayam, sadanciang bak basi — seia sekata bagaikan satu jiwa.' },
+          ],
         },
         style: 'light',
         order: 1,
