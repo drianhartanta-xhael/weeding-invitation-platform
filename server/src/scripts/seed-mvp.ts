@@ -36,46 +36,45 @@ async function seed() {
     console.log('Admin user already exists');
   }
 
-  // ===== 2. Seed Template — Elegant Sage =====
+  // ===== 2. Seed Template — Nusantara =====
   const templateData = {
-    name: 'Elegant Sage',
-    slug: 'elegant-sage',
-    description: 'A warm, nature-inspired template with earthy sage tones and elegant typography',
+    name: 'Nusantara',
+    slug: 'nusantara',
+    description: 'Template Nusantara dengan palet wine-red, cream, dan gold',
     isActive: true,
     config: {
-      primaryColor: '#D4A373',
-      secondaryColor: '#FEFAE0',
-      accentColor: '#606C38',
-      fontHeading: 'Playfair Display',
+      primaryColor: '#6B1020',
+      secondaryColor: '#F5EDE0',
+      accentColor: '#C8A84B',
+      fontHeading: 'Cormorant Garamond',
       fontBody: 'Lato',
       heroTitle: 'The Wedding of',
-      heroSubtitle: 'Together with their families',
       bodyGreeting: 'Maha Suci Allah yang telah menciptakan makhluk-Nya berpasang-pasangan.\nYa Allah, perkenankanlah dan Ridhoilah pernikahan kami.',
       footerTitle: 'Terima Kasih',
-      footerMessage: 'Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.',
+      footerMessage: '',
     },
     defaultSections: [
-      { componentId: 'couple-profile', style: 'light', order: 0 },
-      { componentId: 'event-detail', style: 'accent', order: 1 },
-      { componentId: 'countdown', style: 'light', order: 2 },
-      { componentId: 'story', style: 'image-1', order: 3 },
+      { componentId: 'cover', style: 'dark', order: 0 },
+      { componentId: 'couple-profile', style: 'light', order: 1 },
+      { componentId: 'event-detail', style: 'dark', order: 2 },
+      { componentId: 'countdown', style: 'light', order: 3 },
       { componentId: 'gallery', style: 'light', order: 4 },
       { componentId: 'location-map', style: 'image-2', order: 5 },
       { componentId: 'rsvp', style: 'dark', order: 6 },
       { componentId: 'wishes', style: 'light', order: 7 },
-      { componentId: 'donation', style: 'accent', order: 8 },
+      { componentId: 'donation', style: 'light', order: 8 },
     ],
     stylePresets: {
-      light: { bg: '#FEFAE0', text: '#333333' },
-      dark: { bg: '#2D2D2D', text: '#FEFAE0' },
-      accent: { bg: '#606C38', text: '#FEFAE0' },
-      'image-1': { bg: '#F5F0EB', text: '#333333' },
-      'image-2': { bg: '#E8E0D8', text: '#333333' },
+      light: { bg: '#F5EDE0', text: '#3D1A0E' },
+      dark: { bg: '#6B1020', text: '#F5EDE0' },
+      accent: { bg: '#C8A84B', text: '#3D1A0E' },
+      'image-1': { bg: '#EDE0CC', text: '#3D1A0E' },
+      'image-2': { bg: '#D9C9AD', text: '#3D1A0E' },
     },
   };
 
   const template = await Template.findOneAndUpdate(
-    { slug: 'elegant-sage' },
+    { slug: 'nusantara' },
     { $set: templateData },
     { upsert: true, new: true, setDefaultsOnInsert: true }
   );
@@ -121,12 +120,18 @@ async function seed() {
     ],
     customContent: {
       heroTitle: 'The Wedding of',
-      heroSubtitle: 'Bersama keluarga besar kami, kami mengundang Anda',
       bodyGreeting: 'Maha Suci Allah yang telah menciptakan makhluk-Nya berpasang-pasangan.\nYa Allah, perkenankanlah dan Ridhoilah pernikahan kami.',
       footerTitle: 'Terima Kasih',
-      footerMessage: 'Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu kepada kedua mempelai.',
+      footerMessage: '',
     },
     sections: [
+      {
+        id: 's-cover',
+        componentId: 'cover',
+        data: { coverText: '' },
+        style: 'dark',
+        order: 0,
+      },
       {
         id: 's-couple',
         componentId: 'couple-profile',
@@ -139,7 +144,7 @@ async function seed() {
           brideParents: { father: 'H. Agus Wulandari', mother: 'Hj. Dewi Rahayu' },
         },
         style: 'light',
-        order: 0,
+        order: 1,
       },
       {
         id: 's-events',
@@ -164,49 +169,14 @@ async function seed() {
             },
           ],
         },
-        style: 'accent',
-        order: 1,
+        style: 'dark',
+        order: 2,
       },
       {
         id: 's-countdown',
         componentId: 'countdown',
         data: { eventDate: '2026-06-15' },
         style: 'light',
-        order: 2,
-      },
-      {
-        id: 's-story',
-        componentId: 'story',
-        data: {
-          layout: 'vertical',
-          stories: [
-            {
-              title: 'First Met',
-              date: 'January 2020',
-              description: 'Kami pertama kali bertemu di sebuah acara reuni kampus. Saat itu, satu senyuman mengubah segalanya.',
-              image: 'https://picsum.photos/seed/story1/600/400',
-            },
-            {
-              title: 'First Date',
-              date: 'March 2020',
-              description: 'Kencan pertama kami di sebuah kafe kecil di Kemang. Obrolan yang tak berujung dan kopi yang tak pernah habis.',
-              image: 'https://picsum.photos/seed/story2/600/400',
-            },
-            {
-              title: 'The Proposal',
-              date: 'December 2024',
-              description: 'Di bawah langit malam Bali yang penuh bintang, sebuah pertanyaan yang mengubah hidup kami selamanya.',
-              image: 'https://picsum.photos/seed/story3/600/400',
-            },
-            {
-              title: 'Engagement',
-              date: 'February 2025',
-              description: 'Dikelilingi keluarga dan sahabat terdekat, kami merayakan langkah besar menuju hari bahagia kami.',
-              image: 'https://picsum.photos/seed/story4/600/400',
-            },
-          ],
-        },
-        style: 'image-1',
         order: 3,
       },
       {
@@ -261,7 +231,7 @@ async function seed() {
             { bank: 'Mandiri', accountNumber: '0987654321', accountName: 'Sari Wulandari' },
           ],
         },
-        style: 'accent',
+        style: 'light',
         order: 8,
       },
     ],
