@@ -6,48 +6,66 @@ interface HeroProps {
   groomName: string;
   brideName: string;
   eventDate: string;
+  venue?: string;
   guestName?: string;
   heroTitle?: string;
-  heroSubtitle?: string;
+  bodyGreeting?: string;
+  decorConfig?: unknown;
 }
 
-export default function Hero({ groomName, brideName, eventDate, guestName, heroTitle, heroSubtitle }: HeroProps) {
-  const title = heroTitle || 'The Wedding of';
-  const subtitle = heroSubtitle || 'you are cordially invited';
+function formatDate(dateStr: string) {
+  const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return dateStr;
+  return d.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+export default function Hero({ groomName, brideName, eventDate, venue, guestName, heroTitle, bodyGreeting }: HeroProps) {
+  const handleScroll = () => {
+    window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+  };
 
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center bg-wedding-secondary relative overflow-hidden">
+    <section
+      className="min-h-screen flex flex-col items-center justify-center px-6 relative overflow-hidden"
+      style={{ backgroundColor: 'var(--wedding-primary, #6B1020)' }}
+    >
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="text-center z-10 px-4"
+        className="text-center max-w-lg w-full"
       >
-        {guestName && (
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="text-sm text-gray-500 mb-4"
-          >
-            Dear {guestName}, {subtitle}
-          </motion.p>
-        )}
-
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          className="text-sm uppercase tracking-widest text-wedding-accent mb-6"
+          transition={{ delay: 0.3 }}
+          className="text-xs uppercase tracking-[0.25em] mb-6"
+          style={{ color: 'var(--wedding-accent, #C8A84B)' }}
         >
-          {title}
+          {heroTitle || 'The Wedding of'}
         </motion.p>
 
+        {bodyGreeting && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="mb-8 space-y-1"
+          >
+            {bodyGreeting.split('\n').map((line, i) => (
+              <p key={i} className="text-sm leading-relaxed" style={{ color: 'rgba(245,237,224,0.75)' }}>
+                {line}
+              </p>
+            ))}
+          </motion.div>
+        )}
+
         <motion.h1
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.7, duration: 0.8 }}
-          className="font-heading text-5xl md:text-7xl text-wedding-accent mb-2"
+          className="font-heading text-6xl md:text-8xl italic leading-none mb-1"
+          style={{ color: 'var(--wedding-secondary, #F5EDE0)' }}
         >
           {groomName}
         </motion.h1>
@@ -55,44 +73,58 @@ export default function Hero({ groomName, brideName, eventDate, guestName, heroT
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-          className="font-heading text-2xl text-wedding-primary my-4"
+          transition={{ delay: 0.9 }}
+          className="font-heading text-3xl italic my-1"
+          style={{ color: 'var(--wedding-accent, #C8A84B)' }}
         >
-          &
+          &amp;
         </motion.p>
 
         <motion.h1
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
-          className="font-heading text-5xl md:text-7xl text-wedding-accent mb-8"
+          transition={{ delay: 1.0, duration: 0.8 }}
+          className="font-heading text-6xl md:text-8xl italic leading-none mb-8"
+          style={{ color: 'var(--wedding-secondary, #F5EDE0)' }}
         >
           {brideName}
         </motion.h1>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="text-gray-600"
-        >
-          {new Date(eventDate).toLocaleDateString('id-ID', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          })}
-        </motion.p>
+        {eventDate && (
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2 }}
+            className="text-sm"
+            style={{ color: 'rgba(245,237,224,0.65)' }}
+          >
+            {formatDate(eventDate)}{venue ? ` · ${venue}` : ''}
+          </motion.p>
+        )}
+
+        {guestName && (
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.4 }}
+            className="mt-4 text-xs tracking-widest"
+            style={{ color: 'rgba(245,237,224,0.5)' }}
+          >
+            Kepada Yth. {guestName}
+          </motion.p>
+        )}
       </motion.div>
 
-      <motion.div
+      <motion.button
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2 }}
-        className="absolute bottom-8"
+        transition={{ delay: 1.6 }}
+        onClick={handleScroll}
+        className="absolute bottom-10 text-xs tracking-widest hover:opacity-80 transition-opacity"
+        style={{ color: 'rgba(245,237,224,0.45)' }}
       >
-        <p className="text-sm text-gray-400 animate-bounce">Scroll Down</p>
-      </motion.div>
+        Gulir ↓
+      </motion.button>
     </section>
   );
 }
