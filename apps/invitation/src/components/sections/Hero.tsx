@@ -1,22 +1,22 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import type { DecorationConfig } from '@/lib/decorations/types';
 
 interface HeroProps {
   groomName: string;
   brideName: string;
   eventDate: string;
   guestName?: string;
-  decorConfig?: DecorationConfig;
+  heroTitle?: string;
+  heroSubtitle?: string;
 }
 
-export default function Hero({ groomName, brideName, eventDate, guestName, decorConfig }: HeroProps) {
+export default function Hero({ groomName, brideName, eventDate, guestName, heroTitle, heroSubtitle }: HeroProps) {
+  const title = heroTitle || 'The Wedding of';
+  const subtitle = heroSubtitle || 'you are cordially invited';
+
   return (
-    <section
-      className="min-h-screen flex flex-col items-center justify-center bg-wedding-secondary relative overflow-hidden"
-      style={decorConfig?.colors.bg ? { backgroundColor: decorConfig.colors.bg } : undefined}
-    >
+    <section className="min-h-screen flex flex-col items-center justify-center bg-wedding-secondary relative overflow-hidden">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -30,7 +30,7 @@ export default function Hero({ groomName, brideName, eventDate, guestName, decor
             transition={{ delay: 0.3 }}
             className="text-sm text-gray-500 mb-4"
           >
-            Dear {guestName}, you are cordially invited
+            Dear {guestName}, {subtitle}
           </motion.p>
         )}
 
@@ -40,7 +40,7 @@ export default function Hero({ groomName, brideName, eventDate, guestName, decor
           transition={{ delay: 0.5 }}
           className="text-sm uppercase tracking-widest text-wedding-accent mb-6"
         >
-          The Wedding of
+          {title}
         </motion.p>
 
         <motion.h1
@@ -89,16 +89,10 @@ export default function Hero({ groomName, brideName, eventDate, guestName, decor
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2 }}
-        className="absolute bottom-8 z-10"
+        className="absolute bottom-8"
       >
         <p className="text-sm text-gray-400 animate-bounce">Scroll Down</p>
       </motion.div>
-
-      {decorConfig && (
-        <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0 }}>
-          <decorConfig.HeroDecor colors={decorConfig.colors} />
-        </div>
-      )}
     </section>
   );
 }

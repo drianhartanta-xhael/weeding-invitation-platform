@@ -1,66 +1,112 @@
 'use client';
 
+import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import {
+  LayoutDashboard,
+  Users,
+  Palette,
+  Settings,
+  LogOut,
+  Heart,
+} from 'lucide-react';
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarHeader,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarTrigger,
+} from '@/components/ui/sidebar';
+import { Separator } from '@/components/ui/separator';
+import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 const navItems = [
-  { href: '/dashboard', label: 'Dashboard' },
-  { href: '/clients', label: 'Clients' },
-  { href: '/settings', label: 'Settings' },
+  { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/clients', label: 'Clients', icon: Users },
+  { href: '/templates', label: 'Templates', icon: Palette },
+  { href: '/settings', label: 'Settings', icon: Settings },
 ];
 
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+function AppSidebar() {
   const pathname = usePathname();
+  const router = useRouter();
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    window.location.href = '/login';
+    router.push('/login');
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <nav className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center space-x-8">
-              <span className="text-xl font-bold text-primary-500">
-                WeddingApp
-              </span>
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={cn(
-                    'text-sm font-medium transition-colors',
-                    pathname === item.href
-                      ? 'text-primary-500'
-                      : 'text-gray-500 hover:text-gray-700'
-                  )}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-            <div className="flex items-center">
-              <button
-                onClick={handleLogout}
-                className="text-sm text-gray-500 hover:text-gray-700"
-              >
-                Logout
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
+    <Sidebar>
+      <SidebarHeader className="p-4">
+        <Link href="/dashboard" className="flex items-center gap-2">
+          <Heart className="h-6 w-6 text-primary fill-primary" />
+          <span className="text-lg font-bold">WeddingApp</span>
+        </Link>
+      </SidebarHeader>
 
-      <main className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        {children}
-      </main>
-    </div>
+      <Separator />
+
+      <SidebarContent className="pt-2">
+        <SidebarGroup>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {navItems.map((item) => {
+                const active =
+                  pathname === item.href ||
+                  (item.href !== '/dashboard' && pathname.startsWith(item.href));
+                return (
+                  <SidebarMenuItem key={item.href}>
+                    <SidebarMenuButton asChild isActive={active}>
+                      <Link href={item.href} className="flex items-center gap-2">
+                        <item.icon className="h-4 w-4" />
+                        <span>{item.label}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+
+      <SidebarFooter className="p-4">
+        <Separator className="mb-4" />
+        <Button
+          variant="ghost"
+          className="w-full justify-start gap-2 text-muted-foreground hover:text-foreground"
+          onClick={handleLogout}
+        >
+          <LogOut className="h-4 w-4" />
+          Logout
+        </Button>
+      </SidebarFooter>
+    </Sidebar>
+  );
+}
+
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset>
+        <header className="flex h-12 items-center gap-2 border-b px-4">
+          <SidebarTrigger className="-ml-1" />
+          <Separator orientation="vertical" className="h-4" />
+        </header>
+        <main className="flex-1 p-6">
+          {children}
+        </main>
+      </SidebarInset>
+    </SidebarProvider>
   );
 }

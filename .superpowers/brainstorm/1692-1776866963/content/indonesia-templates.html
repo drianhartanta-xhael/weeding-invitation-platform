@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>6 Template Indonesia</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #111; font-family: Georgia, serif; padding: 24px 16px 40px; }
+h1 { color: #fff; text-align: center; font-size: 16px; font-weight: normal; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 6px; }
+.sub { color: #666; text-align: center; font-size: 12px; margin-bottom: 28px; font-family: sans-serif; }
+
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1100px; margin: 0 auto; }
+@media (max-width: 800px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+
+.card {
+  border-radius: 10px; overflow: hidden; cursor: pointer;
+  transition: transform .2s, box-shadow .2s;
+  box-shadow: 0 4px 20px rgba(0,0,0,.5);
+}
+.card:hover { transform: translateY(-5px); box-shadow: 0 14px 40px rgba(0,0,0,.6); }
+.card.sel { outline: 3px solid #fff; outline-offset: 3px; }
+
+.label { padding: 11px 14px; text-align: center; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-family: sans-serif; }
+
+/* ── shared mini-section ── */
+.hero { position: relative; overflow: hidden; padding: 36px 20px; text-align: center; display: flex; align-items: center; justify-content: center; min-height: 190px; }
+.hc { position: relative; z-index: 2; }
+.eye { font-size: 8px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 7px; }
+.nm  { font-size: 21px; line-height: 1.25; }
+.amp { font-size: 14px; margin: 4px 0; }
+.dt  { font-size: 8.5px; letter-spacing: 2px; margin-top: 9px; opacity: .65; }
+.strip { padding: 14px 18px; text-align: center; position: relative; overflow: hidden; }
+.slbl { font-size: 7.5px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 5px; opacity: .65; font-family: sans-serif; }
+.scnt { font-size: 10px; line-height: 1.6; }
+.ftstrip { padding: 18px 16px; text-align: center; position: relative; overflow: hidden; }
+.ftt { font-size: 7.5px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 5px; opacity: .75; font-family: sans-serif; }
+.ftn { font-size: 15px; }
+</style>
+</head>
+<body>
+
+<h1>6 Template Nusantara</h1>
+<p class="sub">Klik untuk memilih · Pure SVG/CSS · Bisa pilih lebih dari satu</p>
+
+<div class="grid">
+
+<!-- ════════════════════════════════
+     1. JAWA — Batik Kawung
+════════════════════════════════ -->
+<div class="card" onclick="sel(this,'jawa')">
+<div style="background:#f5ede0">
+
+  <div class="hero" style="background:#f5ede0;color:#3d2b1f">
+    <!-- kawung corner pattern TL -->
+    <svg style="position:absolute;top:0;left:0;width:96px;opacity:.18" viewBox="0 0 96 96">
+      <!-- kawung unit = 4 ovals around center -->
+      <g transform="translate(12,12)">
+        <ellipse cx="12" cy="6"  rx="7" ry="4" fill="#3d2b1f" transform="rotate(0 12 12)"/>
+        <ellipse cx="18" cy="12" rx="7" ry="4" fill="#3d2b1f" transform="rotate(90 12 12)"/>
+        <ellipse cx="12" cy="18" rx="7" ry="4" fill="#3d2b1f" transform="rotate(180 12 12)"/>
+        <ellipse cx="6"  cy="12" rx="7" ry="4" fill="#3d2b1f" transform="rotate(270 12 12)"/>
+        <circle cx="12" cy="12" r="2.5" fill="#c8a96e"/>
+      </g>
+      <g transform="translate(36,12)">
+        <ellipse cx="12" cy="6"  rx="7" ry="4" fill="#3d2b1f"/>
+        <ellipse cx="18" cy="12" rx="7" ry="4" fill="#3d2b1f" transform="rotate(90 12 12)"/>
+        <ellipse cx="12" cy="18" rx="7" ry="4" fill="#3d2b1f" transform="rotate(180 12 12)"/>
+        <ellipse cx="6"  cy="12" rx="7" ry="4" fill="#3d2b1f" transform="rotate(270 12 12)"/>
+        <circle cx="12" cy="12" r="2.5" fill="#c8a96e"/>
+      </g>
+      <g transform="translate(12,36)">
+        <ellipse cx="12" cy="6"  rx="7" ry="4" fill="#3d2b1f"/>
+        <ellipse cx="18" cy="12" rx="7" ry="4" fill="#3d2b1f" transform="rotate(90 12 12)"/>
+        <ellipse cx="12" cy="18" rx="7" ry="4" fill="#3d2b1f" transform="rotate(180 12 12)"/>
+        <ellipse cx="6"  cy="12" rx="7" ry="4" fill="#3d2b1f" transform="rotate(270 12 12)"/>
+        <circle cx="12" cy="12" r="2.5" fill="#c8a96e"/>
+      </g>
+    </svg>
+    <!-- kawung corner BR -->
+    <svg style="position:absolute;bottom:0;right:0;width:96px;opacity:.18;transform:rotate(180deg)" viewBox="0 0 96 96">
+      <g transform="translate(12,12)"><ellipse cx="12" cy="6" rx="7" ry="4" fill="#3d2b1f"/><ellipse cx="18" cy="12" rx="7" ry="4" fill="#3d2b1f" transform="rotate(90 12 12)"/><ellipse cx="12" cy="18" rx="7" ry="4" fill="#3d2b1f" transform="rotate(180 12 12)"/><ellipse cx="6" cy="12" rx="7" ry="4" fill="#3d2b1f" transform="rotate(270 12 12)"/><circle cx="12" cy="12" r="2.5" fill="#c8a96e"/></g>
+      <g transform="translate(36,12)"><ellipse cx="12" cy="6" rx="7" ry="4" fill="#3d2b1f"/><ellipse cx="18" cy="12" rx="7" ry="4" fill="#3d2b1f" transform="rotate(90 12 12)"/><ellipse cx="12" cy="18" rx="7" ry="4" fill="#3d2b1f" transform="rotate(180 12 12)"/><ellipse cx="6" cy="12" rx="7" ry="4" fill="#3d2b1f" transform="rotate(270 12 12)"/><circle cx="12" cy="12" r="2.5" fill="#c8a96e"/></g>
+      <g transform="translate(12,36)"><ellipse cx="12" cy="6" rx="7" ry="4" fill="#3d2b1f"/><ellipse cx="18" cy="12" rx="7" ry="4" fill="#3d2b1f" transform="rotate(90 12 12)"/><ellipse cx="12" cy="18" rx="7" ry="4" fill="#3d2b1f" transform="rotate(180 12 12)"/><ellipse cx="6" cy="12" rx="7" ry="4" fill="#3d2b1f" transform="rotate(270 12 12)"/><circle cx="12" cy="12" r="2.5" fill="#c8a96e"/></g>
+    </svg>
+    <!-- gold divider -->
+    <svg style="position:absolute;bottom:20px;left:50%;transform:translateX(-50%);width:110px;opacity:.35" viewBox="0 0 110 12">
+      <line x1="0" y1="6" x2="42" y2="6" stroke="#c8a96e" stroke-width="0.8"/>
+      <path d="M48,2 L55,6 L48,10 L52,6Z" fill="#c8a96e"/>
+      <path d="M62,2 L55,6 L62,10 L58,6Z" fill="#c8a96e"/>
+      <line x1="68" y1="6" x2="110" y2="6" stroke="#c8a96e" stroke-width="0.8"/>
+    </svg>
+    <div class="hc" style="color:#3d2b1f">
+      <div class="eye" style="color:#c8a96e">Pernikahan</div>
+      <div class="nm" style="font-style:italic">Ahmad Fauzi</div>
+      <div class="amp" style="color:#c8a96e">&amp;</div>
+      <div class="nm" style="font-style:italic">Rina Agustina</div>
+      <div class="dt">Jumat, 11 September 2026</div>
+    </div>
+  </div>
+
+  <div class="strip" style="background:#3d2b1f;color:#f5ede0">
+    <div class="slbl" style="color:#c8a96e">Mempelai</div>
+    <div class="scnt">Ahmad Fauzi · Rina Agustina</div>
+  </div>
+
+  <div class="strip" style="background:#c8a96e;color:#3d2b1f">
+    <!-- kawung tile row -->
+    <svg style="position:absolute;top:0;left:0;width:100%;height:100%;opacity:.08" viewBox="0 0 48 24" preserveAspectRatio="xMidYMid slice">
+      <defs><pattern id="kw" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+        <ellipse cx="12" cy="6"  rx="6" ry="3.5" fill="#3d2b1f"/>
+        <ellipse cx="18" cy="12" rx="6" ry="3.5" fill="#3d2b1f" transform="rotate(90 12 12)"/>
+        <ellipse cx="12" cy="18" rx="6" ry="3.5" fill="#3d2b1f" transform="rotate(180 12 12)"/>
+        <ellipse cx="6"  cy="12" rx="6" ry="3.5" fill="#3d2b1f" transform="rotate(270 12 12)"/>
+        <circle cx="12" cy="12" r="2" fill="#3d2b1f"/>
+      </pattern></defs>
+      <rect width="100%" height="100%" fill="url(#kw)"/>
+    </svg>
+    <div class="slbl">Acara</div>
+    <div class="scnt">Akad Nikah · 08:00 WIB<br/>Resepsi · 11:00 WIB</div>
+  </div>
+
+  <div class="ftstrip" style="background:#3d2b1f;color:#f5ede0">
+    <div class="ftt" style="color:#c8a96e">Terima Kasih</div>
+    <div class="ftn" style="font-style:italic">Ahmad &amp; Rina</div>
+  </div>
+</div>
+<div class="label" style="background:#c8a96e;color:#3d2b1f">Jawa — Batik Kawung</div>
+</div>
+
+
+<!-- ════════════════════════════════
+     2. BALI — Patra
+════════════════════════════════ -->
+<div class="card" onclick="sel(this,'bali')">
+<div style="background:#120800">
+
+  <div class="hero" style="background:linear-gradient(160deg,#1a0e00,#2a1400);color:#f0d090">
+    <!-- patra top ornament - flowing spiral curves -->
+    <svg style="position:absolute;top:0;left:0;width:100%;height:60px;opacity:.5" viewBox="0 0 300 60" preserveAspectRatio="none">
+      <path d="M0,30 C20,5 40,55 60,30 C80,5 100,55 120,30 C140,5 160,55 180,30 C200,5 220,55 240,30 C260,5 280,55 300,30" fill="none" stroke="#c9920a" stroke-width="1.2"/>
+      <path d="M0,40 C20,15 40,65 60,40 C80,15 100,65 120,40 C140,15 160,65 180,40 C200,15 220,65 240,40 C260,15 280,65 300,40" fill="none" stroke="#c9920a" stroke-width="0.5" opacity=".5"/>
+    </svg>
+    <!-- patra bottom -->
+    <svg style="position:absolute;bottom:0;left:0;width:100%;height:60px;opacity:.5;transform:scaleY(-1)" viewBox="0 0 300 60" preserveAspectRatio="none">
+      <path d="M0,30 C20,5 40,55 60,30 C80,5 100,55 120,30 C140,5 160,55 180,30 C200,5 220,55 240,30 C260,5 280,55 300,30" fill="none" stroke="#c9920a" stroke-width="1.2"/>
+    </svg>
+    <!-- corner kori (gate ornament) -->
+    <svg style="position:absolute;top:8px;left:8px;width:36px;opacity:.6" viewBox="0 0 36 50">
+      <path d="M18,0 L36,12 L36,50 L0,50 L0,12Z" fill="none" stroke="#c9920a" stroke-width="1"/>
+      <path d="M18,0 L30,10 L30,50 L6,50 L6,10Z" fill="none" stroke="#c9920a" stroke-width="0.5" opacity=".5"/>
+      <circle cx="18" cy="10" r="4" fill="#c9920a" opacity=".6"/>
+      <path d="M10,20 Q18,14 26,20 Q18,30 10,20Z" fill="#c9920a" opacity=".4"/>
+    </svg>
+    <svg style="position:absolute;top:8px;right:8px;width:36px;opacity:.6;transform:scaleX(-1)" viewBox="0 0 36 50">
+      <path d="M18,0 L36,12 L36,50 L0,50 L0,12Z" fill="none" stroke="#c9920a" stroke-width="1"/>
+      <circle cx="18" cy="10" r="4" fill="#c9920a" opacity=".6"/>
+      <path d="M10,20 Q18,14 26,20 Q18,30 10,20Z" fill="#c9920a" opacity=".4"/>
+    </svg>
+    <div class="hc">
+      <div class="eye" style="color:#c9920a;letter-spacing:4px">✦ PAWIWAHAN ✦</div>
+      <div class="nm" style="color:#f0d090">Ahmad Fauzi</div>
+      <div class="amp" style="color:#c9920a;font-size:18px">❧</div>
+      <div class="nm" style="color:#f0d090">Rina Agustina</div>
+      <div class="dt" style="color:#c9920a">Jumat, 11 September 2026</div>
+    </div>
+  </div>
+
+  <div class="strip" style="background:#2a1400;color:#f0d090;position:relative">
+    <svg style="position:absolute;left:0;top:0;bottom:0;width:4px;height:100%;opacity:.5" viewBox="0 0 4 40" preserveAspectRatio="none">
+      <path d="M2,0 C4,10 0,20 2,30 C4,40 0,50 2,60" fill="none" stroke="#c9920a" stroke-width="1.2"/>
+    </svg>
+    <svg style="position:absolute;right:0;top:0;bottom:0;width:4px;height:100%;opacity:.5;transform:scaleX(-1)" viewBox="0 0 4 40" preserveAspectRatio="none">
+      <path d="M2,0 C4,10 0,20 2,30 C4,40 0,50 2,60" fill="none" stroke="#c9920a" stroke-width="1.2"/>
+    </svg>
+    <div class="slbl" style="color:#c9920a">Mempelai</div>
+    <div class="scnt">Ahmad Fauzi · Rina Agustina</div>
+  </div>
+
+  <div class="strip" style="background:#8b1a1a;color:#f0d090;position:relative">
+    <svg style="position:absolute;top:0;left:0;width:100%;height:100%;opacity:.1" viewBox="0 0 40 20" preserveAspectRatio="xMidYMid slice">
+      <defs><pattern id="pt" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+        <path d="M10,0 C15,5 15,15 10,20 C5,15 5,5 10,0Z" fill="#f0d090"/>
+        <circle cx="10" cy="10" r="2" fill="#c9920a"/>
+      </pattern></defs>
+      <rect width="100%" height="100%" fill="url(#pt)"/>
+    </svg>
+    <div class="slbl" style="color:#f0d090">Rangkaian Acara</div>
+    <div class="scnt">Akad Nikah · 08:00 WIB<br/>Resepsi · 11:00 WIB</div>
+  </div>
+
+  <div class="ftstrip" style="background:#c9920a;color:#1a0e00">
+    <div class="ftt">Om Swastiastu</div>
+    <div class="ftn">Ahmad &amp; Rina</div>
+  </div>
+</div>
+<div class="label" style="background:#8b1a1a;color:#f0d090">Bali — Patra Mas</div>
+</div>
+
+
+<!-- ════════════════════════════════
+     3. SUNDA — Anyaman
+════════════════════════════════ -->
+<div class="card" onclick="sel(this,'sunda')">
+<div style="background:#f0ead8">
+
+  <div class="hero" style="background:#f0ead8;color:#2d4a1e">
+    <!-- anyaman woven pattern subtle background -->
+    <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.07" viewBox="0 0 20 20" preserveAspectRatio="xMidYMid slice">
+      <defs><pattern id="an" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+        <path d="M0,0 L10,10" stroke="#2d4a1e" stroke-width="1.5"/>
+        <path d="M10,0 L0,10" stroke="#8b6914" stroke-width="0.8"/>
+      </pattern></defs>
+      <rect width="100%" height="100%" fill="url(#an)"/>
+    </svg>
+    <!-- bamboo frame corners -->
+    <svg style="position:absolute;top:0;left:0;width:50px;opacity:.35" viewBox="0 0 50 50">
+      <rect x="0" y="0" width="4" height="50" rx="2" fill="#2d4a1e"/>
+      <rect x="0" y="0" width="50" height="4" rx="2" fill="#2d4a1e"/>
+      <rect x="6" y="6" width="2" height="30" rx="1" fill="#8b6914" opacity=".5"/>
+      <rect x="6" y="6" width="30" height="2" rx="1" fill="#8b6914" opacity=".5"/>
+      <circle cx="4" cy="15" r="2" fill="#8b6914" opacity=".6"/>
+      <circle cx="4" cy="30" r="2" fill="#8b6914" opacity=".6"/>
+      <circle cx="15" cy="4" r="2" fill="#8b6914" opacity=".6"/>
+      <circle cx="30" cy="4" r="2" fill="#8b6914" opacity=".6"/>
+    </svg>
+    <svg style="position:absolute;top:0;right:0;width:50px;opacity:.35;transform:scaleX(-1)" viewBox="0 0 50 50">
+      <rect x="0" y="0" width="4" height="50" rx="2" fill="#2d4a1e"/>
+      <rect x="0" y="0" width="50" height="4" rx="2" fill="#2d4a1e"/>
+      <rect x="6" y="6" width="2" height="30" rx="1" fill="#8b6914" opacity=".5"/>
+      <rect x="6" y="6" width="30" height="2" rx="1" fill="#8b6914" opacity=".5"/>
+    </svg>
+    <svg style="position:absolute;bottom:0;left:0;width:50px;opacity:.35;transform:scaleY(-1)" viewBox="0 0 50 50">
+      <rect x="0" y="0" width="4" height="50" rx="2" fill="#2d4a1e"/>
+      <rect x="0" y="0" width="50" height="4" rx="2" fill="#2d4a1e"/>
+    </svg>
+    <svg style="position:absolute;bottom:0;right:0;width:50px;opacity:.35;transform:scale(-1)" viewBox="0 0 50 50">
+      <rect x="0" y="0" width="4" height="50" rx="2" fill="#2d4a1e"/>
+      <rect x="0" y="0" width="50" height="4" rx="2" fill="#2d4a1e"/>
+    </svg>
+    <!-- divider leaf-bamboo -->
+    <svg style="position:absolute;bottom:18px;left:50%;transform:translateX(-50%);width:120px;opacity:.3" viewBox="0 0 120 14">
+      <line x1="0" y1="7" x2="44" y2="7" stroke="#2d4a1e" stroke-width="0.8"/>
+      <path d="M52,2 L60,7 L52,12 Q56,7 52,2Z" fill="#2d4a1e"/>
+      <path d="M68,2 L60,7 L68,12 Q64,7 68,2Z" fill="#2d4a1e"/>
+      <line x1="76" y1="7" x2="120" y2="7" stroke="#2d4a1e" stroke-width="0.8"/>
+      <ellipse cx="22" cy="4" rx="10" ry="4" fill="#2d4a1e" opacity=".3" transform="rotate(-20 22 4)"/>
+      <ellipse cx="98" cy="4" rx="10" ry="4" fill="#2d4a1e" opacity=".3" transform="rotate(20 98 4)"/>
+    </svg>
+    <div class="hc" style="color:#2d4a1e">
+      <div class="eye" style="color:#8b6914">Babarengan Dina Kahirupan</div>
+      <div class="nm">Ahmad Fauzi</div>
+      <div class="amp" style="color:#8b6914;font-style:italic">&amp;</div>
+      <div class="nm">Rina Agustina</div>
+      <div class="dt">Jumat, 11 September 2026</div>
+    </div>
+  </div>
+
+  <div class="strip" style="background:#2d4a1e;color:#f0ead8">
+    <div class="slbl" style="color:#8b6914">Mempelai</div>
+    <div class="scnt">Ahmad Fauzi · Rina Agustina</div>
+  </div>
+
+  <div class="strip" style="background:#8b6914;color:#f0ead8;position:relative">
+    <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.1" viewBox="0 0 10 10" preserveAspectRatio="xMidYMid slice">
+      <defs><pattern id="an2" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+        <path d="M0,0 L10,10" stroke="#f0ead8" stroke-width="2"/>
+        <path d="M10,0 L0,10" stroke="#f0ead8" stroke-width="1"/>
+      </pattern></defs>
+      <rect width="100%" height="100%" fill="url(#an2)"/>
+    </svg>
+    <div class="slbl">Runtuyan Acara</div>
+    <div class="scnt">Akad Nikah · 08:00 WIB<br/>Resepsi · 11:00 WIB</div>
+  </div>
+
+  <div class="ftstrip" style="background:#2d4a1e;color:#f0ead8">
+    <div class="ftt" style="color:#8b6914">Hatur Nuhun</div>
+    <div class="ftn">Ahmad &amp; Rina</div>
+  </div>
+</div>
+<div class="label" style="background:#2d4a1e;color:#f0ead8">Sunda — Anyaman Bambu</div>
+</div>
+
+
+<!-- ════════════════════════════════
+     4. MINANG — Songket
+════════════════════════════════ -->
+<div class="card" onclick="sel(this,'minang')">
+<div style="background:#0d0000">
+
+  <div class="hero" style="background:linear-gradient(160deg,#1a0000,#2a0000);color:#f0d090">
+    <!-- songket diamond pattern border top -->
+    <svg style="position:absolute;top:0;left:0;width:100%;height:28px;opacity:.55" viewBox="0 0 200 28" preserveAspectRatio="xMidYMid slice">
+      <defs><pattern id="sk" x="0" y="0" width="28" height="28" patternUnits="userSpaceOnUse">
+        <rect x="14" y="0" width="10" height="10" fill="none" stroke="#c9920a" stroke-width="0.8" transform="rotate(45 14 5)"/>
+        <rect x="0" y="14" width="10" height="10" fill="none" stroke="#c9920a" stroke-width="0.8" transform="rotate(45 0 19)"/>
+        <line x1="0" y1="14" x2="28" y2="14" stroke="#c9920a" stroke-width="0.4" opacity=".4"/>
+        <line x1="14" y1="0" x2="14" y2="28" stroke="#c9920a" stroke-width="0.4" opacity=".4"/>
+      </pattern></defs>
+      <rect width="100%" height="100%" fill="url(#sk)"/>
+    </svg>
+    <!-- songket border bottom -->
+    <svg style="position:absolute;bottom:0;left:0;width:100%;height:28px;opacity:.55;transform:scaleY(-1)" viewBox="0 0 200 28" preserveAspectRatio="xMidYMid slice">
+      <rect width="100%" height="100%" fill="url(#sk)"/>
+    </svg>
+    <!-- gonjong rumah gadang silhouette (atap lancip) -->
+    <svg style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:160px;opacity:.2" viewBox="0 0 160 30">
+      <path d="M0,30 L20,10 L40,28 L60,5 L80,28 L100,5 L120,28 L140,10 L160,30" fill="none" stroke="#c9920a" stroke-width="1.2"/>
+    </svg>
+    <div class="hc">
+      <div class="eye" style="color:#c9920a;letter-spacing:3px">✦ BARALEK GADANG ✦</div>
+      <div class="nm" style="letter-spacing:1px">Ahmad Fauzi</div>
+      <div class="amp" style="color:#c9920a;font-size:16px;letter-spacing:4px">— &amp; —</div>
+      <div class="nm" style="letter-spacing:1px">Rina Agustina</div>
+      <div class="dt" style="color:#c9920a;letter-spacing:3px">JUMAT · 11 SEPTEMBER 2026</div>
+    </div>
+  </div>
+
+  <div class="strip" style="background:#1a0000;color:#f0d090;position:relative">
+    <!-- songket side border -->
+    <svg style="position:absolute;left:0;top:0;height:100%;width:8px;opacity:.5" viewBox="0 0 8 40" preserveAspectRatio="none">
+      <rect width="8" height="40" fill="#c9920a"/>
+      <defs><pattern id="skv" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
+        <rect x="2" y="2" width="4" height="4" fill="none" stroke="#1a0000" stroke-width="0.6" transform="rotate(45 4 4)"/>
+      </pattern></defs>
+      <rect width="8" height="40" fill="url(#skv)"/>
+    </svg>
+    <svg style="position:absolute;right:0;top:0;height:100%;width:8px;opacity:.5;transform:scaleX(-1)" viewBox="0 0 8 40" preserveAspectRatio="none">
+      <rect width="8" height="40" fill="#c9920a"/>
+      <rect width="8" height="40" fill="url(#skv)"/>
+    </svg>
+    <div class="slbl" style="color:#c9920a;letter-spacing:4px">MEMPELAI</div>
+    <div class="scnt">Ahmad Fauzi · Rina Agustina</div>
+  </div>
+
+  <div class="strip" style="background:#c9920a;color:#1a0000;position:relative">
+    <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.1" viewBox="0 0 28 28" preserveAspectRatio="xMidYMid slice">
+      <rect width="100%" height="100%" fill="url(#sk)"/>
+    </svg>
+    <div class="slbl" style="letter-spacing:4px;color:#1a0000">ACARA</div>
+    <div class="scnt">Akad Nikah · 08:00 WIB<br/>Resepsi · 11:00 WIB</div>
+  </div>
+
+  <div class="ftstrip" style="background:#c9920a;color:#1a0000;position:relative">
+    <svg style="position:absolute;top:4px;left:50%;transform:translateX(-50%);width:80px;opacity:.3" viewBox="0 0 80 8">
+      <line x1="0" y1="4" x2="30" y2="4" stroke="#1a0000" stroke-width="0.7"/>
+      <rect x="36" y="1" width="8" height="6" fill="#1a0000" transform="rotate(45 40 4)"/>
+      <line x1="50" y1="4" x2="80" y2="4" stroke="#1a0000" stroke-width="0.7"/>
+    </svg>
+    <div class="ftt" style="color:#1a0000;margin-top:10px;letter-spacing:3px">TARIMO KASIH</div>
+    <div class="ftn" style="letter-spacing:1px">Ahmad &amp; Rina</div>
+  </div>
+</div>
+<div class="label" style="background:#8b0000;color:#f0d090">Minang — Songket Baralek</div>
+</div>
+
+
+<!-- ════════════════════════════════
+     5. BETAWI — Ornamental
+════════════════════════════════ -->
+<div class="card" onclick="sel(this,'betawi')">
+<div style="background:#fff8f0">
+
+  <div class="hero" style="background:linear-gradient(160deg,#fff8f0,#fff0e0);color:#8b1a00">
+    <!-- betawi ornamental floral border top - Chinese influenced -->
+    <svg style="position:absolute;top:0;left:0;width:100%;height:32px;opacity:.4" viewBox="0 0 300 32" preserveAspectRatio="xMidYMid slice">
+      <defs><pattern id="bt" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
+        <!-- Peony inspired -->
+        <circle cx="16" cy="16" r="10" fill="none" stroke="#cc2200" stroke-width="0.8"/>
+        <circle cx="16" cy="16" r="6" fill="none" stroke="#cc2200" stroke-width="0.6"/>
+        <circle cx="16" cy="16" r="2" fill="#cc2200"/>
+        <line x1="16" y1="6" x2="16" y2="0" stroke="#1a6600" stroke-width="0.6"/>
+        <line x1="26" y1="16" x2="32" y2="16" stroke="#1a6600" stroke-width="0.6"/>
+        <line x1="6" y1="16" x2="0" y2="16" stroke="#1a6600" stroke-width="0.6"/>
+        <line x1="16" y1="26" x2="16" y2="32" stroke="#1a6600" stroke-width="0.6"/>
+      </pattern></defs>
+      <rect width="100%" height="100%" fill="url(#bt)"/>
+    </svg>
+    <svg style="position:absolute;bottom:0;left:0;width:100%;height:32px;opacity:.4" viewBox="0 0 300 32" preserveAspectRatio="xMidYMid slice">
+      <rect width="100%" height="100%" fill="url(#bt)"/>
+    </svg>
+    <!-- ondel-ondel like crown corner -->
+    <svg style="position:absolute;top:4px;left:4px;width:44px;opacity:.5" viewBox="0 0 44 60">
+      <rect x="14" y="20" width="16" height="40" rx="3" fill="#cc2200"/>
+      <path d="M10,20 L22,0 L34,20Z" fill="#c9920a"/>
+      <circle cx="22" cy="8" r="5" fill="#cc2200"/>
+      <rect x="8" y="22" width="28" height="4" rx="2" fill="#c9920a"/>
+      <rect x="16" y="28" width="12" height="20" rx="2" fill="#fff8f0" opacity=".5"/>
+      <!-- face -->
+      <circle cx="19" cy="34" r="1.5" fill="#c9920a"/>
+      <circle cx="25" cy="34" r="1.5" fill="#c9920a"/>
+      <path d="M19,40 Q22,43 25,40" fill="none" stroke="#c9920a" stroke-width="1"/>
+    </svg>
+    <svg style="position:absolute;top:4px;right:4px;width:44px;opacity:.5;transform:scaleX(-1)" viewBox="0 0 44 60">
+      <rect x="14" y="20" width="16" height="40" rx="3" fill="#1a6600"/>
+      <path d="M10,20 L22,0 L34,20Z" fill="#c9920a"/>
+      <circle cx="22" cy="8" r="5" fill="#1a6600"/>
+      <rect x="8" y="22" width="28" height="4" rx="2" fill="#c9920a"/>
+      <rect x="16" y="28" width="12" height="20" rx="2" fill="#fff8f0" opacity=".5"/>
+      <circle cx="19" cy="34" r="1.5" fill="#c9920a"/>
+      <circle cx="25" cy="34" r="1.5" fill="#c9920a"/>
+      <path d="M19,40 Q22,43 25,40" fill="none" stroke="#c9920a" stroke-width="1"/>
+    </svg>
+    <!-- gold divider with peony center -->
+    <svg style="position:absolute;bottom:18px;left:50%;transform:translateX(-50%);width:130px;opacity:.4" viewBox="0 0 130 16">
+      <line x1="0" y1="8" x2="50" y2="8" stroke="#c9920a" stroke-width="0.8"/>
+      <circle cx="65" cy="8" r="6" fill="none" stroke="#cc2200" stroke-width="1"/>
+      <circle cx="65" cy="8" r="3" fill="#cc2200"/>
+      <line x1="80" y1="8" x2="130" y2="8" stroke="#c9920a" stroke-width="0.8"/>
+      <circle cx="65" cy="2" r="2" fill="#cc2200" opacity=".5"/>
+      <circle cx="65" cy="14" r="2" fill="#1a6600" opacity=".5"/>
+    </svg>
+    <div class="hc" style="color:#8b1a00">
+      <div class="eye" style="color:#c9920a">Undangan Pernikahan</div>
+      <div class="nm" style="color:#8b1a00">Ahmad Fauzi</div>
+      <div class="amp" style="color:#cc2200;font-size:16px">&amp;</div>
+      <div class="nm" style="color:#8b1a00">Rina Agustina</div>
+      <div class="dt">Jumat, 11 September 2026</div>
+    </div>
+  </div>
+
+  <div class="strip" style="background:#cc2200;color:#fff8f0;position:relative">
+    <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.08" viewBox="0 0 32 32" preserveAspectRatio="xMidYMid slice">
+      <rect width="100%" height="100%" fill="url(#bt)"/>
+    </svg>
+    <div class="slbl" style="color:#c9920a">Mempelai</div>
+    <div class="scnt">Ahmad Fauzi · Rina Agustina</div>
+  </div>
+
+  <div class="strip" style="background:#1a6600;color:#fff8f0;position:relative">
+    <div class="slbl" style="color:#c9920a">Acara</div>
+    <div class="scnt">Akad Nikah · 08:00 WIB<br/>Resepsi · 11:00 WIB</div>
+  </div>
+
+  <div class="ftstrip" style="background:#c9920a;color:#fff8f0">
+    <div class="ftt" style="color:#fff8f0">Terima Kasih</div>
+    <div class="ftn">Ahmad &amp; Rina</div>
+  </div>
+</div>
+<div class="label" style="background:#cc2200;color:#fff8f0">Betawi — Ondel-Ondel</div>
+</div>
+
+
+<!-- ════════════════════════════════
+     6. BATAK — Gorga
+════════════════════════════════ -->
+<div class="card" onclick="sel(this,'batak')">
+<div style="background:#f5f0e8">
+
+  <div class="hero" style="background:#f5f0e8;color:#1a1a1a">
+    <!-- gorga top border: zigzag angular pattern -->
+    <svg style="position:absolute;top:0;left:0;width:100%;height:20px;opacity:.7" viewBox="0 0 200 20" preserveAspectRatio="none">
+      <polygon points="0,20 10,0 20,20 30,0 40,20 50,0 60,20 70,0 80,20 90,0 100,20 110,0 120,20 130,0 140,20 150,0 160,20 170,0 180,20 190,0 200,20" fill="#cc0000"/>
+    </svg>
+    <!-- gorga bottom border -->
+    <svg style="position:absolute;bottom:0;left:0;width:100%;height:20px;opacity:.7;transform:scaleY(-1)" viewBox="0 0 200 20" preserveAspectRatio="none">
+      <polygon points="0,20 10,0 20,20 30,0 40,20 50,0 60,20 70,0 80,20 90,0 100,20 110,0 120,20 130,0 140,20 150,0 160,20 170,0 180,20 190,0 200,20" fill="#cc0000"/>
+    </svg>
+    <!-- gorga side spiral corners (singa / lizard) -->
+    <svg style="position:absolute;top:18px;left:4px;width:42px;opacity:.5" viewBox="0 0 42 80">
+      <!-- spiral gorga motif -->
+      <rect x="0" y="0" width="6" height="80" fill="#1a1a1a"/>
+      <rect x="8" y="0" width="3" height="80" fill="#cc0000" opacity=".6"/>
+      <!-- gorga spiral squares -->
+      <rect x="14" y="5" width="12" height="12" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+      <rect x="17" y="8" width="6" height="6" fill="#cc0000"/>
+      <rect x="14" y="25" width="12" height="12" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+      <rect x="17" y="28" width="6" height="6" fill="#1a1a1a"/>
+      <rect x="14" y="45" width="12" height="12" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+      <rect x="17" y="48" width="6" height="6" fill="#cc0000"/>
+      <rect x="14" y="65" width="12" height="12" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+      <rect x="17" y="68" width="6" height="6" fill="#1a1a1a"/>
+    </svg>
+    <svg style="position:absolute;top:18px;right:4px;width:42px;opacity:.5;transform:scaleX(-1)" viewBox="0 0 42 80">
+      <rect x="0" y="0" width="6" height="80" fill="#1a1a1a"/>
+      <rect x="8" y="0" width="3" height="80" fill="#cc0000" opacity=".6"/>
+      <rect x="14" y="5" width="12" height="12" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+      <rect x="17" y="8" width="6" height="6" fill="#cc0000"/>
+      <rect x="14" y="25" width="12" height="12" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+      <rect x="17" y="28" width="6" height="6" fill="#1a1a1a"/>
+      <rect x="14" y="45" width="12" height="12" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+      <rect x="17" y="48" width="6" height="6" fill="#cc0000"/>
+    </svg>
+    <!-- horizontal gorga divider center -->
+    <svg style="position:absolute;bottom:22px;left:50%;transform:translateX(-50%);width:120px;opacity:.5" viewBox="0 0 120 12">
+      <line x1="0" y1="6" x2="120" y2="6" stroke="#1a1a1a" stroke-width="0.8"/>
+      <rect x="52" y="2" width="16" height="8" fill="#cc0000"/>
+      <rect x="56" y="4" width="8" height="4" fill="#f5f0e8"/>
+    </svg>
+    <div class="hc" style="color:#1a1a1a">
+      <div class="eye" style="color:#cc0000;letter-spacing:3px;font-family:sans-serif;font-size:7px">PESTA ADAT BATAK</div>
+      <div class="nm" style="font-weight:bold;letter-spacing:1px">Ahmad Fauzi</div>
+      <div class="amp" style="color:#cc0000;font-weight:bold;font-size:18px">&amp;</div>
+      <div class="nm" style="font-weight:bold;letter-spacing:1px">Rina Agustina</div>
+      <div class="dt" style="letter-spacing:2px">Jumat, 11 September 2026</div>
+    </div>
+  </div>
+
+  <div class="strip" style="background:#1a1a1a;color:#f5f0e8;position:relative">
+    <!-- gorga thin border -->
+    <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#cc0000"></div>
+    <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:#cc0000"></div>
+    <div class="slbl" style="color:#cc0000;margin-top:4px">MEMPELAI</div>
+    <div class="scnt">Ahmad Fauzi · Rina Agustina</div>
+  </div>
+
+  <div class="strip" style="background:#cc0000;color:#f5f0e8;position:relative">
+    <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.1" viewBox="0 0 20 20" preserveAspectRatio="xMidYMid slice">
+      <defs><pattern id="gk" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+        <rect x="2" y="2" width="6" height="6" fill="none" stroke="#f5f0e8" stroke-width="0.6"/>
+        <rect x="4" y="4" width="2" height="2" fill="#f5f0e8"/>
+      </pattern></defs>
+      <rect width="100%" height="100%" fill="url(#gk)"/>
+    </svg>
+    <div class="slbl" style="letter-spacing:3px;font-family:sans-serif">AGENDA ACARA</div>
+    <div class="scnt">Akad Nikah · 08:00 WIB<br/>Resepsi · 11:00 WIB</div>
+  </div>
+
+  <div class="ftstrip" style="background:#1a1a1a;color:#f5f0e8;position:relative">
+    <div style="position:absolute;top:0;left:0;right:0;height:4px;background:#cc0000"></div>
+    <div class="ftt" style="color:#cc0000;margin-top:6px;letter-spacing:3px">HORAS!</div>
+    <div class="ftn" style="font-weight:bold">Ahmad &amp; Rina</div>
+  </div>
+</div>
+<div class="label" style="background:#cc0000;color:#f5f0e8">Batak — Gorga Singa</div>
+</div>
+
+
+</div><!-- /grid -->
+
+<p style="color:#555;text-align:center;font-size:12px;margin-top:28px;font-family:sans-serif">Klik template untuk pilih · Bisa pilih lebih dari satu</p>
+
+<script>
+function sel(el, choice) {
+  el.classList.toggle('sel');
+  console.log('CHOICE:', choice, el.classList.contains('sel') ? 'selected' : 'deselected');
+}
+</script>
+</body>
+</html>

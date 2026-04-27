@@ -1,0 +1,138 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e5]:
+      - link "WeddingApp" [ref=e7] [cursor=pointer]:
+        - /url: /dashboard
+        - img [ref=e8]
+        - generic [ref=e10]: WeddingApp
+      - list [ref=e14]:
+        - listitem [ref=e15]:
+          - link "Dashboard" [ref=e16] [cursor=pointer]:
+            - /url: /dashboard
+            - img [ref=e17]
+            - generic [ref=e22]: Dashboard
+        - listitem [ref=e23]:
+          - link "Clients" [ref=e24] [cursor=pointer]:
+            - /url: /clients
+            - img [ref=e25]
+            - generic [ref=e30]: Clients
+        - listitem [ref=e31]:
+          - link "Templates" [ref=e32] [cursor=pointer]:
+            - /url: /templates
+            - img [ref=e33]
+            - generic [ref=e39]: Templates
+        - listitem [ref=e40]:
+          - link "Settings" [ref=e41] [cursor=pointer]:
+            - /url: /settings
+            - img [ref=e42]
+            - generic [ref=e45]: Settings
+      - button "Logout" [ref=e47] [cursor=pointer]:
+        - img
+        - text: Logout
+    - main [ref=e48]:
+      - button "Toggle Sidebar" [ref=e50] [cursor=pointer]:
+        - img
+        - generic [ref=e51]: Toggle Sidebar
+      - main [ref=e52]:
+        - generic [ref=e53]:
+          - generic [ref=e54]:
+            - link "Clients" [ref=e55] [cursor=pointer]:
+              - /url: /clients
+              - img [ref=e56]
+              - text: Clients
+            - heading "New Client" [level=1] [ref=e58]
+          - generic [ref=e59]:
+            - generic [ref=e61]:
+              - generic [ref=e62]: "1"
+              - paragraph [ref=e63]: Basic Info
+            - generic [ref=e66]:
+              - generic [ref=e67]: "2"
+              - paragraph [ref=e68]: Template & Sections
+            - generic [ref=e71]:
+              - generic [ref=e72]: "3"
+              - paragraph [ref=e73]: Guests
+            - generic [ref=e76]:
+              - generic [ref=e77]: "4"
+              - paragraph [ref=e78]: Review
+          - generic [ref=e79]:
+            - generic [ref=e80]:
+              - paragraph [ref=e81]: Enter the couple's names and the wedding date to get started.
+              - generic [ref=e82]:
+                - generic [ref=e83]:
+                  - generic [ref=e84]: Groom Name
+                  - textbox "e.g. Budi Santoso" [ref=e85]: Ahmad
+                - generic [ref=e86]:
+                  - generic [ref=e87]: Bride Name
+                  - textbox "e.g. Sari Dewi" [ref=e88]: Rina
+              - generic [ref=e89]:
+                - generic [ref=e90]: Slug (URL identifier)
+                - textbox "e.g. budi-sari" [ref=e91]: ahmad-rina
+                - paragraph [ref=e98]: "Invitation URL: http://localhost:3001/ahmad-rina"
+              - generic [ref=e92]:
+                - generic [ref=e93]: Event Date
+                - button "Pick a date" [expanded] [ref=e94] [cursor=pointer]:
+                  - img
+                  - generic [ref=e95]: Pick a date
+            - generic [ref=e96]:
+              - button "Next" [disabled]
+  - alert [ref=e97]
+  - dialog [ref=e100]:
+    - generic [ref=e103]:
+      - generic [ref=e104]:
+        - generic [ref=e105]: April 2026
+        - generic:
+          - button "Go to previous month" [ref=e106] [cursor=pointer]:
+            - img
+          - button "Go to next month" [ref=e107] [cursor=pointer]:
+            - img
+      - grid "April 2026" [ref=e108]:
+        - rowgroup [ref=e109]:
+          - row "Sunday Monday Tuesday Wednesday Thursday Friday Saturday" [ref=e110]:
+            - columnheader "Sunday" [ref=e111]: Su
+            - columnheader "Monday" [ref=e112]: Mo
+            - columnheader "Tuesday" [ref=e113]: Tu
+            - columnheader "Wednesday" [ref=e114]: We
+            - columnheader "Thursday" [ref=e115]: Th
+            - columnheader "Friday" [ref=e116]: Fr
+            - columnheader "Saturday" [ref=e117]: Sa
+        - rowgroup [ref=e118]:
+          - row "29 30 31 1 2 3 4" [ref=e119]:
+            - gridcell "29" [ref=e120] [cursor=pointer]
+            - gridcell "30" [ref=e121] [cursor=pointer]
+            - gridcell "31" [ref=e122] [cursor=pointer]
+            - gridcell "1" [ref=e123] [cursor=pointer]
+            - gridcell "2" [ref=e124] [cursor=pointer]
+            - gridcell "3" [ref=e125] [cursor=pointer]
+            - gridcell "4" [ref=e126] [cursor=pointer]
+          - row "5 6 7 8 9 10 11" [ref=e127]:
+            - gridcell "5" [ref=e128] [cursor=pointer]
+            - gridcell "6" [ref=e129] [cursor=pointer]
+            - gridcell "7" [ref=e130] [cursor=pointer]
+            - gridcell "8" [ref=e131] [cursor=pointer]
+            - gridcell "9" [ref=e132] [cursor=pointer]
+            - gridcell "10" [ref=e133] [cursor=pointer]
+            - gridcell "11" [ref=e134] [cursor=pointer]
+          - row "12 13 14 15 16 17 18" [ref=e135]:
+            - gridcell "12" [ref=e136] [cursor=pointer]
+            - gridcell "13" [ref=e137] [cursor=pointer]
+            - gridcell "14" [ref=e138] [cursor=pointer]
+            - gridcell "15" [ref=e139] [cursor=pointer]
+            - gridcell "16" [ref=e140] [cursor=pointer]
+            - gridcell "17" [ref=e141] [cursor=pointer]
+            - gridcell "18" [ref=e142] [cursor=pointer]
+          - row "19 20 21 22 23 24 25" [ref=e143]:
+            - gridcell "19" [ref=e144] [cursor=pointer]
+            - gridcell "20" [ref=e145] [cursor=pointer]
+            - gridcell "21" [ref=e146] [cursor=pointer]
+            - gridcell "22" [active] [ref=e147] [cursor=pointer]
+            - gridcell "23" [ref=e148] [cursor=pointer]
+            - gridcell "24" [ref=e149] [cursor=pointer]
+            - gridcell "25" [ref=e150] [cursor=pointer]
+          - row "26 27 28 29 30 1 2" [ref=e151]:
+            - gridcell "26" [ref=e152] [cursor=pointer]
+            - gridcell "27" [ref=e153] [cursor=pointer]
+            - gridcell "28" [ref=e154] [cursor=pointer]
+            - gridcell "29" [ref=e155] [cursor=pointer]
+            - gridcell "30" [ref=e156] [cursor=pointer]
+            - gridcell "1" [ref=e157] [cursor=pointer]
+            - gridcell "2" [ref=e158] [cursor=pointer]

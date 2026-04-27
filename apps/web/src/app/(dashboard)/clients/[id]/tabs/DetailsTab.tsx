@@ -1,0 +1,220 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import api from '@/lib/api';
+import { cn } from '@/lib/utils';
+import type { Client, BankAccount, TemplateOption } from '../types';
+import { EMPTY_BANK } from '../constants';
+import { dateToInput } from '../helpers';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Skeleton } from '@/components/ui/skeleton';
+
+interface Props {
+  client: Client;
+  saving: boolean;
+  saveClient: (payload: Record<string, unknown>) => Promise<void>;
+}
+
+export default function DetailsTab({ client, saving, saveClient }: Props) {
+  const [form, setForm] = useState({
+    slug: client.slug || '',
+    eventDate: dateToInput(client.eventDate),
+    status: (client.status || 'draft') as 'draft' | 'published',
+    music: { url: client.music?.url || '', autoplay: client.music?.autoplay || false },
+  });
+  const [selectedTemplateId, setSelectedTemplateId] = useState<string>(
+    typeof client.templateId === 'object' && client.templateId
+      ? (client.templateId as any)._id
+      : client.templateId || ''
+  );
+  const [templates, setTemplates] = useState<TemplateOption[]>([]);
+  const [templatesLoaded, setTemplatesLoaded] = useState(false);
+  const [bankAccounts, setBankAccounts] = useState<BankAccount[]>(client.bankAccounts || []);
+  const [newBank, setNewBank] = useState<BankAccount>({ ...EMPTY_BANK });
+  const [showAddBank, setShowAddBank] = useState(false);
+
+  useEffect(() => {
+    api
+      .get('/templates')
+      .then(({ data }) => { setTemplates(data.templates); setTemplatesLoaded(true); })
+      .catch(() => {});
+  }, []);
+
+  return (
+    <div className="space-y-6">
+      {/* General */}
+      <Card>
+        <CardHeader>
+          <CardTitle>General</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-1.5">
+              <Label>Slug</Label>
+              <Input value={form.slug} onChange={(e) => setForm({ ...form, slug: e.target.value })} />
+              {form.slug && (
+                <p className="text-xs text-muted-foreground">
+                  URL: {process.env.NEXT_PUBLIC_INVITATION_URL || 'http://localhost:3001'}/{form.slug}
+                </p>
+              )}
+            </div>
+            <div className="space-y-1.5">
+              <Label>Event Date</Label>
+              <Input type="date" value={form.eventDate} onChange={(e) => setForm({ ...form, eventDate: e.target.value })} />
+            </div>
+            <div className="space-y-1.5">
+              <Label>Status</Label>
+              <Select value={form.status} onValueChange={(v) => setForm({ ...form, status: v as 'draft' | 'published' })}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="draft">Draft</SelectItem>
+                  <SelectItem value="published">Published</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Music */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Background Music</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-1.5">
+              <Label>Music URL</Label>
+              <Input
+                value={form.music.url}
+                onChange={(e) => setForm({ ...form, music: { ...form.music, url: e.target.value } })}
+                placeholder="https://..."
+              />
+            </div>
+            <div className="flex items-end pb-0.5">
+              <div className="flex items-center gap-2">
+                <Switch
+                  checked={form.music.autoplay}
+                  onCheckedChange={(checked) => setForm({ ...form, music: { ...form.music, autoplay: checked } })}
+                />
+                <Label>Autoplay</Label>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Template */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Template</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {!templatesLoaded ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              {[...Array(4)].map((_, i) => <Skeleton key={i} className="h-24" />)}
+            </div>
+          ) : templates.length === 0 ? (
+            <p className="text-muted-foreground text-sm">No templates available.</p>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              {templates.map((t) => (
+                <button
+                  key={t._id}
+                  onClick={() => setSelectedTemplateId(t._id)}
+                  className={cn(
+                    'p-4 rounded-lg border-2 text-left transition-all',
+                    selectedTemplateId === t._id
+                      ? 'border-primary bg-primary/5'
+                      : 'border-border hover:border-muted-foreground/40'
+                  )}
+                >
+                  <div className="flex gap-1.5 mb-2">
+                    <span className="w-5 h-5 rounded-full border border-border" style={{ backgroundColor: t.config.primaryColor }} />
+                    <span className="w-5 h-5 rounded-full border border-border" style={{ backgroundColor: t.config.secondaryColor }} />
+                    <span className="w-5 h-5 rounded-full border border-border" style={{ backgroundColor: t.config.accentColor }} />
+                  </div>
+                  <p className="font-medium text-sm">{t.name}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">{t.config.fontHeading} + {t.config.fontBody}</p>
+                </button>
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Bank Accounts */}
+      <Card>
+        <CardHeader className="flex flex-row items-center justify-between">
+          <CardTitle>Bank Accounts</CardTitle>
+          <Button variant="outline" size="sm" onClick={() => setShowAddBank(!showAddBank)}>
+            {showAddBank ? 'Cancel' : '+ Add Account'}
+          </Button>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {showAddBank && (
+            <div className="p-4 bg-muted/40 rounded-lg border space-y-3">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div className="space-y-1.5">
+                  <Label>Bank</Label>
+                  <Input placeholder="e.g. BCA" value={newBank.bank}
+                    onChange={(e) => setNewBank({ ...newBank, bank: e.target.value })} />
+                </div>
+                <div className="space-y-1.5">
+                  <Label>Account Number</Label>
+                  <Input value={newBank.accountNumber}
+                    onChange={(e) => setNewBank({ ...newBank, accountNumber: e.target.value })} />
+                </div>
+                <div className="space-y-1.5">
+                  <Label>Account Name</Label>
+                  <Input value={newBank.accountName}
+                    onChange={(e) => setNewBank({ ...newBank, accountName: e.target.value })} />
+                </div>
+              </div>
+              <Button size="sm" onClick={() => {
+                if (!newBank.bank || !newBank.accountNumber || !newBank.accountName) return;
+                setBankAccounts([...bankAccounts, { ...newBank }]);
+                setNewBank({ ...EMPTY_BANK });
+                setShowAddBank(false);
+              }}>
+                Add Account
+              </Button>
+            </div>
+          )}
+
+          {bankAccounts.length === 0 ? (
+            <p className="text-muted-foreground text-sm">No bank accounts.</p>
+          ) : (
+            <div className="space-y-2">
+              {bankAccounts.map((ba, i) => (
+                <div key={i} className="flex items-center justify-between p-3 border rounded-lg">
+                  <div>
+                    <span className="font-medium text-sm">{ba.bank}</span>
+                    <span className="text-muted-foreground text-sm ml-2">{ba.accountNumber}</span>
+                    <span className="text-muted-foreground text-sm ml-2">({ba.accountName})</span>
+                  </div>
+                  <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive"
+                    onClick={() => setBankAccounts(bankAccounts.filter((_, idx) => idx !== i))}>
+                    Remove
+                  </Button>
+                </div>
+              ))}
+            </div>
+          )}
+
+          <Button disabled={saving}
+            onClick={() => saveClient({ ...form, bankAccounts, templateId: selectedTemplateId || undefined })}>
+            {saving ? 'Saving...' : 'Save Details'}
+          </Button>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}

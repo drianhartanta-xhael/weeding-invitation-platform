@@ -3,7 +3,13 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { Heart } from 'lucide-react';
 import api from '@/lib/api';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -15,7 +21,6 @@ export default function RegisterPage() {
     e.preventDefault();
     setError('');
     setLoading(true);
-
     try {
       const { data } = await api.post('/auth/register', form);
       localStorage.setItem('token', data.token);
@@ -28,72 +33,79 @@ export default function RegisterPage() {
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="w-full max-w-md p-8 bg-white rounded-xl shadow-sm">
-        <h1 className="text-2xl font-bold text-center mb-6">Register</h1>
-
-        {error && (
-          <div className="mb-4 p-3 bg-red-50 text-red-600 rounded-lg text-sm">
-            {error}
+    <main className="min-h-screen flex items-center justify-center bg-muted/40">
+      <div className="w-full max-w-sm px-4">
+        <div className="flex justify-center mb-6">
+          <div className="flex items-center gap-2">
+            <Heart className="h-7 w-7 text-primary fill-primary" />
+            <span className="text-2xl font-bold">WeddingApp</span>
           </div>
-        )}
+        </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Name
-            </label>
-            <input
-              type="text"
-              value={form.name}
-              onChange={(e) => setForm({ ...form, name: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              required
-            />
-          </div>
+        <Card>
+          <CardHeader className="text-center">
+            <CardTitle className="text-xl">Create an account</CardTitle>
+            <CardDescription>Start managing wedding invitations</CardDescription>
+          </CardHeader>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Email
-            </label>
-            <input
-              type="email"
-              value={form.email}
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              required
-            />
-          </div>
+          <CardContent>
+            {error && (
+              <Alert variant="destructive" className="mb-4">
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Password
-            </label>
-            <input
-              type="password"
-              value={form.password}
-              onChange={(e) => setForm({ ...form, password: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              required
-              minLength={6}
-            />
-          </div>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-1.5">
+                <Label htmlFor="name">Name</Label>
+                <Input
+                  id="name"
+                  type="text"
+                  placeholder="Your name"
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  required
+                />
+              </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors disabled:opacity-50"
-          >
-            {loading ? 'Registering...' : 'Register'}
-          </button>
-        </form>
+              <div className="space-y-1.5">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="you@example.com"
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  required
+                />
+              </div>
 
-        <p className="mt-4 text-center text-sm text-gray-600">
-          Already have an account?{' '}
-          <Link href="/login" className="text-primary-500 hover:underline">
-            Login
-          </Link>
-        </p>
+              <div className="space-y-1.5">
+                <Label htmlFor="password">Password</Label>
+                <Input
+                  id="password"
+                  type="password"
+                  placeholder="Min. 6 characters"
+                  value={form.password}
+                  onChange={(e) => setForm({ ...form, password: e.target.value })}
+                  required
+                  minLength={6}
+                />
+              </div>
+
+              <Button type="submit" className="w-full" disabled={loading}>
+                {loading ? 'Creating account...' : 'Create account'}
+              </Button>
+            </form>
+          </CardContent>
+
+          <CardFooter className="justify-center text-sm text-muted-foreground">
+            Already have an account?&nbsp;
+            <Link href="/login" className="text-primary hover:underline font-medium">
+              Sign in
+            </Link>
+          </CardFooter>
+        </Card>
       </div>
     </main>
   );

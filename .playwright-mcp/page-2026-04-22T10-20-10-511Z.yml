@@ -1,0 +1,75 @@
+- generic [active] [ref=e1]:
+  - alert [ref=e13]
+  - generic [ref=e36]:
+    - generic [ref=e38]:
+      - link "WeddingApp" [ref=e40] [cursor=pointer]:
+        - /url: /dashboard
+        - img [ref=e41]
+        - generic [ref=e43]: WeddingApp
+      - list [ref=e47]:
+        - listitem [ref=e48]:
+          - link "Dashboard" [ref=e49] [cursor=pointer]:
+            - /url: /dashboard
+            - img [ref=e50]
+            - generic [ref=e55]: Dashboard
+        - listitem [ref=e56]:
+          - link "Clients" [ref=e57] [cursor=pointer]:
+            - /url: /clients
+            - img [ref=e58]
+            - generic [ref=e63]: Clients
+        - listitem [ref=e64]:
+          - link "Templates" [ref=e65] [cursor=pointer]:
+            - /url: /templates
+            - img [ref=e66]
+            - generic [ref=e72]: Templates
+        - listitem [ref=e73]:
+          - link "Settings" [ref=e74] [cursor=pointer]:
+            - /url: /settings
+            - img [ref=e75]
+            - generic [ref=e78]: Settings
+      - button "Logout" [ref=e80] [cursor=pointer]:
+        - img
+        - text: Logout
+    - main [ref=e81]:
+      - button "Toggle Sidebar" [ref=e83] [cursor=pointer]:
+        - img
+        - generic [ref=e84]: Toggle Sidebar
+      - main [ref=e85]:
+        - generic [ref=e180]:
+          - generic [ref=e181]:
+            - link "Back" [ref=e182] [cursor=pointer]:
+              - /url: /clients
+              - img
+              - text: Back
+            - heading "New Client" [level=1] [ref=e183]
+          - generic [ref=e184]:
+            - generic [ref=e186]:
+              - generic [ref=e187]: "1"
+              - paragraph [ref=e188]: Basic Info
+            - generic [ref=e191]:
+              - generic [ref=e192]: "2"
+              - paragraph [ref=e193]: Template
+            - generic [ref=e196]:
+              - generic [ref=e197]: "3"
+              - paragraph [ref=e198]: First Guest
+            - generic [ref=e201]:
+              - generic [ref=e202]: "4"
+              - paragraph [ref=e203]: Review
+          - generic [ref=e204]:
+            - generic [ref=e205]:
+              - paragraph [ref=e206]: Enter the couple's names and the wedding date to get started.
+              - generic [ref=e207]:
+                - generic [ref=e208]:
+                  - generic [ref=e209]: Groom Name
+                  - textbox "e.g. Budi Santoso" [ref=e210]
+                - generic [ref=e211]:
+                  - generic [ref=e212]: Bride Name
+                  - textbox "e.g. Sari Dewi" [ref=e213]
+              - generic [ref=e214]:
+                - generic [ref=e215]: Slug (URL identifier)
+                - textbox "e.g. budi-sari" [ref=e216]
+              - generic [ref=e217]:
+                - generic [ref=e218]: Event Date
+                - textbox [ref=e219]
+            - generic [ref=e220]:
+              - button "Next" [disabled]

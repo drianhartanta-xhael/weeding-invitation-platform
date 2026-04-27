@@ -5,7 +5,8 @@ import { registerSchema, loginSchema } from '../validators/auth';
 import { AuthRequest } from '../middleware/auth';
 
 const generateToken = (userId: string): string => {
-  const secret = process.env.JWT_SECRET || 'fallback-secret';
+  const secret = process.env.JWT_SECRET;
+  if (!secret) throw new Error('JWT_SECRET is not configured');
   const expiresIn = process.env.JWT_EXPIRES_IN || '7d';
   return jwt.sign({ userId }, secret, { expiresIn } as jwt.SignOptions);
 };

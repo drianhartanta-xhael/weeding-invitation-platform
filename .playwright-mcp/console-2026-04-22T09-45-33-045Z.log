@@ -1,0 +1,612 @@
+[     991ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ webpack-internal:///(app-pages-browser)/../../node_modules/next/dist/compiled/react-dom/cjs/react-dom.development.js:32365
+[   89255ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/../../node_modules/next/dist/client/components/react-dev-overlay/hot-reloader-client.js:180
+[  100608ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/../../node_modules/next/dist/client/components/react-dev-overlay/hot-reloader-client.js:180
+[  100951ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/../../node_modules/next/dist/client/components/react-dev-overlay/hot-reloader-client.js:180
+[  638442ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/../../node_modules/next/dist/client/components/react-dev-overlay/hot-reloader-client.js:180
+[  644633ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/../../node_modules/next/dist/client/components/react-dev-overlay/hot-reloader-client.js:180
+[  645452ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/../../node_modules/next/dist/client/components/react-dev-overlay/hot-reloader-client.js:180
+[  646413ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/../../node_modules/next/dist/client/components/react-dev-overlay/hot-reloader-client.js:180
+[  647371ms] [ERROR] ./src/app/globals.css:3:1
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive.
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities; @ webpack-internal:///(app-pages-browser)/../../node_modules/next/dist/client/app-index.js:34
+[  647372ms] [ERROR] ./src/app/globals.css
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+-- inner error --
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+Generated code for D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[2]!D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[3]!D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css
+
+Import trace for requested module:
+./src/app/globals.css @ webpack-internal:///(app-pages-browser)/../../node_modules/next/dist/client/app-index.js:34
+[  649677ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/../../node_modules/next/dist/client/components/react-dev-overlay/hot-reloader-client.js:180
+[  650986ms] [ERROR] ./src/app/globals.css:3:1
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive.
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities; @ webpack-internal:///(app-pages-browser)/../../node_modules/next/dist/client/app-index.js:34
+[  650986ms] [ERROR] ./src/app/globals.css
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+-- inner error --
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+Generated code for D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[2]!D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[3]!D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css
+
+Import trace for requested module:
+./src/app/globals.css @ webpack-internal:///(app-pages-browser)/../../node_modules/next/dist/client/app-index.js:34
+[  652911ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/clients/69e89855ebdcaaf49314c50b?_rsc=18vpv:0
+[  653023ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/clients/69e89855ebdcaaf49314c50b?_rsc=18vpv:0
+[  653107ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/clients/69e89855ebdcaaf49314c50b?_rsc=18vpv:0
+[  653253ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/clients/69e89855ebdcaaf49314c50b:0
+[  653925ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ webpack-internal:///../../node_modules/react-dom/cjs/react-dom.development.js:29889
+[  654051ms] Error: Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive.
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+
+    at getCssError (file://D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\plugins\wellknown-errors-plugin\parseCss.js:24:16)
+    at getModuleBuildError (file://D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\plugins\wellknown-errors-plugin\webpackModuleError.js:114:43)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async (file://D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\plugins\wellknown-errors-plugin\index.js:29:49)
+    at async (file://D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\plugins\wellknown-errors-plugin\index.js:27:21)
+[  654043ms] [LOG] [HMR] connected @ webpack-internal:///../../node_modules/next/dist/client/dev/error-overlay/websocket.js:45
+[  654052ms] [ERROR] ./src/app/globals.css:3:1
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive.
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities; @ webpack-internal:///../../node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:25
+[  654053ms] [ERROR] ./src/app/globals.css
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+-- inner error --
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+Generated code for D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[2]!D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[3]!D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css @ webpack-internal:///../../node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:25
+[  951412ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///../../node_modules/next/dist/client/dev/error-overlay/hot-dev-client.js:198
+[  955089ms] [ERROR] ./src/app/globals.css:3:1
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive.
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities; @ webpack-internal:///../../node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:25
+[  955089ms] [ERROR] ./src/app/globals.css
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+-- inner error --
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+Generated code for D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[2]!D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[3]!D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css
+
+Import trace for requested module:
+./src/app/globals.css @ webpack-internal:///../../node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:25
+[  974436ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///../../node_modules/next/dist/client/dev/error-overlay/hot-dev-client.js:198
+[  975984ms] [ERROR] ./src/app/globals.css:3:1
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive.
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities; @ webpack-internal:///../../node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:25
+[  975984ms] [ERROR] ./src/app/globals.css
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+-- inner error --
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+Generated code for D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[2]!D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[3]!D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css
+
+Import trace for requested module:
+./src/app/globals.css @ webpack-internal:///../../node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:25
+[ 1007317ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///../../node_modules/next/dist/client/dev/error-overlay/hot-dev-client.js:198
+[ 1009678ms] [ERROR] ./src/app/globals.css:3:1
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive.
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities; @ webpack-internal:///../../node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:25
+[ 1009679ms] [ERROR] ./src/app/globals.css
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+-- inner error --
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+Generated code for D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[2]!D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[3]!D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css
+
+Import trace for requested module:
+./src/app/globals.css @ webpack-internal:///../../node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:25
+[ 1009827ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/clients/69e89855ebdcaaf49314c50b:0
+[ 1010205ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ webpack-internal:///../../node_modules/react-dom/cjs/react-dom.development.js:29889
+[ 1010261ms] Error: Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive.
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+
+    at getCssError (file://D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\plugins\wellknown-errors-plugin\parseCss.js:24:16)
+    at getModuleBuildError (file://D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\plugins\wellknown-errors-plugin\webpackModuleError.js:114:43)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async (file://D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\plugins\wellknown-errors-plugin\index.js:29:49)
+    at async (file://D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\plugins\wellknown-errors-plugin\index.js:27:21)
+[ 1010260ms] [LOG] [HMR] connected @ webpack-internal:///../../node_modules/next/dist/client/dev/error-overlay/websocket.js:45
+[ 1010264ms] [ERROR] ./src/app/globals.css:3:1
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive.
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities; @ webpack-internal:///../../node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:25
+[ 1010264ms] [ERROR] ./src/app/globals.css
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+-- inner error --
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+Generated code for D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[2]!D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[3]!D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css @ webpack-internal:///../../node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:25
+[ 1019210ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///../../node_modules/next/dist/client/dev/error-overlay/hot-dev-client.js:198
+[ 1020113ms] [ERROR] ./src/app/globals.css:3:1
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive.
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities; @ webpack-internal:///../../node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:25
+[ 1020114ms] [ERROR] ./src/app/globals.css
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+-- inner error --
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+Generated code for D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[2]!D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[3]!D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css
+
+Import trace for requested module:
+./src/app/globals.css @ webpack-internal:///../../node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:25
+[ 1089615ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///../../node_modules/next/dist/client/dev/error-overlay/hot-dev-client.js:198
+[ 1090439ms] [ERROR] ./src/app/globals.css:3:1
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive.
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities; @ webpack-internal:///../../node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:25
+[ 1090439ms] [ERROR] ./src/app/globals.css
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+-- inner error --
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+Generated code for D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[2]!D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[3]!D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css
+
+Import trace for requested module:
+./src/app/globals.css @ webpack-internal:///../../node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:25
+[ 1097661ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///../../node_modules/next/dist/client/dev/error-overlay/hot-dev-client.js:198
+[ 1098363ms] [ERROR] ./src/app/globals.css:3:1
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive.
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities; @ webpack-internal:///../../node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:25
+[ 1098363ms] [ERROR] ./src/app/globals.css
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+-- inner error --
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+Generated code for D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[2]!D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[3]!D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css
+
+Import trace for requested module:
+./src/app/globals.css @ webpack-internal:///../../node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:25
+[ 1113513ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///../../node_modules/next/dist/client/dev/error-overlay/hot-dev-client.js:198
+[ 1113801ms] [ERROR] ./src/app/globals.css:3:1
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive.
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities; @ webpack-internal:///../../node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:25
+[ 1113801ms] [ERROR] ./src/app/globals.css
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+-- inner error --
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+Generated code for D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[2]!D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[3]!D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css
+
+Import trace for requested module:
+./src/app/globals.css @ webpack-internal:///../../node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:25
+[ 1132857ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///../../node_modules/next/dist/client/dev/error-overlay/hot-dev-client.js:198
+[ 1133570ms] [ERROR] ./src/app/globals.css:3:1
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive.
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities; @ webpack-internal:///../../node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:25
+[ 1133571ms] [ERROR] ./src/app/globals.css
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+-- inner error --
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+Generated code for D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[2]!D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[3]!D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css
+
+Import trace for requested module:
+./src/app/globals.css @ webpack-internal:///../../node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:25
+[ 1159843ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///../../node_modules/next/dist/client/dev/error-overlay/hot-dev-client.js:198
+[ 1160604ms] [ERROR] ./src/app/globals.css:3:1
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive.
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities; @ webpack-internal:///../../node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:25
+[ 1160604ms] [ERROR] ./src/app/globals.css
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+-- inner error --
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+Generated code for D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[2]!D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[3]!D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css
+
+Import trace for requested module:
+./src/app/globals.css @ webpack-internal:///../../node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:25
+[ 1316227ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///../../node_modules/next/dist/client/dev/error-overlay/hot-dev-client.js:198
+[ 1317375ms] [ERROR] ./src/app/globals.css:3:1
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive.
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities; @ webpack-internal:///../../node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:25
+[ 1317375ms] [ERROR] ./src/app/globals.css
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+-- inner error --
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+Generated code for D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[2]!D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[3]!D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css
+
+Import trace for requested module:
+./src/app/globals.css @ webpack-internal:///../../node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:25
+[ 1341890ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///../../node_modules/next/dist/client/dev/error-overlay/hot-dev-client.js:198
+[ 1342205ms] [ERROR] ./src/app/globals.css:3:1
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive.
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities; @ webpack-internal:///../../node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:25
+[ 1342205ms] [ERROR] ./src/app/globals.css
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+-- inner error --
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+Generated code for D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[2]!D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[3]!D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css
+
+Import trace for requested module:
+./src/app/globals.css @ webpack-internal:///../../node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:25
+[ 1404770ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///../../node_modules/next/dist/client/dev/error-overlay/hot-dev-client.js:198
+[ 1405173ms] [ERROR] ./src/app/globals.css:3:1
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive.
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities; @ webpack-internal:///../../node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:25
+[ 1405174ms] [ERROR] ./src/app/globals.css
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+-- inner error --
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+Generated code for D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[2]!D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[3]!D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css
+
+Import trace for requested module:
+./src/app/globals.css @ webpack-internal:///../../node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:25
+[ 1465598ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///../../node_modules/next/dist/client/dev/error-overlay/hot-dev-client.js:198
+[ 1465895ms] [ERROR] ./src/app/globals.css:3:1
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive.
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities; @ webpack-internal:///../../node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:25
+[ 1465895ms] [ERROR] ./src/app/globals.css
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+-- inner error --
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+Generated code for D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[2]!D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[3]!D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css
+
+Import trace for requested module:
+./src/app/globals.css @ webpack-internal:///../../node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:25
+[ 1522172ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///../../node_modules/next/dist/client/dev/error-overlay/hot-dev-client.js:198
+[ 1522445ms] [ERROR] ./src/app/globals.css:3:1
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive.
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities; @ webpack-internal:///../../node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:25
+[ 1522445ms] [ERROR] ./src/app/globals.css
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+-- inner error --
+Syntax error: D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css The `border-border` class does not exist. If `border-border` is a custom class, make sure it is defined within a `@layer` directive. (3:1)
+
+  1 | @import "tw-animate-css";
+  2 | @import "shadcn/tailwind.css";
+> 3 | @tailwind base;
+    | ^
+  4 | @tailwind components;
+  5 | @tailwind utilities;
+Generated code for D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[2]!D:\CV\apps\wedding-invitation-platform\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[11].oneOf[12].use[3]!D:\CV\apps\wedding-invitation-platform\apps\web\src\app\globals.css
+
+Import trace for requested module:
+./src/app/globals.css @ webpack-internal:///../../node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:25

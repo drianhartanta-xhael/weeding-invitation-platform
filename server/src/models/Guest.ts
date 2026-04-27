@@ -1,5 +1,7 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
+export type GuestCategory = 'family' | 'friend' | 'officeFriend' | 'fatherFriend' | 'motherFriend' | 'neighbor' | 'other';
+
 export interface IGuestDocument extends Document {
   clientId: mongoose.Types.ObjectId;
   name: string;
@@ -7,6 +9,7 @@ export interface IGuestDocument extends Document {
   email: string;
   invitationName: string;
   slug: string;
+  category: GuestCategory;
   rsvpStatus: 'pending' | 'attending' | 'notAttending';
   numberOfGuests: number;
   rsvpDate: Date | null;
@@ -42,6 +45,11 @@ const guestSchema = new Schema<IGuestDocument>(
       type: String,
       required: true,
       trim: true,
+    },
+    category: {
+      type: String,
+      enum: ['family', 'friend', 'officeFriend', 'fatherFriend', 'motherFriend', 'neighbor', 'other'],
+      default: 'other',
     },
     rsvpStatus: {
       type: String,

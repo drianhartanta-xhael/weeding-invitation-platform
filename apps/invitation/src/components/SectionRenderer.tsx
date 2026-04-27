@@ -9,7 +9,6 @@ import Wishes from './sections/Wishes';
 import Gift from './sections/Gift';
 import Story from './sections/Story';
 import LocationMap from './sections/LocationMap';
-import type { DecorationConfig, SectionVariant } from '@/lib/decorations/types';
 
 interface SectionData {
   id: string;
@@ -27,14 +26,12 @@ interface StylePreset {
 interface SectionRendererProps {
   sections: SectionData[];
   stylePresets: Record<string, StylePreset>;
+  // Context data passed through for components that need it
   clientId: string;
   clientSlug: string;
   guestSlug?: string;
   guestRsvpStatus?: string;
-  decorConfig?: DecorationConfig;
 }
-
-const VALID_VARIANTS = new Set<string>(['light', 'dark', 'accent', 'image-1', 'image-2']);
 
 export default function SectionRenderer({
   sections,
@@ -43,7 +40,6 @@ export default function SectionRenderer({
   clientSlug,
   guestSlug,
   guestRsvpStatus,
-  decorConfig,
 }: SectionRendererProps) {
   const sorted = [...sections].sort((a, b) => a.order - b.order);
 
@@ -55,8 +51,6 @@ export default function SectionRenderer({
         const wrapperStyle = {
           backgroundColor: preset.bg,
           color: preset.text,
-          position: 'relative' as const,
-          overflow: 'hidden' as const,
         };
 
         let content: React.ReactNode = null;
@@ -134,17 +128,7 @@ export default function SectionRenderer({
 
         return (
           <div key={section.id} style={wrapperStyle}>
-            {decorConfig && (
-              <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0 }}>
-                <decorConfig.SectionDecor
-                  colors={decorConfig.colors}
-                  variant={(VALID_VARIANTS.has(section.style) ? section.style : 'light') as SectionVariant}
-                />
-              </div>
-            )}
-            <div style={{ position: 'relative', zIndex: 1 }}>
-              {content}
-            </div>
+            {content}
           </div>
         );
       })}

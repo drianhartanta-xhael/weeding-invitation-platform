@@ -16,5 +16,4 @@ export interface IGuest {
 }
 
 export type CreateGuestDTO = Omit<IGuest, '_id' | 'createdAt' | 'rsvpDate' | 'rsvpStatus'>;
-export type UpdateGuestDTO = Partial<CreateGuestDTO>;
 export type RSVPSubmitDTO = Pick<IGuest, 'rsvpStatus' | 'numberOfGuests'>;

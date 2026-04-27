@@ -47,6 +47,26 @@ export const createClientSchema = z.object({
       })
     )
     .optional(),
+  customContent: z
+    .object({
+      heroTitle: z.string().optional(),
+      heroSubtitle: z.string().optional(),
+      bodyGreeting: z.string().optional(),
+      footerTitle: z.string().optional(),
+      footerMessage: z.string().optional(),
+    })
+    .optional(),
+  sections: z
+    .array(
+      z.object({
+        id: z.string().min(1),
+        componentId: z.string().min(1),
+        data: z.record(z.any()).optional(),
+        style: z.string().optional(),
+        order: z.number().int().min(0),
+      })
+    )
+    .optional(),
   status: z.enum(['draft', 'published']).optional(),
 });
 

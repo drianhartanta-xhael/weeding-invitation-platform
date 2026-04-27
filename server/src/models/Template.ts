@@ -19,7 +19,6 @@ export interface ITemplateDocument extends Document {
     footerMessage: string;
     [key: string]: string;
   };
-  decorationStyle: string;
   defaultSections: {
     componentId: string;
     style: string;
@@ -70,10 +69,6 @@ const templateSchema = new Schema<ITemplateDocument>(
         footerTitle: 'Thank You',
         footerMessage: 'We are looking forward to celebrating with you',
       },
-    },
-    decorationStyle: {
-      type: String,
-      default: 'none',
     },
     defaultSections: {
       type: [

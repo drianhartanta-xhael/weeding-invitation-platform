@@ -1,0 +1,62 @@
+- generic [active] [ref=e1]:
+  - alert [ref=e13]
+  - generic [ref=e36]:
+    - generic [ref=e38]:
+      - link "WeddingApp" [ref=e40] [cursor=pointer]:
+        - /url: /dashboard
+        - img [ref=e41]
+        - generic [ref=e43]: WeddingApp
+      - list [ref=e47]:
+        - listitem [ref=e48]:
+          - link "Dashboard" [ref=e49] [cursor=pointer]:
+            - /url: /dashboard
+            - img [ref=e50]
+            - generic [ref=e55]: Dashboard
+        - listitem [ref=e56]:
+          - link "Clients" [ref=e57] [cursor=pointer]:
+            - /url: /clients
+            - img [ref=e58]
+            - generic [ref=e63]: Clients
+        - listitem [ref=e64]:
+          - link "Templates" [ref=e65] [cursor=pointer]:
+            - /url: /templates
+            - img [ref=e66]
+            - generic [ref=e72]: Templates
+        - listitem [ref=e73]:
+          - link "Settings" [ref=e74] [cursor=pointer]:
+            - /url: /settings
+            - img [ref=e75]
+            - generic [ref=e78]: Settings
+      - button "Logout" [ref=e80] [cursor=pointer]:
+        - img
+        - text: Logout
+    - main [ref=e81]:
+      - button "Toggle Sidebar" [ref=e83] [cursor=pointer]:
+        - img
+        - generic [ref=e84]: Toggle Sidebar
+      - main [ref=e85]:
+        - generic [ref=e86]:
+          - generic [ref=e87]:
+            - heading "Dashboard" [level=1] [ref=e88]
+            - paragraph [ref=e89]: Overview of your wedding invitation platform
+          - generic [ref=e90]:
+            - generic [ref=e91]:
+              - generic [ref=e92]:
+                - generic [ref=e93]: Total Clients
+                - img [ref=e95]
+              - paragraph [ref=e101]: "3"
+            - generic [ref=e102]:
+              - generic [ref=e103]:
+                - generic [ref=e104]: Total Guests
+                - img [ref=e106]
+              - paragraph [ref=e111]: "12"
+            - generic [ref=e112]:
+              - generic [ref=e113]:
+                - generic [ref=e114]: Total Wishes
+                - img [ref=e116]
+              - paragraph [ref=e119]: "0"
+            - generic [ref=e120]:
+              - generic [ref=e121]:
+                - generic [ref=e122]: Total Gifts
+                - img [ref=e124]
+              - paragraph [ref=e129]: "0"

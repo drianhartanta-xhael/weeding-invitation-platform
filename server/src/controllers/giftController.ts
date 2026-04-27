@@ -1,8 +1,25 @@
 import { Request, Response, NextFunction } from 'express';
+import crypto from 'crypto';
 import { Gift } from '../models';
 import { createGiftSchema } from '../validators/gift';
 import { AuthRequest } from '../middleware/auth';
 import { snap } from '../config/midtrans';
+
+function verifyMidtransSignature(notification: {
+  order_id: string;
+  status_code: string;
+  gross_amount: string;
+  signature_key: string;
+}): boolean {
+  const serverKey = process.env.MIDTRANS_SERVER_KEY || '';
+  const expected = crypto
+    .createHash('sha512')
+    .update(`${notification.order_id}${notification.status_code}${notification.gross_amount}${serverKey}`)
+    .digest('hex');
+  const received = notification.signature_key || '';
+  if (expected.length !== received.length) return false;
+  return crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(received));
+}
 
 export const getGifts = async (
   req: AuthRequest,
@@ -67,6 +84,12 @@ export const handlePaymentNotification = async (
 ): Promise<void> => {
   try {
     const notification = req.body;
+
+    if (!verifyMidtransSignature(notification)) {
+      res.status(403).json({ message: 'Invalid signature' });
+      return;
+    }
+
     const orderId = notification.order_id;
     const transactionStatus = notification.transaction_status;
     const fraudStatus = notification.fraud_status;

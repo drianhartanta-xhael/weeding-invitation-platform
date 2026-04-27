@@ -2,7 +2,31 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { Plus, Loader2 } from 'lucide-react';
 import api from '@/lib/api';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Skeleton } from '@/components/ui/skeleton';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
 
 interface Client {
   _id: string;
@@ -17,100 +41,144 @@ interface Client {
 export default function ClientsPage() {
   const [clients, setClients] = useState<Client[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [togglingId, setTogglingId] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchClients = async () => {
-      try {
-        const { data } = await api.get('/clients');
-        setClients(data.clients);
-      } catch (error) {
-        console.error('Failed to fetch clients');
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchClients();
+    api
+      .get('/clients')
+      .then(({ data }) => setClients(data.clients))
+      .catch(() => setError('Failed to load clients'))
+      .finally(() => setLoading(false));
   }, []);
 
-  if (loading) {
-    return <div className="text-center py-10">Loading...</div>;
-  }
+  const handleToggleStatus = async (client: Client) => {
+    const newStatus = client.status === 'published' ? 'draft' : 'published';
+    setTogglingId(client._id);
+    try {
+      await api.put(`/clients/${client._id}`, { status: newStatus });
+      setClients(clients.map((c) => (c._id === client._id ? { ...c, status: newStatus } : c)));
+    } catch {
+      setError('Failed to update status');
+    } finally {
+      setTogglingId(null);
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    try {
+      await api.delete(`/clients/${id}`);
+      setClients(clients.filter((c) => c._id !== id));
+    } catch {
+      setError('Failed to delete client');
+    }
+  };
 
   return (
-    <div>
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Clients</h1>
-        <Link
-          href="/clients/new"
-          className="px-4 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors"
-        >
-          Add Client
-        </Link>
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">Clients</h1>
+          <p className="text-muted-foreground">Manage your wedding invitation clients</p>
+        </div>
+        <Button asChild>
+          <Link href="/clients/new">
+            <Plus className="h-4 w-4 mr-2" />
+            New Client
+          </Link>
+        </Button>
       </div>
 
-      {clients.length === 0 ? (
-        <div className="text-center py-10 bg-white rounded-xl border border-gray-100">
-          <p className="text-gray-500">No clients yet. Create your first one!</p>
+      {error && (
+        <Alert variant="destructive">
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
+      )}
+
+      {loading ? (
+        <div className="space-y-2">
+          {[...Array(4)].map((_, i) => <Skeleton key={i} className="h-14 w-full" />)}
+        </div>
+      ) : clients.length === 0 ? (
+        <div className="text-center py-16 border rounded-xl bg-card">
+          <p className="text-muted-foreground">No clients yet.</p>
+          <Button asChild className="mt-4" variant="outline">
+            <Link href="/clients/new">Create your first client</Link>
+          </Button>
         </div>
       ) : (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Couple
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Slug
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Event Date
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Status
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
+        <div className="rounded-xl border bg-card overflow-hidden">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Couple</TableHead>
+                <TableHead>Slug</TableHead>
+                <TableHead>Event Date</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead className="text-right">Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {clients.map((client) => (
-                <tr key={client._id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="font-medium text-gray-900">
-                      {client.groomName} & {client.brideName}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <TableRow key={client._id}>
+                  <TableCell className="font-medium">
+                    {client.groomName} & {client.brideName}
+                  </TableCell>
+                  <TableCell className="text-muted-foreground font-mono text-sm">
                     {client.slug}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {new Date(client.eventDate).toLocaleDateString()}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span
-                      className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
-                        client.status === 'published'
-                          ? 'bg-green-100 text-green-800'
-                          : 'bg-yellow-100 text-yellow-800'
-                      }`}
-                    >
-                      {client.status}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm">
-                    <Link
-                      href={`/clients/${client._id}`}
-                      className="text-primary-500 hover:underline"
-                    >
-                      View
-                    </Link>
-                  </td>
-                </tr>
+                  </TableCell>
+                  <TableCell className="text-muted-foreground">
+                    {new Date(client.eventDate).toLocaleDateString('id-ID', {
+                      day: 'numeric', month: 'short', year: 'numeric',
+                    })}
+                  </TableCell>
+                  <TableCell>
+                    <button onClick={() => handleToggleStatus(client)} disabled={togglingId === client._id}>
+                      <Badge
+                        variant={client.status === 'published' ? 'default' : 'secondary'}
+                        className="cursor-pointer"
+                      >
+                        {togglingId === client._id ? (
+                          <Loader2 className="h-3 w-3 animate-spin" />
+                        ) : client.status}
+                      </Badge>
+                    </button>
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <div className="flex items-center justify-end gap-1">
+                      <Button asChild variant="ghost" size="sm">
+                        <Link href={`/clients/${client._id}`}>View</Link>
+                      </Button>
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive">
+                            Delete
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Delete client?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              This will permanently delete <strong>{client.groomName} & {client.brideName}</strong> and all related guests, wishes, and gifts. This cannot be undone.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction
+                              onClick={() => handleDelete(client._id)}
+                              className="bg-destructive text-white hover:bg-destructive/90"
+                            >
+                              Delete
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
+                    </div>
+                  </TableCell>
+                </TableRow>
               ))}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
         </div>
       )}
     </div>

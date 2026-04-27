@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import Papa from 'papaparse';
 import { Guest } from '../models';
 import { createGuestSchema, updateGuestSchema, rsvpSchema, bulkGuestSchema } from '../validators/guest';
 import { AuthRequest } from '../middleware/auth';
@@ -98,6 +99,65 @@ export const bulkCreateGuests = async (
 
     res.status(201).json({
       message: `${guests.length} guests created`,
+      guests,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Slugify helper
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-');
+}
+
+export const bulkUploadGuests = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const { clientId } = req.params;
+    const file = req.file;
+
+    if (!file) {
+      res.status(400).json({ message: 'CSV file is required' });
+      return;
+    }
+
+    const csvText = file.buffer.toString('utf-8');
+    const { data, errors } = Papa.parse<Record<string, string>>(csvText, {
+      header: true,
+      skipEmptyLines: true,
+      transformHeader: (h: string) => h.trim().toLowerCase(),
+    });
+
+    if (errors.length > 0) {
+      res.status(400).json({ message: 'CSV parsing errors', errors });
+      return;
+    }
+
+    const guestsData = data.map((row) => ({
+      name: row.name?.trim() || '',
+      invitationName: row.invitationname?.trim() || row.invitation_name?.trim() || row.name?.trim() || '',
+      slug: row.slug?.trim() || slugify(row.name || ''),
+      phone: row.phone?.trim() || '',
+      email: row.email?.trim() || '',
+      category: row.category?.trim() || 'other',
+    }));
+
+    const validated = bulkGuestSchema.parse(guestsData);
+    const guests = await Guest.insertMany(
+      validated.map((g) => ({ ...g, clientId }))
+    );
+
+    res.status(201).json({
+      message: `${guests.length} guests imported`,
       guests,
     });
   } catch (error) {

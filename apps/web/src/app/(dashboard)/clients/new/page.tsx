@@ -23,7 +23,6 @@ interface TemplateOption {
   _id: string;
   name: string;
   description: string;
-  decorationStyle?: string;
   config: { primaryColor: string; secondaryColor: string; accentColor: string };
   defaultSections?: { componentId: string; style: string; order: number }[];
 }
@@ -68,15 +67,6 @@ const GUEST_CATEGORIES: { value: GuestCategory; label: string }[] = [
   { value: 'neighbor', label: 'Neighbor' },
   { value: 'other', label: 'Other' },
 ];
-
-const DECORATION_NAMES: Record<string, string> = {
-  jawa: 'Batik Kawung',
-  bali: 'Patra Bali',
-  sunda: 'Anyaman Sunda',
-  minang: 'Songket Minang',
-  betawi: 'Ondel-Ondel',
-  batak: 'Gorga Batak',
-};
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -359,11 +349,6 @@ function Step2({
               </div>
               <p className="font-medium text-sm">{t.name}</p>
               {t.description && <p className="text-xs text-muted-foreground mt-0.5">{t.description}</p>}
-              {t.decorationStyle && t.decorationStyle !== 'none' && DECORATION_NAMES[t.decorationStyle] && (
-                <span className="inline-block mt-1.5 text-xs text-muted-foreground bg-muted px-1.5 py-0.5 rounded">
-                  {DECORATION_NAMES[t.decorationStyle]}
-                </span>
-              )}
             </button>
           ))}
         </div>

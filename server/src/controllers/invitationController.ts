@@ -10,9 +10,11 @@ export const getInvitation = async (
   try {
     const { slug } = req.params;
 
-    const client = await Client.findOne({ slug, status: 'published' }).populate(
-      'templateId'
-    );
+    const client = await Client.findOneAndUpdate(
+      { slug, status: 'published' },
+      { $inc: { views: 1 } },
+      { new: true }
+    ).populate('templateId');
     if (!client) {
       res.status(404).json({ message: 'Invitation not found' });
       return;
@@ -38,9 +40,11 @@ export const getInvitationForGuest = async (
   try {
     const { slug, guestSlug } = req.params;
 
-    const client = await Client.findOne({ slug, status: 'published' }).populate(
-      'templateId'
-    );
+    const client = await Client.findOneAndUpdate(
+      { slug, status: 'published' },
+      { $inc: { views: 1 } },
+      { new: true }
+    ).populate('templateId');
     if (!client) {
       res.status(404).json({ message: 'Invitation not found' });
       return;

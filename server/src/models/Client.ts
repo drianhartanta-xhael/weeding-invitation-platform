@@ -34,7 +34,22 @@ export interface IClientDocument extends Document {
     accountNumber: string;
     accountName: string;
   }[];
+  customContent: {
+    heroTitle: string;
+    heroSubtitle: string;
+    bodyGreeting: string;
+    footerTitle: string;
+    footerMessage: string;
+  };
+  sections: {
+    id: string;
+    componentId: string;
+    data: Record<string, any>;
+    style: string;
+    order: number;
+  }[];
   status: 'draft' | 'published';
+  views: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -108,10 +123,30 @@ const clientSchema = new Schema<IClientDocument>(
         accountName: { type: String, required: true },
       },
     ],
+    customContent: {
+      heroTitle: { type: String, default: '' },
+      heroSubtitle: { type: String, default: '' },
+      bodyGreeting: { type: String, default: '' },
+      footerTitle: { type: String, default: '' },
+      footerMessage: { type: String, default: '' },
+    },
+    sections: [
+      {
+        id: { type: String, required: true },
+        componentId: { type: String, required: true },
+        data: { type: Schema.Types.Mixed, default: {} },
+        style: { type: String, default: 'light' },
+        order: { type: Number, default: 0 },
+      },
+    ],
     status: {
       type: String,
       enum: ['draft', 'published'],
       default: 'draft',
+    },
+    views: {
+      type: Number,
+      default: 0,
     },
   },
   {

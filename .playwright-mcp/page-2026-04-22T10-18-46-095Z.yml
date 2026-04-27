@@ -1,0 +1,25 @@
+- generic [active] [ref=e1]:
+  - alert [ref=e13]
+  - main [ref=e14]:
+    - generic [ref=e15]:
+      - generic [ref=e17]:
+        - img [ref=e18]
+        - generic [ref=e20]: WeddingApp
+      - generic [ref=e21]:
+        - generic [ref=e22]:
+          - generic [ref=e23]: Welcome back
+          - generic [ref=e24]: Sign in to your account
+        - generic [ref=e26]:
+          - generic [ref=e27]:
+            - generic [ref=e28]: Email
+            - textbox "Email" [ref=e29]:
+              - /placeholder: admin@wedding.dev
+              - text: admin@wedding.dev
+          - generic [ref=e30]:
+            - generic [ref=e31]: Password
+            - textbox "Password" [ref=e32]: password123
+          - button "Sign in" [ref=e33] [cursor=pointer]
+        - generic [ref=e34]:
+          - text: Don't have an account?
+          - link "Register" [ref=e35] [cursor=pointer]:
+            - /url: /register

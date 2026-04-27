@@ -1,0 +1,52 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - navigation [ref=e3]:
+      - generic [ref=e5]:
+        - generic [ref=e6]:
+          - generic [ref=e7]: WeddingApp
+          - link "Dashboard" [ref=e8] [cursor=pointer]:
+            - /url: /dashboard
+          - link "Clients" [ref=e9] [cursor=pointer]:
+            - /url: /clients
+          - link "Templates" [ref=e10] [cursor=pointer]:
+            - /url: /templates
+          - link "Settings" [ref=e11] [cursor=pointer]:
+            - /url: /settings
+        - button "Logout" [ref=e13] [cursor=pointer]
+    - main [ref=e14]:
+      - generic [ref=e15]:
+        - generic [ref=e16]:
+          - link "← Back" [ref=e17] [cursor=pointer]:
+            - /url: /clients
+          - heading "New Client" [level=1] [ref=e18]
+        - generic [ref=e19]:
+          - generic [ref=e21]:
+            - generic [ref=e22]: "1"
+            - paragraph [ref=e23]: Basic Info
+          - generic [ref=e26]:
+            - generic [ref=e27]: "2"
+            - paragraph [ref=e28]: Template
+          - generic [ref=e31]:
+            - generic [ref=e32]: "3"
+            - paragraph [ref=e33]: First Guest
+          - generic [ref=e36]:
+            - generic [ref=e37]: "4"
+            - paragraph [ref=e38]: Review
+        - generic [ref=e39]:
+          - generic [ref=e40]:
+            - paragraph [ref=e41]: Enter the couple's names and the wedding date to get started.
+            - generic [ref=e42]:
+              - generic [ref=e43]:
+                - generic [ref=e44]: Groom Name
+                - textbox "e.g. Budi Santoso" [ref=e45]
+              - generic [ref=e46]:
+                - generic [ref=e47]: Bride Name
+                - textbox "e.g. Sari Dewi" [ref=e48]
+            - generic [ref=e49]:
+              - generic [ref=e50]: Slug (URL identifier)
+              - textbox "e.g. budi-sari" [ref=e51]
+            - generic [ref=e52]:
+              - generic [ref=e53]: Event Date
+              - textbox [ref=e54]
+          - button "Next" [disabled] [ref=e56]
+  - alert [ref=e57]

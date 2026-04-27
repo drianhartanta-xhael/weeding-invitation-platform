@@ -19,10 +19,10 @@ export const authenticate = async (
       return;
     }
 
-    const decoded = jwt.verify(
-      token,
-      process.env.JWT_SECRET || 'fallback-secret'
-    ) as { userId: string };
+    const secret = process.env.JWT_SECRET;
+    if (!secret) throw new Error('JWT_SECRET is not configured');
+
+    const decoded = jwt.verify(token, secret) as { userId: string };
 
     const user = await User.findById(decoded.userId);
     if (!user) {

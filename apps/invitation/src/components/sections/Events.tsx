@@ -15,6 +15,12 @@ interface EventsProps {
   events: Event[];
 }
 
+function formatDate(dateStr: string) {
+  const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return dateStr;
+  return d.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+}
+
 export default function Events({ events }: EventsProps) {
   return (
     <section className="py-20 px-4 bg-wedding-secondary">
@@ -40,7 +46,7 @@ export default function Events({ events }: EventsProps) {
             <h3 className="font-heading text-2xl text-wedding-accent mb-4">
               {event.name}
             </h3>
-            <p className="text-gray-600 mb-1">{event.date}</p>
+            <p className="text-gray-600 mb-1">{formatDate(event.date)}</p>
             <p className="text-gray-600 mb-4">{event.time}</p>
             <p className="font-medium text-gray-800">{event.venue}</p>
             <p className="text-gray-500 text-sm mb-4">{event.address}</p>

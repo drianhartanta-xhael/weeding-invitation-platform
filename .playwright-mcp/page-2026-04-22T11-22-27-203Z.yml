@@ -1,0 +1,195 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e900]:
+      - link "WeddingApp" [ref=e902] [cursor=pointer]:
+        - /url: /dashboard
+        - img [ref=e903]
+        - generic [ref=e905]: WeddingApp
+      - list [ref=e909]:
+        - listitem [ref=e910]:
+          - link "Dashboard" [ref=e911] [cursor=pointer]:
+            - /url: /dashboard
+            - img [ref=e912]
+            - generic [ref=e917]: Dashboard
+        - listitem [ref=e918]:
+          - link "Clients" [ref=e919] [cursor=pointer]:
+            - /url: /clients
+            - img [ref=e920]
+            - generic [ref=e925]: Clients
+        - listitem [ref=e926]:
+          - link "Templates" [ref=e927] [cursor=pointer]:
+            - /url: /templates
+            - img [ref=e928]
+            - generic [ref=e934]: Templates
+        - listitem [ref=e935]:
+          - link "Settings" [ref=e936] [cursor=pointer]:
+            - /url: /settings
+            - img [ref=e937]
+            - generic [ref=e940]: Settings
+      - button "Logout" [ref=e942] [cursor=pointer]:
+        - img
+        - text: Logout
+    - main [ref=e48]:
+      - button "Toggle Sidebar" [ref=e50] [cursor=pointer]:
+        - img
+        - generic [ref=e51]: Toggle Sidebar
+      - main [ref=e52]:
+        - generic [ref=e673]:
+          - generic [ref=e674]:
+            - link "Clients" [ref=e675] [cursor=pointer]:
+              - /url: /clients
+              - img [ref=e676]
+              - text: Clients
+            - generic [ref=e678]:
+              - generic [ref=e679]:
+                - heading "Ahmad&Rina" [level=1] [ref=e680]
+                - generic [ref=e681]:
+                  - generic [ref=e682]: published
+                  - generic [ref=e684]: ·
+                  - generic [ref=e685]: 11 September 2026
+                  - generic [ref=e686]: ·
+                  - generic [ref=e687]: ahmad-rina
+              - generic [ref=e688]:
+                - link "Preview" [ref=e689] [cursor=pointer]:
+                  - /url: http://localhost:3001/ahmad-rina
+                  - img
+                  - text: Preview
+                - button "Delete" [ref=e690] [cursor=pointer]:
+                  - img
+                  - text: Delete
+          - generic [ref=e691]:
+            - tablist [ref=e692]:
+              - tab "Overview" [ref=e693] [cursor=pointer]
+              - tab "Couple" [ref=e694] [cursor=pointer]
+              - tab "Events" [ref=e695] [cursor=pointer]
+              - tab "Details" [ref=e696] [cursor=pointer]
+              - tab "Sections" [selected] [ref=e697] [cursor=pointer]
+              - tab "Guests" [ref=e698] [cursor=pointer]
+              - tab "Activity" [ref=e699] [cursor=pointer]
+            - tabpanel "Sections" [active] [ref=e738]:
+              - generic [ref=e739]:
+                - generic [ref=e740]:
+                  - generic [ref=e741]:
+                    - heading "Invitation Sections" [level=2] [ref=e742]
+                    - paragraph [ref=e743]: Click to expand and edit. Use Up/Down to reorder.
+                  - button "+ Add Section" [ref=e744] [cursor=pointer]
+                - generic [ref=e745]:
+                  - generic [ref=e747] [cursor=pointer]:
+                    - generic [ref=e748]:
+                      - generic [ref=e749]: "1"
+                      - generic [ref=e750]:
+                        - paragraph [ref=e751]: Couple Profile
+                        - paragraph [ref=e752]: "Style: light"
+                    - generic [ref=e753]:
+                      - button "Up" [disabled]
+                      - button "Down" [ref=e754]
+                      - button "Remove" [ref=e755]
+                      - generic [ref=e756]: ▼
+                  - generic [ref=e758] [cursor=pointer]:
+                    - generic [ref=e759]:
+                      - generic [ref=e760]: "2"
+                      - generic [ref=e761]:
+                        - paragraph [ref=e762]: Event Detail
+                        - paragraph [ref=e763]: "Style: accent"
+                    - generic [ref=e764]:
+                      - button "Up" [ref=e765]
+                      - button "Down" [ref=e766]
+                      - button "Remove" [ref=e767]
+                      - generic [ref=e768]: ▼
+                  - generic [ref=e770] [cursor=pointer]:
+                    - generic [ref=e771]:
+                      - generic [ref=e772]: "3"
+                      - generic [ref=e773]:
+                        - paragraph [ref=e774]: Countdown
+                        - paragraph [ref=e775]: "Style: light"
+                    - generic [ref=e776]:
+                      - button "Up" [ref=e777]
+                      - button "Down" [ref=e778]
+                      - button "Remove" [ref=e779]
+                      - generic [ref=e780]: ▼
+                  - generic [ref=e782] [cursor=pointer]:
+                    - generic [ref=e783]:
+                      - generic [ref=e784]: "4"
+                      - generic [ref=e785]:
+                        - paragraph [ref=e786]: Our Story
+                        - paragraph [ref=e787]: "Style: image-1"
+                    - generic [ref=e788]:
+                      - button "Up" [ref=e789]
+                      - button "Down" [ref=e790]
+                      - button "Remove" [ref=e791]
+                      - generic [ref=e792]: ▼
+                  - generic [ref=e793]:
+                    - generic [ref=e794] [cursor=pointer]:
+                      - generic [ref=e795]:
+                        - generic [ref=e796]: "5"
+                        - generic [ref=e797]:
+                          - paragraph [ref=e798]: Gallery
+                          - paragraph [ref=e799]: "Style: light"
+                      - generic [ref=e800]:
+                        - button "Up" [ref=e801]
+                        - button "Down" [ref=e802]
+                        - button "Remove" [ref=e803]
+                        - generic [ref=e804]: ▲
+                    - generic [ref=e943]:
+                      - generic [ref=e944]:
+                        - generic [ref=e945]: Background Style
+                        - generic [ref=e946]:
+                          - button "light" [ref=e947] [cursor=pointer]
+                          - button "dark" [ref=e948] [cursor=pointer]
+                          - button "accent" [ref=e949] [cursor=pointer]
+                          - button "image-1" [ref=e950] [cursor=pointer]
+                          - button "image-2" [ref=e951] [cursor=pointer]
+                      - generic [ref=e953]:
+                        - generic [ref=e954]: Image URLs
+                        - generic [ref=e955]:
+                          - generic [ref=e956] [cursor=pointer]: Upload Images
+                          - button "Paste URLs" [ref=e957] [cursor=pointer]
+                        - generic [ref=e959]:
+                          - img "Image 1" [ref=e960]
+                          - button "×" [ref=e961] [cursor=pointer]
+                  - generic [ref=e806] [cursor=pointer]:
+                    - generic [ref=e807]:
+                      - generic [ref=e808]: "6"
+                      - generic [ref=e809]:
+                        - paragraph [ref=e810]: Location Map
+                        - paragraph [ref=e811]: "Style: image-2"
+                    - generic [ref=e812]:
+                      - button "Up" [ref=e813]
+                      - button "Down" [ref=e814]
+                      - button "Remove" [ref=e815]
+                      - generic [ref=e816]: ▼
+                  - generic [ref=e818] [cursor=pointer]:
+                    - generic [ref=e819]:
+                      - generic [ref=e820]: "7"
+                      - generic [ref=e821]:
+                        - paragraph [ref=e822]: RSVP
+                        - paragraph [ref=e823]: "Style: dark"
+                    - generic [ref=e824]:
+                      - button "Up" [ref=e825]
+                      - button "Down" [ref=e826]
+                      - button "Remove" [ref=e827]
+                      - generic [ref=e828]: ▼
+                  - generic [ref=e830] [cursor=pointer]:
+                    - generic [ref=e831]:
+                      - generic [ref=e832]: "8"
+                      - generic [ref=e833]:
+                        - paragraph [ref=e834]: Wishes
+                        - paragraph [ref=e835]: "Style: light"
+                    - generic [ref=e836]:
+                      - button "Up" [ref=e837]
+                      - button "Down" [ref=e838]
+                      - button "Remove" [ref=e839]
+                      - generic [ref=e840]: ▼
+                  - generic [ref=e842] [cursor=pointer]:
+                    - generic [ref=e843]:
+                      - generic [ref=e844]: "9"
+                      - generic [ref=e845]:
+                        - paragraph [ref=e846]: Donation / Gift
+                        - paragraph [ref=e847]: "Style: accent"
+                    - generic [ref=e848]:
+                      - button "Up" [ref=e849]
+                      - button "Down" [disabled]
+                      - button "Remove" [ref=e850]
+                      - generic [ref=e851]: ▼
+                - button "Save Sections" [ref=e852] [cursor=pointer]
+  - alert [ref=e98]

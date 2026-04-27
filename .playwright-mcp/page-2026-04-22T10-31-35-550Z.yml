@@ -1,0 +1,91 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e5]:
+      - link "WeddingApp" [ref=e7] [cursor=pointer]:
+        - /url: /dashboard
+        - img [ref=e8]
+        - generic [ref=e10]: WeddingApp
+      - list [ref=e14]:
+        - listitem [ref=e15]:
+          - link "Dashboard" [ref=e16] [cursor=pointer]:
+            - /url: /dashboard
+            - img [ref=e17]
+            - generic [ref=e22]: Dashboard
+        - listitem [ref=e23]:
+          - link "Clients" [ref=e24] [cursor=pointer]:
+            - /url: /clients
+            - img [ref=e25]
+            - generic [ref=e30]: Clients
+        - listitem [ref=e31]:
+          - link "Templates" [ref=e32] [cursor=pointer]:
+            - /url: /templates
+            - img [ref=e33]
+            - generic [ref=e39]: Templates
+        - listitem [ref=e40]:
+          - link "Settings" [ref=e41] [cursor=pointer]:
+            - /url: /settings
+            - img [ref=e42]
+            - generic [ref=e45]: Settings
+      - button "Logout" [ref=e47] [cursor=pointer]:
+        - img
+        - text: Logout
+    - main [ref=e48]:
+      - button "Toggle Sidebar" [ref=e50] [cursor=pointer]:
+        - img
+        - generic [ref=e51]: Toggle Sidebar
+      - main [ref=e52]:
+        - generic [ref=e202]:
+          - generic [ref=e203]:
+            - generic [ref=e204]:
+              - link "Back" [ref=e205] [cursor=pointer]:
+                - /url: /clients
+                - img
+                - text: Back
+              - heading "Dimas Prasetyo & Anisa Rahma" [level=1] [ref=e206]
+              - generic [ref=e207]: published
+            - generic [ref=e208]:
+              - link "Preview" [ref=e209] [cursor=pointer]:
+                - /url: http://localhost:3001/dimas-prasetyo-anisa-rahma
+                - img
+                - text: Preview
+              - button "Delete" [ref=e210] [cursor=pointer]:
+                - img
+                - text: Delete
+          - generic [ref=e211]:
+            - tablist [ref=e212]:
+              - tab "Overview" [selected] [ref=e213] [cursor=pointer]
+              - tab "Couple" [ref=e214] [cursor=pointer]
+              - tab "Events" [ref=e215] [cursor=pointer]
+              - tab "Details" [ref=e216] [cursor=pointer]
+              - tab "Sections" [ref=e217] [cursor=pointer]
+              - tab "Guests" [ref=e218] [cursor=pointer]
+              - tab "Activity" [ref=e219] [cursor=pointer]
+            - tabpanel "Overview" [ref=e221]:
+              - generic [ref=e222]:
+                - generic [ref=e223]:
+                  - generic [ref=e225]:
+                    - paragraph [ref=e226]: "1"
+                    - paragraph [ref=e227]: Total Guests
+                  - generic [ref=e229]:
+                    - paragraph [ref=e230]: "0"
+                    - paragraph [ref=e231]: Attending
+                  - generic [ref=e233]:
+                    - paragraph [ref=e234]: "0"
+                    - paragraph [ref=e235]: Not Attending
+                  - generic [ref=e237]:
+                    - paragraph [ref=e238]: "1"
+                    - paragraph [ref=e239]: Pending
+                  - generic [ref=e241]:
+                    - paragraph [ref=e242]: "0"
+                    - paragraph [ref=e243]: Total Attendees
+                  - generic [ref=e245]:
+                    - paragraph [ref=e246]: "0"
+                    - paragraph [ref=e247]: Page Views
+                - generic [ref=e248]:
+                  - generic [ref=e250]: Guests by Category
+                  - generic [ref=e252]:
+                    - generic [ref=e253]:
+                      - generic [ref=e254]: Other
+                      - generic [ref=e255]: 1 (100%)
+                    - progressbar [ref=e256]
+  - alert [ref=e94]

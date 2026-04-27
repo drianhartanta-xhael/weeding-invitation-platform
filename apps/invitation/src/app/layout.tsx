@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Playfair_Display, Lato } from 'next/font/google';
 import './globals.css';
+import ErrorBoundary from '@/components/ErrorBoundary';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -25,7 +26,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${playfair.variable} ${lato.variable}`}>
-      <body>{children}</body>
+      <body>
+        <ErrorBoundary>{children}</ErrorBoundary>
+      </body>
     </html>
   );
 }

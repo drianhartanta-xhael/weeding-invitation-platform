@@ -1,0 +1,78 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e5]:
+      - link "WeddingApp" [ref=e7] [cursor=pointer]:
+        - /url: /dashboard
+        - img [ref=e8]
+        - generic [ref=e10]: WeddingApp
+      - list [ref=e14]:
+        - listitem [ref=e15]:
+          - link "Dashboard" [ref=e16] [cursor=pointer]:
+            - /url: /dashboard
+            - img [ref=e17]
+            - generic [ref=e22]: Dashboard
+        - listitem [ref=e23]:
+          - link "Clients" [ref=e24] [cursor=pointer]:
+            - /url: /clients
+            - img [ref=e25]
+            - generic [ref=e30]: Clients
+        - listitem [ref=e31]:
+          - link "Templates" [ref=e32] [cursor=pointer]:
+            - /url: /templates
+            - img [ref=e33]
+            - generic [ref=e39]: Templates
+        - listitem [ref=e40]:
+          - link "Settings" [ref=e41] [cursor=pointer]:
+            - /url: /settings
+            - img [ref=e42]
+            - generic [ref=e45]: Settings
+      - button "Logout" [ref=e47] [cursor=pointer]:
+        - img
+        - text: Logout
+    - main [ref=e48]:
+      - button "Toggle Sidebar" [ref=e50] [cursor=pointer]:
+        - img
+        - generic [ref=e51]: Toggle Sidebar
+      - main [ref=e52]:
+        - generic [ref=e53]:
+          - generic [ref=e57]:
+            - link "Clients" [ref=e58] [cursor=pointer]:
+              - /url: /clients
+              - img [ref=e59]
+              - text: Clients
+            - generic [ref=e61]:
+              - generic [ref=e62]:
+                - heading "Reza Pratama&Sinta Wijaya" [level=1] [ref=e63]
+                - generic [ref=e64]:
+                  - generic [ref=e65]: published
+                  - generic [ref=e67]: ·
+                  - generic [ref=e68]: 15 November 2026
+                  - generic [ref=e69]: ·
+                  - generic [ref=e70]: reza-pratama-sinta-wijaya
+              - generic [ref=e71]:
+                - link "Preview" [ref=e72] [cursor=pointer]:
+                  - /url: http://localhost:3001/reza-pratama-sinta-wijaya
+                  - img
+                  - text: Preview
+                - button "Delete" [ref=e73] [cursor=pointer]:
+                  - img
+                  - text: Delete
+          - generic [ref=e74]:
+            - tablist [ref=e75]:
+              - tab "Overview" [ref=e76] [cursor=pointer]
+              - tab "Couple" [ref=e77] [cursor=pointer]
+              - tab "Events" [ref=e78] [cursor=pointer]
+              - tab "Details" [ref=e79] [cursor=pointer]
+              - tab "Sections" [active] [selected] [ref=e80] [cursor=pointer]
+              - tab "Guests" [ref=e81] [cursor=pointer]
+              - tab "Activity" [ref=e82] [cursor=pointer]
+            - tabpanel "Sections" [ref=e112]:
+              - generic [ref=e113]:
+                - generic [ref=e114]:
+                  - generic [ref=e115]:
+                    - heading "Invitation Sections" [level=2] [ref=e116]
+                    - paragraph [ref=e117]: Click to expand and edit. Use Up/Down to reorder.
+                  - button "+ Add Section" [ref=e118] [cursor=pointer]
+                - paragraph [ref=e121]: No sections yet. Add sections to build the invitation.
+                - button "Save Sections" [ref=e122] [cursor=pointer]
+  - alert [ref=e111]

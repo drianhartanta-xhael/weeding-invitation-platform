@@ -7,6 +7,7 @@ import {
   deleteWish,
 } from '../controllers/wishController';
 import { authenticate } from '../middleware/auth';
+import { wishLimiter, publicLimiter } from '../middleware/rateLimiter';
 
 const router = Router();
 
@@ -16,7 +17,7 @@ router.patch('/:id/approve', authenticate, approveWish);
 router.delete('/:id', authenticate, deleteWish);
 
 // Public routes
-router.get('/public/:clientId', getPublicWishes);
-router.post('/', createWish);
+router.get('/public/:clientId', publicLimiter, getPublicWishes);
+router.post('/', wishLimiter, createWish);
 
 export default router;

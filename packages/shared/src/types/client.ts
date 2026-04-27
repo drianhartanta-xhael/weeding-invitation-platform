@@ -18,6 +18,14 @@ export interface IMusic {
   autoplay: boolean;
 }
 
+export interface ICustomContent {
+  heroTitle: string;
+  heroSubtitle: string;
+  bodyGreeting: string;
+  footerTitle: string;
+  footerMessage: string;
+}
+
 export interface IClient {
   _id: string;
   userId: string;
@@ -39,6 +47,14 @@ export interface IClient {
   slug: string;
   music: IMusic;
   bankAccounts: IBankAccount[];
+  customContent: ICustomContent;
+  sections: {
+    id: string;
+    componentId: string;
+    data: Record<string, any>;
+    style: string;
+    order: number;
+  }[];
   status: 'draft' | 'published';
   createdAt: Date;
   updatedAt: Date;

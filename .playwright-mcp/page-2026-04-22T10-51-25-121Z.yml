@@ -1,0 +1,89 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e5]:
+      - link "WeddingApp" [ref=e7] [cursor=pointer]:
+        - /url: /dashboard
+        - img [ref=e8]
+        - generic [ref=e10]: WeddingApp
+      - list [ref=e14]:
+        - listitem [ref=e15]:
+          - link "Dashboard" [ref=e16] [cursor=pointer]:
+            - /url: /dashboard
+            - img [ref=e17]
+            - generic [ref=e22]: Dashboard
+        - listitem [ref=e23]:
+          - link "Clients" [ref=e24] [cursor=pointer]:
+            - /url: /clients
+            - img [ref=e25]
+            - generic [ref=e30]: Clients
+        - listitem [ref=e31]:
+          - link "Templates" [ref=e32] [cursor=pointer]:
+            - /url: /templates
+            - img [ref=e33]
+            - generic [ref=e39]: Templates
+        - listitem [ref=e40]:
+          - link "Settings" [ref=e41] [cursor=pointer]:
+            - /url: /settings
+            - img [ref=e42]
+            - generic [ref=e45]: Settings
+      - button "Logout" [ref=e47] [cursor=pointer]:
+        - img
+        - text: Logout
+    - main [ref=e48]:
+      - button "Toggle Sidebar" [ref=e50] [cursor=pointer]:
+        - img
+        - generic [ref=e51]: Toggle Sidebar
+      - main [ref=e52]:
+        - generic [ref=e220]:
+          - generic [ref=e221]:
+            - link "Clients" [ref=e222] [cursor=pointer]:
+              - /url: /clients
+              - img [ref=e223]
+              - text: Clients
+            - generic [ref=e225]:
+              - generic [ref=e226]:
+                - heading "Reza Pratama&Sinta Wijaya" [level=1] [ref=e227]
+                - generic [ref=e228]:
+                  - generic [ref=e229]: published
+                  - generic [ref=e231]: ·
+                  - generic [ref=e232]: 15 November 2026
+                  - generic [ref=e233]: ·
+                  - generic [ref=e234]: reza-pratama-sinta-wijaya
+              - generic [ref=e235]:
+                - link "Preview" [ref=e236] [cursor=pointer]:
+                  - /url: http://localhost:3001/reza-pratama-sinta-wijaya
+                  - img
+                  - text: Preview
+                - button "Delete" [ref=e237] [cursor=pointer]:
+                  - img
+                  - text: Delete
+          - generic [ref=e238]:
+            - tablist [ref=e239]:
+              - tab "Overview" [selected] [ref=e240] [cursor=pointer]
+              - tab "Couple" [ref=e241] [cursor=pointer]
+              - tab "Events" [ref=e242] [cursor=pointer]
+              - tab "Details" [ref=e243] [cursor=pointer]
+              - tab "Sections" [ref=e244] [cursor=pointer]
+              - tab "Guests" [ref=e245] [cursor=pointer]
+              - tab "Activity" [ref=e246] [cursor=pointer]
+            - tabpanel "Overview" [ref=e248]:
+              - generic [ref=e250]:
+                - generic [ref=e252]:
+                  - paragraph [ref=e253]: "0"
+                  - paragraph [ref=e254]: Total Guests
+                - generic [ref=e256]:
+                  - paragraph [ref=e257]: "0"
+                  - paragraph [ref=e258]: Attending
+                - generic [ref=e260]:
+                  - paragraph [ref=e261]: "0"
+                  - paragraph [ref=e262]: Not Attending
+                - generic [ref=e264]:
+                  - paragraph [ref=e265]: "0"
+                  - paragraph [ref=e266]: Pending
+                - generic [ref=e268]:
+                  - paragraph [ref=e269]: "0"
+                  - paragraph [ref=e270]: Total Attendees
+                - generic [ref=e272]:
+                  - paragraph [ref=e273]: "0"
+                  - paragraph [ref=e274]: Page Views
+  - alert [ref=e94]
