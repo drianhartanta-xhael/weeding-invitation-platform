@@ -9,6 +9,7 @@ import Wishes from './sections/Wishes';
 import Gift from './sections/Gift';
 import Story from './sections/Story';
 import LocationMap from './sections/LocationMap';
+import type { DecorationConfig, SectionVariant } from '@/lib/decorations/types';
 
 interface SectionData {
   id: string;
@@ -26,12 +27,14 @@ interface StylePreset {
 interface SectionRendererProps {
   sections: SectionData[];
   stylePresets: Record<string, StylePreset>;
-  // Context data passed through for components that need it
   clientId: string;
   clientSlug: string;
   guestSlug?: string;
   guestRsvpStatus?: string;
+  decorConfig?: DecorationConfig;
 }
+
+const VALID_VARIANTS = new Set<string>(['light', 'dark', 'accent', 'image-1', 'image-2']);
 
 export default function SectionRenderer({
   sections,
@@ -40,13 +43,16 @@ export default function SectionRenderer({
   clientSlug,
   guestSlug,
   guestRsvpStatus,
+  decorConfig,
 }: SectionRendererProps) {
   const sorted = [...sections].sort((a, b) => a.order - b.order);
+  const SectionDecor = decorConfig?.SectionDecor;
 
   return (
     <>
       {sorted.map((section) => {
         const preset = stylePresets[section.style] || { bg: '#FEFAE0', text: '#333333' };
+        const variant: SectionVariant = VALID_VARIANTS.has(section.style) ? section.style as SectionVariant : 'light';
 
         const wrapperStyle = {
           backgroundColor: preset.bg,
@@ -56,6 +62,10 @@ export default function SectionRenderer({
         let content: React.ReactNode = null;
 
         switch (section.componentId) {
+          case 'cover':
+            content = null;
+            break;
+
           case 'couple-profile':
             content = (
               <Couple
@@ -127,8 +137,15 @@ export default function SectionRenderer({
         if (!content) return null;
 
         return (
-          <div key={section.id} style={wrapperStyle}>
-            {content}
+          <div key={section.id} style={{ ...wrapperStyle, position: 'relative', overflow: 'hidden' }}>
+            {SectionDecor && decorConfig && (
+              <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0 }}>
+                <SectionDecor colors={decorConfig.colors} variant={variant} />
+              </div>
+            )}
+            <div style={{ position: 'relative', zIndex: 1 }}>
+              {content}
+            </div>
           </div>
         );
       })}

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
+import { AnimatePresence } from 'framer-motion';
 import api from '@/lib/api';
 import Hero from '@/components/sections/Hero';
 import BodyGreeting from '@/components/sections/BodyGreeting';
@@ -15,6 +16,8 @@ import Gift from '@/components/sections/Gift';
 import Footer from '@/components/sections/Footer';
 import MusicPlayer from '@/components/sections/MusicPlayer';
 import SectionRenderer from '@/components/SectionRenderer';
+import Cover from '@/components/Cover';
+import { DECORATION_REGISTRY } from '@/lib/decorations/registry';
 
 interface TemplateConfig {
   primaryColor: string;
@@ -71,6 +74,7 @@ interface InvitationData {
   templateId?: {
     config: TemplateConfig;
     stylePresets?: Record<string, { bg: string; text: string }>;
+    decorationStyle?: string;
   } | null;
 }
 
@@ -96,6 +100,7 @@ export default function InvitationPage() {
   const [wishes, setWishes] = useState<WishData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
 
   const slug = params.slug as string;
   const guestSlug = searchParams.get('to');
@@ -172,7 +177,7 @@ export default function InvitationPage() {
 
   // ===== DUAL-MODE RENDERING =====
   const hasSections = invitation.sections && invitation.sections.length > 0;
-  const templateConfig = (invitation.templateId as { config: TemplateConfig; stylePresets?: Record<string, { bg: string; text: string }> } | null);
+  const templateConfig = (invitation.templateId as { config: TemplateConfig; stylePresets?: Record<string, { bg: string; text: string }>; decorationStyle?: string } | null);
   const cc = invitation.customContent;
 
   // Resolve content for legacy mode: client > template > hardcoded
@@ -190,38 +195,66 @@ export default function InvitationPage() {
     'image-2': { bg: '#E8E0D8', text: '#333333' },
   };
 
+  const decorationStyle = templateConfig?.decorationStyle;
+  const decorConfig = DECORATION_REGISTRY[decorationStyle ?? 'none'] ?? DECORATION_REGISTRY['none'];
+
   return (
-    <main>
+    <main style={decorConfig.colors.bg !== '#FEFAE0' ? { backgroundColor: decorConfig.colors.bg } : undefined}>
       <MusicPlayer url={invitation.music.url} autoplay={invitation.music.autoplay} />
 
       {hasSections ? (
         // ===== NEW SLOT-BASED RENDERING =====
-        <>
-          <Hero
-            groomName={invitation.groomName}
-            brideName={invitation.brideName}
-            eventDate={invitation.eventDate}
-            guestName={guest?.invitationName}
-            heroTitle={heroTitle}
-            heroSubtitle={heroSubtitle}
-          />
+        (() => {
+          const coverSection = invitation.sections!.find(s => s.componentId === 'cover');
+          const contentSections = invitation.sections!.filter(s => s.componentId !== 'cover');
+          return (
+            <>
+              <AnimatePresence>
+                {coverSection && !isOpen && (
+                  <Cover
+                    key="cover-overlay"
+                    groomName={invitation.groomName}
+                    brideName={invitation.brideName}
+                    guestName={guest?.invitationName}
+                    coverText={coverSection.data.coverText}
+                    bg={templateConfig?.stylePresets?.['dark']?.bg}
+                    onOpen={() => setIsOpen(true)}
+                  />
+                )}
+              </AnimatePresence>
 
-          <SectionRenderer
-            sections={invitation.sections!}
-            stylePresets={templateConfig?.stylePresets || defaultStylePresets}
-            clientId={invitation._id}
-            clientSlug={invitation.slug}
-            guestSlug={guest?.slug}
-            guestRsvpStatus={guest?.rsvpStatus}
-          />
+              <Hero
+                groomName={invitation.groomName}
+                brideName={invitation.brideName}
+                eventDate={invitation.eventDate}
+                venue={invitation.events?.[0]?.venue}
+                guestName={guest?.invitationName}
+                heroTitle={heroTitle}
+                bodyGreeting={bodyGreeting}
+                decorConfig={decorConfig}
+              />
 
-          <Footer
-            groomName={invitation.groomName}
-            brideName={invitation.brideName}
-            footerTitle={footerTitle}
-            footerMessage={footerMessage}
-          />
-        </>
+              <SectionRenderer
+                sections={contentSections}
+                stylePresets={templateConfig?.stylePresets || defaultStylePresets}
+                clientId={invitation._id}
+                clientSlug={invitation.slug}
+                guestSlug={guest?.slug}
+                guestRsvpStatus={guest?.rsvpStatus}
+                decorConfig={decorConfig}
+              />
+
+              <Footer
+                groomName={invitation.groomName}
+                brideName={invitation.brideName}
+                eventDate={invitation.eventDate}
+                footerTitle={footerTitle}
+                footerMessage={footerMessage}
+                decorConfig={decorConfig}
+              />
+            </>
+          );
+        })()
       ) : (
         // ===== LEGACY RENDERING (backward compatible) =====
         <>
@@ -231,7 +264,6 @@ export default function InvitationPage() {
             eventDate={invitation.eventDate}
             guestName={guest?.invitationName}
             heroTitle={heroTitle}
-            heroSubtitle={heroSubtitle}
           />
 
           <BodyGreeting text={bodyGreeting} />
