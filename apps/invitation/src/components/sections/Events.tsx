@@ -15,6 +15,8 @@ interface EventsProps {
   events: Event[];
 }
 
+const ROMAN = ['I', 'II', 'III', 'IV', 'V'];
+
 function formatDate(dateStr: string) {
   const d = new Date(dateStr);
   if (isNaN(d.getTime())) return dateStr;
@@ -22,42 +24,70 @@ function formatDate(dateStr: string) {
 }
 
 export default function Events({ events }: EventsProps) {
+  if (!events || events.length === 0) return null;
+
   return (
-    <section className="py-20 px-4 bg-wedding-secondary">
-      <motion.h2
-        initial={{ opacity: 0, y: 40 }}
+    <section className="py-20 px-4">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="font-heading text-3xl md:text-4xl text-center text-wedding-accent mb-16"
+        className="text-center mb-12"
       >
-        Wedding Events
-      </motion.h2>
+        <p className="text-xs tracking-[0.25em] uppercase mb-2" style={{ color: 'var(--wedding-accent, #C8A84B)' }}>
+          Rangkaian Acara
+        </p>
+        <h2 className="font-heading text-3xl md:text-4xl italic" style={{ color: 'var(--wedding-secondary, #F5EDE0)' }}>
+          Hari Istimewa
+        </h2>
+      </motion.div>
 
-      <div className="max-w-3xl mx-auto space-y-8">
+      <div className="max-w-2xl mx-auto space-y-5">
         {events.map((event, index) => (
           <motion.div
             key={index}
-            initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="bg-white rounded-2xl p-8 shadow-sm text-center"
+            transition={{ delay: index * 0.12 }}
+            className="rounded-xl p-8"
+            style={{
+              backgroundColor: 'rgba(255,255,255,0.07)',
+              border: '1px solid rgba(200,168,75,0.2)',
+            }}
           >
-            <h3 className="font-heading text-2xl text-wedding-accent mb-4">
-              {event.name}
-            </h3>
-            <p className="text-gray-600 mb-1">{formatDate(event.date)}</p>
-            <p className="text-gray-600 mb-4">{event.time}</p>
-            <p className="font-medium text-gray-800">{event.venue}</p>
-            <p className="text-gray-500 text-sm mb-4">{event.address}</p>
+            <p className="text-xs tracking-widest uppercase mb-5" style={{ color: 'var(--wedding-accent, #C8A84B)' }}>
+              {ROMAN[index] || String(index + 1)} · {event.name}
+            </p>
+
+            <div className="space-y-3 text-sm" style={{ color: 'var(--wedding-secondary, #F5EDE0)' }}>
+              <div>
+                <p className="text-xs uppercase tracking-widest mb-0.5" style={{ opacity: 0.5 }}>Tanggal</p>
+                <p>{formatDate(event.date)}</p>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-widest mb-0.5" style={{ opacity: 0.5 }}>Waktu</p>
+                <p>{event.time}</p>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-widest mb-0.5" style={{ opacity: 0.5 }}>Tempat</p>
+                <p>{event.venue}</p>
+                {event.address && <p className="text-xs mt-0.5" style={{ opacity: 0.6 }}>{event.address}</p>}
+              </div>
+            </div>
+
             {event.mapUrl && (
               <a
                 href={event.mapUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block px-4 py-2 bg-wedding-accent text-white rounded-lg text-sm hover:opacity-90 transition-opacity"
+                className="inline-block mt-6 px-5 py-2 text-xs tracking-widest uppercase rounded-full"
+                style={{
+                  backgroundColor: 'var(--wedding-accent, #C8A84B)',
+                  color: '#3D1A0E',
+                }}
               >
-                Open Maps
+                Lihat Peta
               </a>
             )}
           </motion.div>
