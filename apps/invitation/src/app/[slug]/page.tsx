@@ -18,6 +18,7 @@ import MusicPlayer from '@/components/sections/MusicPlayer';
 import SectionRenderer from '@/components/SectionRenderer';
 import Cover from '@/components/Cover';
 import { DECORATION_REGISTRY } from '@/lib/decorations/registry';
+import { REGION_STRIPES } from '@/lib/regionStripes';
 
 interface TemplateConfig {
   primaryColor: string;
@@ -30,6 +31,8 @@ interface TemplateConfig {
   bodyGreeting?: string;
   footerTitle?: string;
   footerMessage?: string;
+  regionKey?: string;
+  regionLabel?: string;
 }
 
 interface CustomContent {
@@ -198,6 +201,10 @@ export default function InvitationPage() {
   const decorationStyle = templateConfig?.decorationStyle;
   const decorConfig = DECORATION_REGISTRY[decorationStyle ?? 'none'] ?? DECORATION_REGISTRY['none'];
 
+  const regionKey = templateConfig?.config?.regionKey;
+  const regionStripe = regionKey ? REGION_STRIPES[regionKey] : undefined;
+  const regionLabel = templateConfig?.config?.regionLabel;
+
   return (
     <main style={decorConfig.colors.bg !== '#FEFAE0' ? { backgroundColor: decorConfig.colors.bg } : undefined}>
       <MusicPlayer url={invitation.music.url} autoplay={invitation.music.autoplay} />
@@ -231,6 +238,7 @@ export default function InvitationPage() {
                 guestName={guest?.invitationName}
                 heroTitle={heroTitle}
                 bodyGreeting={bodyGreeting}
+                regionStripe={regionStripe}
                 decorConfig={decorConfig}
               />
 
@@ -250,6 +258,8 @@ export default function InvitationPage() {
                 eventDate={invitation.eventDate}
                 footerTitle={footerTitle}
                 footerMessage={footerMessage}
+                regionStripe={regionStripe}
+                regionLabel={regionLabel}
                 decorConfig={decorConfig}
               />
             </>

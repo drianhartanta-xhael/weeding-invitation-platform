@@ -10,6 +10,7 @@ interface HeroProps {
   guestName?: string;
   heroTitle?: string;
   bodyGreeting?: string;
+  regionStripe?: string;
   decorConfig?: unknown;
 }
 
@@ -19,7 +20,7 @@ function formatDate(dateStr: string) {
   return d.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 }
 
-export default function Hero({ groomName, brideName, eventDate, venue, guestName, heroTitle, bodyGreeting }: HeroProps) {
+export default function Hero({ groomName, brideName, eventDate, venue, guestName, heroTitle, bodyGreeting, regionStripe }: HeroProps) {
   const handleScroll = () => {
     window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
   };
@@ -125,6 +126,14 @@ export default function Hero({ groomName, brideName, eventDate, venue, guestName
       >
         Gulir ↓
       </motion.button>
+
+      {regionStripe && (
+        <div
+          aria-hidden
+          className="absolute bottom-0 left-0 right-0"
+          style={{ height: 4, background: regionStripe }}
+        />
+      )}
     </section>
   );
 }

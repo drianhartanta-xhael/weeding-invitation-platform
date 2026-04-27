@@ -8,6 +8,8 @@ interface FooterProps {
   eventDate?: string;
   footerTitle?: string;
   footerMessage?: string;
+  regionStripe?: string;
+  regionLabel?: string;
   decorConfig?: unknown;
 }
 
@@ -18,20 +20,23 @@ function formatDateShort(dateStr?: string) {
   return d.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
 }
 
-export default function Footer({ groomName, brideName, eventDate, footerMessage }: FooterProps) {
+export default function Footer({ groomName, brideName, eventDate, footerMessage, regionStripe, regionLabel }: FooterProps) {
   return (
     <footer
-      className="py-16 px-4 text-center relative overflow-hidden"
+      className="text-center relative overflow-hidden"
       style={{ backgroundColor: 'var(--wedding-primary, #6B1020)' }}
     >
+      {regionStripe && (
+        <div aria-hidden style={{ height: 4, background: regionStripe }} />
+      )}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="max-w-lg mx-auto"
+        className="max-w-lg mx-auto py-16 px-4"
       >
         <p className="text-xs tracking-[0.3em] uppercase mb-6" style={{ color: 'var(--wedding-accent, #C8A84B)' }}>
-          Nusantara Wedding
+          {regionLabel || 'Nusantara Wedding'}
         </p>
 
         <h2 className="font-heading text-4xl md:text-5xl italic mb-2" style={{ color: 'var(--wedding-secondary, #F5EDE0)' }}>
