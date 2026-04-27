@@ -290,7 +290,7 @@ const DEFAULT_CULTURAL_QUOTES = [
   { ethnic: 'PADANG', quote: 'Duduak surang basampik, duduak basamo balapang' },
 ];
 
-export function getDefaultComponentData(id: ComponentId): Record<string, any> {
+export function getDefaultComponentData(id: ComponentId): ComponentData {
   switch (id) {
     case 'cover':
       return { coverText: '' };
