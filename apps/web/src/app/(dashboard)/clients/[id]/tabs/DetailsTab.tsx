@@ -25,7 +25,14 @@ export default function DetailsTab({ client, saving, saveClient }: Props) {
     slug: client.slug || '',
     eventDate: dateToInput(client.eventDate),
     status: (client.status || 'draft') as 'draft' | 'published',
-    music: { url: client.music?.url || '', autoplay: client.music?.autoplay || false },
+    music: {
+      videoId: client.music?.videoId || '',
+      title: client.music?.title || '',
+      artist: client.music?.artist || '',
+      thumbnailUrl: client.music?.thumbnailUrl || '',
+      url: client.music?.url || '',
+      autoplay: client.music?.autoplay || false,
+    },
   });
   const [selectedTemplateId, setSelectedTemplateId] = useState<string>(
     typeof client.templateId === 'object' && client.templateId
@@ -37,6 +44,12 @@ export default function DetailsTab({ client, saving, saveClient }: Props) {
   const [bankAccounts, setBankAccounts] = useState<BankAccount[]>(client.bankAccounts || []);
   const [newBank, setNewBank] = useState<BankAccount>({ ...EMPTY_BANK });
   const [showAddBank, setShowAddBank] = useState(false);
+  const [musicMode, setMusicMode] = useState<'youtube' | 'audio'>(
+    client.music?.videoId ? 'youtube' : client.music?.url ? 'audio' : 'youtube'
+  );
+  const [youtubeUrlInput, setYoutubeUrlInput] = useState('');
+  const [previewLoading, setPreviewLoading] = useState(false);
+  const [previewError, setPreviewError] = useState('');
 
   useEffect(() => {
     api
@@ -44,6 +57,40 @@ export default function DetailsTab({ client, saving, saveClient }: Props) {
       .then(({ data }) => { setTemplates(data.templates); setTemplatesLoaded(true); })
       .catch(() => {});
   }, []);
+
+  const handlePreview = async () => {
+    setPreviewError('');
+    setPreviewLoading(true);
+    try {
+      const { data } = await api.post('/youtube/preview', { url: youtubeUrlInput });
+      setForm((f) => ({
+        ...f,
+        music: {
+          ...f.music,
+          videoId: data.videoId,
+          title: data.title,
+          artist: data.artist,
+          thumbnailUrl: data.thumbnailUrl,
+        },
+      }));
+    } catch (err: unknown) {
+      const msg =
+        (err as { response?: { data?: { message?: string } } }).response?.data?.message ||
+        'Preview failed';
+      setPreviewError(msg);
+    } finally {
+      setPreviewLoading(false);
+    }
+  };
+
+  const handleClearYoutube = () => {
+    setForm((f) => ({
+      ...f,
+      music: { ...f.music, videoId: '', title: '', artist: '', thumbnailUrl: '' },
+    }));
+    setYoutubeUrlInput('');
+    setPreviewError('');
+  };
 
   return (
     <div className="space-y-6">
@@ -89,24 +136,98 @@ export default function DetailsTab({ client, saving, saveClient }: Props) {
           <CardTitle>Background Music</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="flex gap-4 items-center">
+            <Label className="text-sm font-medium">Mode:</Label>
+            <label className="flex items-center gap-1.5 text-sm">
+              <input
+                type="radio"
+                name="music-mode"
+                value="youtube"
+                checked={musicMode === 'youtube'}
+                onChange={() => setMusicMode('youtube')}
+              />
+              YouTube
+            </label>
+            <label className="flex items-center gap-1.5 text-sm">
+              <input
+                type="radio"
+                name="music-mode"
+                value="audio"
+                checked={musicMode === 'audio'}
+                onChange={() => setMusicMode('audio')}
+              />
+              Audio file (legacy)
+            </label>
+          </div>
+
+          {musicMode === 'youtube' && (
+            <div className="space-y-3">
+              {form.music.videoId ? (
+                <div className="flex items-center gap-3 p-3 border rounded-lg bg-muted/30">
+                  {form.music.thumbnailUrl && (
+                    <img
+                      src={form.music.thumbnailUrl}
+                      alt=""
+                      className="w-16 h-16 rounded object-cover"
+                    />
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <p className="font-medium text-sm truncate">{form.music.title}</p>
+                    <p className="text-xs text-muted-foreground truncate">{form.music.artist}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">
+                      videoId: {form.music.videoId}
+                    </p>
+                  </div>
+                  <Button variant="outline" size="sm" onClick={handleClearYoutube}>
+                    Clear
+                  </Button>
+                </div>
+              ) : (
+                <div className="space-y-1.5">
+                  <Label>YouTube URL</Label>
+                  <div className="flex gap-2">
+                    <Input
+                      value={youtubeUrlInput}
+                      onChange={(e) => setYoutubeUrlInput(e.target.value)}
+                      placeholder="https://www.youtube.com/watch?v=..."
+                    />
+                    <Button
+                      variant="outline"
+                      onClick={handlePreview}
+                      disabled={previewLoading || !youtubeUrlInput.trim()}
+                    >
+                      {previewLoading ? 'Loading...' : 'Preview'}
+                    </Button>
+                  </div>
+                  {previewError && (
+                    <p className="text-xs text-destructive">{previewError}</p>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
+
+          {musicMode === 'audio' && (
             <div className="space-y-1.5">
-              <Label>Music URL</Label>
+              <Label>Audio URL (MP3)</Label>
               <Input
                 value={form.music.url}
-                onChange={(e) => setForm({ ...form, music: { ...form.music, url: e.target.value } })}
+                onChange={(e) =>
+                  setForm({ ...form, music: { ...form.music, url: e.target.value } })
+                }
                 placeholder="https://..."
               />
             </div>
-            <div className="flex items-end pb-0.5">
-              <div className="flex items-center gap-2">
-                <Switch
-                  checked={form.music.autoplay}
-                  onCheckedChange={(checked) => setForm({ ...form, music: { ...form.music, autoplay: checked } })}
-                />
-                <Label>Autoplay</Label>
-              </div>
-            </div>
+          )}
+
+          <div className="flex items-center gap-2">
+            <Switch
+              checked={form.music.autoplay}
+              onCheckedChange={(checked) =>
+                setForm({ ...form, music: { ...form.music, autoplay: checked } })
+              }
+            />
+            <Label>Autoplay setelah cover dibuka</Label>
           </div>
         </CardContent>
       </Card>
@@ -210,7 +331,43 @@ export default function DetailsTab({ client, saving, saveClient }: Props) {
           )}
 
           <Button disabled={saving}
-            onClick={() => saveClient({ ...form, bankAccounts, templateId: selectedTemplateId || undefined })}>
+            onClick={() => {
+              const musicPayload =
+                musicMode === 'youtube'
+                  ? form.music.videoId
+                    ? {
+                        videoId: form.music.videoId,
+                        title: form.music.title,
+                        artist: form.music.artist,
+                        thumbnailUrl: form.music.thumbnailUrl,
+                        url: '',
+                        autoplay: form.music.autoplay,
+                      }
+                    : {
+                        videoId: '',
+                        title: '',
+                        artist: '',
+                        thumbnailUrl: '',
+                        url: '',
+                        autoplay: form.music.autoplay,
+                      }
+                  : {
+                      videoId: '',
+                      title: '',
+                      artist: '',
+                      thumbnailUrl: '',
+                      url: form.music.url,
+                      autoplay: form.music.autoplay,
+                    };
+              saveClient({
+                slug: form.slug,
+                eventDate: form.eventDate,
+                status: form.status,
+                music: musicPayload,
+                bankAccounts,
+                templateId: selectedTemplateId || undefined,
+              });
+            }}>
             {saving ? 'Saving...' : 'Save Details'}
           </Button>
         </CardContent>
