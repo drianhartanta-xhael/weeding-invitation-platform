@@ -36,7 +36,14 @@ export interface Client {
   events: EventItem[];
   templateId: string;
   slug: string;
-  music: { url: string; autoplay: boolean };
+  music: {
+    videoId?: string;
+    title?: string;
+    artist?: string;
+    thumbnailUrl?: string;
+    url?: string;
+    autoplay: boolean;
+  };
   bankAccounts: BankAccount[];
   customContent: {
     heroTitle: string;
