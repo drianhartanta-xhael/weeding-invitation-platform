@@ -26,7 +26,11 @@ export interface IClientDocument extends Document {
   templateId: mongoose.Types.ObjectId;
   slug: string;
   music: {
-    url: string;
+    videoId?: string;
+    title?: string;
+    artist?: string;
+    thumbnailUrl?: string;
+    url?: string;
     autoplay: boolean;
   };
   bankAccounts: {
@@ -113,6 +117,10 @@ const clientSchema = new Schema<IClientDocument>(
       trim: true,
     },
     music: {
+      videoId: { type: String, default: '' },
+      title: { type: String, default: '' },
+      artist: { type: String, default: '' },
+      thumbnailUrl: { type: String, default: '' },
       url: { type: String, default: '' },
       autoplay: { type: Boolean, default: true },
     },
