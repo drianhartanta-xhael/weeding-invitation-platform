@@ -14,7 +14,14 @@ export interface IBankAccount {
 }
 
 export interface IMusic {
-  url: string;
+  // YouTube path (new)
+  videoId?: string;
+  title?: string;
+  artist?: string;
+  thumbnailUrl?: string;
+  // Legacy direct-MP3 path
+  url?: string;
+  // Common
   autoplay: boolean;
 }
 
