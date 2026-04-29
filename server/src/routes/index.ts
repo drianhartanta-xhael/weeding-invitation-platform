@@ -7,6 +7,7 @@ import giftRoutes from './gifts';
 import invitationRoutes from './invitations';
 import templateRoutes from './templates';
 import uploadRoutes from './uploads';
+import youtubeRoutes from './youtube';
 
 const router = Router();
 
@@ -18,5 +19,6 @@ router.use('/gifts', giftRoutes);
 router.use('/invitations', invitationRoutes);
 router.use('/templates', templateRoutes);
 router.use('/uploads', uploadRoutes);
+router.use('/youtube', youtubeRoutes);
 
 export default router;
