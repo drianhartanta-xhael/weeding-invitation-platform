@@ -9,6 +9,12 @@ export const errorHandler = (
 ): void => {
   console.error('Error:', err);
 
+  if (err && typeof err === 'object' && 'status' in err && typeof (err as { status?: number }).status === 'number') {
+    const status = (err as { status: number }).status;
+    res.status(status).json({ message: (err as Error).message });
+    return;
+  }
+
   if (err instanceof ZodError) {
     res.status(400).json({
       message: 'Validation error',

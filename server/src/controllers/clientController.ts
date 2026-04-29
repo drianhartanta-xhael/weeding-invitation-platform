@@ -3,6 +3,74 @@ import mongoose from 'mongoose';
 import { Client, Guest, Wish, Gift, Template } from '../models';
 import { createClientSchema, updateClientSchema } from '../validators/client';
 import { AuthRequest } from '../middleware/auth';
+import { extractVideoId, fetchOEmbed } from '../services/youtubeService';
+
+interface MusicInput {
+  videoId?: string;
+  title?: string;
+  artist?: string;
+  thumbnailUrl?: string;
+  url?: string;
+  autoplay?: boolean;
+  youtubeUrl?: string;
+}
+
+async function enrichMusic(music: MusicInput | undefined): Promise<MusicInput | undefined> {
+  if (!music) return music;
+
+  const { youtubeUrl, ...rest } = music;
+
+  if (youtubeUrl !== undefined) {
+    const trimmed = (youtubeUrl || '').trim();
+    if (trimmed === '') {
+      // Empty youtubeUrl means "clear YouTube fields"
+      return {
+        ...rest,
+        videoId: '',
+        title: '',
+        artist: '',
+        thumbnailUrl: '',
+      };
+    }
+    const videoId = extractVideoId(trimmed);
+    if (!videoId) {
+      const err: Error & { status?: number } = new Error('Invalid YouTube URL');
+      err.status = 400;
+      throw err;
+    }
+    try {
+      const meta = await fetchOEmbed(videoId);
+      return {
+        ...rest,
+        videoId,
+        title: meta.title,
+        artist: meta.artist,
+        thumbnailUrl: meta.thumbnailUrl,
+        url: '', // clear legacy when switching to YouTube
+      };
+    } catch {
+      const err: Error & { status?: number } = new Error(
+        'Video tidak tersedia (private/deleted/region-locked)'
+      );
+      err.status = 400;
+      throw err;
+    }
+  }
+
+  // No youtubeUrl provided — pass through as-is.
+  // If admin sent music.url (legacy mode), clear YouTube-specific fields.
+  if (rest.url !== undefined && rest.url !== '') {
+    return {
+      ...rest,
+      videoId: '',
+      title: '',
+      artist: '',
+      thumbnailUrl: '',
+    };
+  }
+
+  return rest;
+}
 
 export const getClients = async (
   req: AuthRequest,
@@ -121,6 +189,7 @@ export const createClient = async (
 ): Promise<void> => {
   try {
     const data = createClientSchema.parse(req.body);
+    const enrichedMusic = await enrichMusic(data.music);
 
     let sections = data.sections || [];
 
@@ -134,6 +203,7 @@ export const createClient = async (
 
     const client = await Client.create({
       ...data,
+      music: enrichedMusic,
       sections,
       userId: req.user?._id,
     });
@@ -150,9 +220,11 @@ export const updateClient = async (
 ): Promise<void> => {
   try {
     const data = updateClientSchema.parse(req.body);
+    const enrichedMusic = await enrichMusic(data.music);
+    const payload = { ...data, music: enrichedMusic };
     const client = await Client.findOneAndUpdate(
       { _id: req.params.id, userId: req.user?._id },
-      data,
+      payload,
       { new: true }
     );
     if (!client) {
