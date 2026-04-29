@@ -69,7 +69,14 @@ interface InvitationData {
     mapUrl: string;
   }[];
   slug: string;
-  music: { url: string; autoplay: boolean };
+  music: {
+    videoId?: string;
+    title?: string;
+    artist?: string;
+    thumbnailUrl?: string;
+    url?: string;
+    autoplay: boolean;
+  };
   bankAccounts: { bank: string; accountNumber: string; accountName: string }[];
   gallery?: string[];
   customContent?: CustomContent;
@@ -207,7 +214,15 @@ export default function InvitationPage() {
 
   return (
     <main style={decorConfig.colors.bg !== '#FEFAE0' ? { backgroundColor: decorConfig.colors.bg } : undefined}>
-      <MusicPlayer url={invitation.music.url} autoplay={invitation.music.autoplay} />
+      <MusicPlayer
+        videoId={invitation.music.videoId}
+        title={invitation.music.title}
+        artist={invitation.music.artist}
+        thumbnailUrl={invitation.music.thumbnailUrl}
+        url={invitation.music.url}
+        autoplay={invitation.music.autoplay}
+        shouldPlay={isOpen}
+      />
 
       {hasSections ? (
         // ===== NEW SLOT-BASED RENDERING =====
