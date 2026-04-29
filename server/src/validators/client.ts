@@ -34,8 +34,16 @@ export const createClientSchema = z.object({
   slug: z.string().min(1, 'Slug is required'),
   music: z
     .object({
+      videoId: z
+        .string()
+        .regex(/^[A-Za-z0-9_-]{11}$/, 'Invalid videoId')
+        .optional(),
+      title: z.string().optional(),
+      artist: z.string().optional(),
+      thumbnailUrl: z.string().optional(),
       url: z.string().optional(),
       autoplay: z.boolean().optional(),
+      youtubeUrl: z.string().optional(), // input-only — controller extracts videoId, never persisted
     })
     .optional(),
   bankAccounts: z
