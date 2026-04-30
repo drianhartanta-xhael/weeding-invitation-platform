@@ -42,6 +42,7 @@ export interface EventDetailData {
 
 export interface GalleryData {
   images: string[];
+  layout?: 'carousel' | 'grid';
 }
 
 export interface DonationData {
@@ -196,7 +197,18 @@ export const COMPONENT_REGISTRY: ComponentMeta[] = [
     label: 'Gallery',
     description: 'Photo gallery section',
     icon: 'image',
-    fields: [{ key: 'images', label: 'Image URLs', type: 'image-list' }],
+    fields: [
+      { key: 'images', label: 'Image URLs', type: 'image-list' },
+      {
+        key: 'layout',
+        label: 'Layout',
+        type: 'select',
+        options: [
+          { value: 'carousel', label: 'Carousel' },
+          { value: 'grid', label: 'Grid (mosaic adaptif)' },
+        ],
+      },
+    ],
   },
   {
     id: 'donation',
