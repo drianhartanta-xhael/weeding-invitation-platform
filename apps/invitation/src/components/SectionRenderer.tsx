@@ -85,7 +85,12 @@ export default function SectionRenderer({
             break;
 
           case 'gallery':
-            content = <Gallery images={section.data.images || []} />;
+            content = (
+              <Gallery
+                images={section.data.images || []}
+                layout={section.data.layout}
+              />
+            );
             break;
 
           case 'donation':
