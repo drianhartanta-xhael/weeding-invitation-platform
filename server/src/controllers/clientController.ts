@@ -166,7 +166,7 @@ function buildDefaultSections(
         data = { bankAccounts: clientData.bankAccounts || [] };
         break;
       case 'gallery':
-        data = { images: [] };
+        data = { images: [], layout: 'carousel' };
         break;
       case 'story':
         data = { stories: [], layout: 'vertical' };
