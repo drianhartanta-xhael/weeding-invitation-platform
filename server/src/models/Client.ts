@@ -25,6 +25,7 @@ export interface IClientDocument extends Document {
   }[];
   templateId: mongoose.Types.ObjectId;
   slug: string;
+  venue: string;
   music: {
     videoId?: string;
     title?: string;
@@ -114,6 +115,11 @@ const clientSchema = new Schema<IClientDocument>(
       required: true,
       unique: true,
       lowercase: true,
+      trim: true,
+    },
+    venue: {
+      type: String,
+      default: '',
       trim: true,
     },
     music: {

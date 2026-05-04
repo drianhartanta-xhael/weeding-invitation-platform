@@ -52,6 +52,7 @@ export interface IClient {
   events: IEvent[];
   templateId: string;
   slug: string;
+  venue: string;
   music: IMusic;
   bankAccounts: IBankAccount[];
   customContent: ICustomContent;

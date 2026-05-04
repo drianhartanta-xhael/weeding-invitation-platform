@@ -32,6 +32,7 @@ export const createClientSchema = z.object({
     .optional(),
   templateId: z.string().optional(),
   slug: z.string().min(1, 'Slug is required'),
+  venue: z.string().optional(),
   music: z
     .object({
       videoId: z
