@@ -78,7 +78,9 @@ export const getClients = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const clients = await Client.find({ userId: req.user?._id }).sort({ createdAt: -1 });
+    const clients = await Client.find({ userId: req.user?._id })
+      .populate('templateId', 'name slug config')
+      .sort({ createdAt: -1 });
     res.json({ clients });
   } catch (error) {
     next(error);
