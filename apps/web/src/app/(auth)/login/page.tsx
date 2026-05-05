@@ -3,13 +3,11 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Heart } from 'lucide-react';
 import api from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { AuthCard } from '../_components/AuthCard';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -26,73 +24,68 @@ export default function LoginPage() {
       localStorage.setItem('token', data.token);
       router.push('/dashboard');
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Login failed');
+      setError(err.response?.data?.message || 'Gagal masuk');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-muted/40">
-      <div className="w-full max-w-sm px-4">
-        <div className="flex justify-center mb-6">
-          <div className="flex items-center gap-2">
-            <Heart className="h-7 w-7 text-primary fill-primary" />
-            <span className="text-2xl font-bold">WeddingApp</span>
-          </div>
+    <AuthCard
+      title="Selamat datang 👋"
+      subtitle="Masuk untuk mengelola undangan pernikahan"
+      footer={
+        <>
+          Belum punya akun?{' '}
+          <Link href="/register" className="font-semibold text-primary hover:underline">
+            Daftar di sini
+          </Link>
+        </>
+      }
+    >
+      {error && (
+        <Alert variant="destructive" className="mb-4">
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
+      )}
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="space-y-1.5">
+          <label
+            htmlFor="email"
+            className="block text-[11px] font-semibold uppercase tracking-[0.03em] text-foreground"
+          >
+            Email
+          </label>
+          <Input
+            id="email"
+            type="email"
+            placeholder="admin@wedding.dev"
+            value={form.email}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
+            required
+            className="h-11 rounded-lg border-[1.5px]"
+          />
         </div>
-
-        <Card>
-          <CardHeader className="text-center">
-            <CardTitle className="text-xl">Welcome back</CardTitle>
-            <CardDescription>Sign in to your account</CardDescription>
-          </CardHeader>
-
-          <CardContent>
-            {error && (
-              <Alert variant="destructive" className="mb-4">
-                <AlertDescription>{error}</AlertDescription>
-              </Alert>
-            )}
-
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="space-y-1.5">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="admin@wedding.dev"
-                  value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  required
-                />
-              </div>
-
-              <div className="space-y-1.5">
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  value={form.password}
-                  onChange={(e) => setForm({ ...form, password: e.target.value })}
-                  required
-                />
-              </div>
-
-              <Button type="submit" className="w-full" disabled={loading}>
-                {loading ? 'Signing in...' : 'Sign in'}
-              </Button>
-            </form>
-          </CardContent>
-
-          <CardFooter className="justify-center text-sm text-muted-foreground">
-            Don&apos;t have an account?&nbsp;
-            <Link href="/register" className="text-primary hover:underline font-medium">
-              Register
-            </Link>
-          </CardFooter>
-        </Card>
-      </div>
-    </main>
+        <div className="space-y-1.5">
+          <label
+            htmlFor="password"
+            className="block text-[11px] font-semibold uppercase tracking-[0.03em] text-foreground"
+          >
+            Kata Sandi
+          </label>
+          <Input
+            id="password"
+            type="password"
+            value={form.password}
+            onChange={(e) => setForm({ ...form, password: e.target.value })}
+            required
+            className="h-11 rounded-lg border-[1.5px]"
+          />
+        </div>
+        <Button type="submit" className="mt-2 h-11 w-full rounded-lg text-[13px] font-semibold" disabled={loading}>
+          {loading ? 'Memproses...' : 'Masuk ke Dashboard →'}
+        </Button>
+      </form>
+    </AuthCard>
   );
 }
