@@ -1,10 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Users, UserCheck, Heart, Gift } from 'lucide-react';
 import api from '@/lib/api';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Skeleton } from '@/components/ui/skeleton';
+import { StatCard } from '@/components/admin/StatCard';
+import { usePageHeader } from '@/components/admin/PageHeaderProvider';
 
 interface Stats {
   totalClients: number;
@@ -13,14 +12,20 @@ interface Stats {
   totalGifts: number;
 }
 
-const statCards = [
-  { key: 'totalClients' as const, label: 'Total Clients', icon: Users, color: 'text-blue-600', bg: 'bg-blue-50' },
-  { key: 'totalGuests' as const, label: 'Total Guests', icon: UserCheck, color: 'text-green-600', bg: 'bg-green-50' },
-  { key: 'totalWishes' as const, label: 'Total Wishes', icon: Heart, color: 'text-pink-600', bg: 'bg-pink-50' },
-  { key: 'totalGifts' as const, label: 'Total Gifts', icon: Gift, color: 'text-amber-600', bg: 'bg-amber-50' },
+const STAT_DEFS: Array<{
+  key: keyof Stats;
+  label: string;
+  accent: string;
+}> = [
+  { key: 'totalClients', label: 'Total Klien', accent: '#6366f1' },
+  { key: 'totalGuests', label: 'Total Tamu', accent: '#10b981' },
+  { key: 'totalWishes', label: 'Total Ucapan', accent: '#f59e0b' },
+  { key: 'totalGifts', label: 'Total Hadiah', accent: '#3b82f6' },
 ];
 
 export default function DashboardPage() {
+  usePageHeader({ title: 'Dashboard', subtitle: 'Ringkasan platform undangan kamu' });
+
   const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -33,31 +38,16 @@ export default function DashboardPage() {
   }, []);
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight">Dashboard</h1>
-        <p className="text-muted-foreground">Overview of your wedding invitation platform</p>
-      </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {statCards.map(({ key, label, icon: Icon, color, bg }) => (
-          <Card key={key}>
-            <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">{label}</CardTitle>
-              <div className={`p-2 rounded-lg ${bg}`}>
-                <Icon className={`h-4 w-4 ${color}`} />
-              </div>
-            </CardHeader>
-            <CardContent>
-              {loading ? (
-                <Skeleton className="h-8 w-16" />
-              ) : (
-                <p className="text-3xl font-bold">{stats?.[key] ?? 0}</p>
-              )}
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+    <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
+      {STAT_DEFS.map((def) => (
+        <StatCard
+          key={def.key}
+          accentColor={def.accent}
+          label={def.label}
+          value={stats?.[def.key] ?? 0}
+          loading={loading}
+        />
+      ))}
     </div>
   );
 }
