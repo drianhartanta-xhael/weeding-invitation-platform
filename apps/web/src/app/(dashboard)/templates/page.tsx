@@ -14,6 +14,7 @@ import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import { usePageHeader } from '@/components/admin/PageHeaderProvider';
 
 interface Template {
   _id: string;
@@ -36,22 +37,6 @@ export default function TemplatesPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    api.get('/templates')
-      .then(({ data }) => setTemplates(data.templates))
-      .catch(() => setError('Failed to load templates'))
-      .finally(() => setLoading(false));
-  }, []);
-
-  const handleDelete = async (id: string) => {
-    try {
-      await api.delete(`/templates/${id}`);
-      setTemplates(templates.filter((t) => t._id !== id));
-    } catch {
-      setError('Failed to delete template');
-    }
-  };
-
   const handleCreate = async () => {
     try {
       const { data } = await api.post('/templates', {
@@ -72,34 +57,61 @@ export default function TemplatesPage() {
     }
   };
 
+  usePageHeader(
+    {
+      title: 'Tema',
+      subtitle: loading ? 'Memuat...' : `${templates.length} tema tersedia`,
+      action: { label: 'Tema Baru', icon: Plus, onClick: handleCreate },
+    },
+    [loading, templates.length]
+  );
+
+  useEffect(() => {
+    api.get('/templates')
+      .then(({ data }) => setTemplates(data.templates))
+      .catch(() => setError('Failed to load templates'))
+      .finally(() => setLoading(false));
+  }, []);
+
+  const handleDelete = async (id: string) => {
+    try {
+      await api.delete(`/templates/${id}`);
+      setTemplates(templates.filter((t) => t._id !== id));
+    } catch {
+      setError('Failed to delete template');
+    }
+  };
+
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold tracking-tight">Templates</h1>
-        <Button onClick={handleCreate}>
-          <Plus className="h-4 w-4 mr-1.5" />
-          New Template
-        </Button>
-      </div>
-
       {error && (
         <Alert variant="destructive">
           <AlertDescription>{error}</AlertDescription>
         </Alert>
       )}
 
-      {loading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {[...Array(3)].map((_, i) => <Skeleton key={i} className="h-48" />)}
+      <div className="overflow-hidden rounded-[10px] border border-border bg-card">
+        <div className="flex items-center justify-between border-b border-border px-[18px] py-3.5">
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-bold text-foreground">Semua Tema</span>
+            <span className="rounded-full bg-secondary px-2.5 py-0.5 text-[11px] font-semibold text-muted-foreground">
+              {templates.length}
+            </span>
+          </div>
         </div>
-      ) : templates.length === 0 ? (
-        <div className="text-center py-16">
-          <p className="text-muted-foreground mb-4">No templates yet. Create your first one.</p>
-          <Button onClick={handleCreate}>Create Template</Button>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {templates.map((t) => (
+        <div className="p-4">
+          {loading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {[...Array(3)].map((_, i) => <Skeleton key={i} className="h-48" />)}
+            </div>
+          ) : templates.length === 0 ? (
+            <div className="text-center py-16">
+              <p className="text-muted-foreground mb-4">No templates yet. Create your first one.</p>
+              <Button onClick={handleCreate}>Create Template</Button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {templates.map((t) => (
             <Card key={t._id} className="hover:shadow-md transition-shadow">
               <CardHeader className="pb-3">
                 <div className="flex items-start justify-between">
@@ -150,9 +162,11 @@ export default function TemplatesPage() {
                 </div>
               </CardContent>
             </Card>
-          ))}
+              ))}
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 }
