@@ -2,9 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import Link from 'next/link';
-import { ArrowLeft } from 'lucide-react';
 import api from '@/lib/api';
+import { usePageHeader } from '@/components/admin/PageHeaderProvider';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -135,6 +134,17 @@ export default function TemplateEditPage() {
     }
   };
 
+  usePageHeader(
+    {
+      title: loading ? 'Memuat...' : form.name || 'Edit tema',
+      subtitle: 'Edit tema',
+      action: loading
+        ? undefined
+        : { label: 'Simpan', onClick: handleSave, loading: saving },
+    },
+    [loading, form.name, saving]
+  );
+
   if (loading) {
     return (
       <div className="space-y-4">
@@ -147,16 +157,6 @@ export default function TemplateEditPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-3">
-        <Button variant="ghost" size="sm" asChild className="-ml-2">
-          <Link href="/templates">
-            <ArrowLeft className="h-4 w-4 mr-1" />
-            Back
-          </Link>
-        </Button>
-        <h1 className="text-2xl font-bold tracking-tight">Edit Template</h1>
-      </div>
-
       {error && <Alert variant="destructive"><AlertDescription>{error}</AlertDescription></Alert>}
       {success && <Alert className="border-green-200 bg-green-50 text-green-800"><AlertDescription>{success}</AlertDescription></Alert>}
 
@@ -373,9 +373,6 @@ export default function TemplateEditPage() {
         </CardContent>
       </Card>
 
-      <Button disabled={saving} onClick={handleSave}>
-        {saving ? 'Saving...' : 'Save Template'}
-      </Button>
     </div>
   );
 }
