@@ -36,6 +36,7 @@ export interface Client {
   events: EventItem[];
   templateId: string;
   slug: string;
+  venue?: string;
   music: {
     videoId?: string;
     title?: string;

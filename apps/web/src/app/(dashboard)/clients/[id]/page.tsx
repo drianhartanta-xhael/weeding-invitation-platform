@@ -2,13 +2,12 @@
 
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { ExternalLink, Trash2, ArrowLeft } from 'lucide-react';
+import { ExternalLink, Trash2 } from 'lucide-react';
 import api from '@/lib/api';
-import { cn } from '@/lib/utils';
 import type { Client, Tab } from './types';
 import { TABS } from './constants';
 import { dateToInput } from './helpers';
+import { usePageHeader } from '@/components/admin/PageHeaderProvider';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -50,6 +49,32 @@ export default function ClientDetailPage() {
       .catch(() => setError('Failed to load client'))
       .finally(() => setLoading(false));
   }, [params.id]);
+
+  const invitationUrl = client
+    ? `${process.env.NEXT_PUBLIC_INVITATION_URL || 'http://localhost:3001'}/${client.slug}`
+    : undefined;
+
+  usePageHeader(
+    {
+      title: client ? `${client.groomName} & ${client.brideName}` : 'Memuat...',
+      subtitle: client
+        ? `${new Date(client.eventDate).toLocaleDateString('id-ID', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+          })}${client.venue ? ` · ${client.venue}` : ''}`
+        : undefined,
+      action: client
+        ? {
+            label: 'Lihat Undangan',
+            icon: ExternalLink,
+            href: invitationUrl,
+            target: '_blank',
+          }
+        : undefined,
+    },
+    [client?._id, client?.groomName, client?.brideName, client?.eventDate, client?.venue, client?.slug]
+  );
 
   const clearMessages = () => { setError(''); setSuccess(''); };
 
@@ -97,103 +122,6 @@ export default function ClientDetailPage() {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="pb-5 border-b border-border">
-        {/* Breadcrumb */}
-        <Link
-          href="/clients"
-          className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors mb-3 group"
-        >
-          <ArrowLeft className="h-3 w-3 transition-transform group-hover:-translate-x-0.5" />
-          Clients
-        </Link>
-
-        {/* Title row */}
-        <div className="flex items-start justify-between gap-4">
-          <div className="min-w-0">
-            <h1 className="text-3xl font-bold tracking-tight leading-none text-foreground">
-              {client.groomName}
-              <span className="text-muted-foreground font-normal mx-2.5">&</span>
-              {client.brideName}
-            </h1>
-
-            {/* Metadata row */}
-            <div className="flex flex-wrap items-center gap-2 mt-3">
-              <span className={cn(
-                'inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full',
-                client.status === 'published'
-                  ? 'bg-primary text-primary-foreground'
-                  : 'bg-muted text-muted-foreground'
-              )}>
-                <span className="w-1.5 h-1.5 rounded-full bg-current" />
-                {client.status}
-              </span>
-
-              {client.eventDate && (
-                <>
-                  <span className="text-border">·</span>
-                  <span className="text-xs text-muted-foreground">
-                    {new Date(client.eventDate).toLocaleDateString('id-ID', {
-                      day: 'numeric',
-                      month: 'long',
-                      year: 'numeric',
-                    })}
-                  </span>
-                </>
-              )}
-
-              <span className="text-border">·</span>
-              <span className="text-xs text-muted-foreground font-mono truncate max-w-[180px]">
-                {client.slug}
-              </span>
-            </div>
-          </div>
-
-          {/* Actions */}
-          <div className="flex items-center gap-2 shrink-0 pt-1">
-            <Button variant="outline" size="sm" asChild>
-              <a
-                href={`${process.env.NEXT_PUBLIC_INVITATION_URL || 'http://localhost:3001'}/${client.slug}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <ExternalLink className="h-3.5 w-3.5 mr-1.5" />
-                Preview
-              </a>
-            </Button>
-            <AlertDialog>
-              <AlertDialogTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="text-destructive hover:text-destructive hover:bg-destructive/10"
-                >
-                  <Trash2 className="h-3.5 w-3.5 mr-1.5" />
-                  Delete
-                </Button>
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>Delete this client?</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    All related guests, wishes, and gifts will be permanently deleted. This cannot be undone.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction
-                    onClick={handleDelete}
-                    className="bg-destructive text-white hover:bg-destructive/90"
-                  >
-                    Delete
-                  </AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-          </div>
-        </div>
-      </div>
-
       {/* Messages */}
       {error && (
         <Alert variant="destructive">
@@ -205,6 +133,70 @@ export default function ClientDetailPage() {
           <AlertDescription>{success}</AlertDescription>
         </Alert>
       )}
+
+      {/* Summary chips */}
+      {client && (
+        <div className="mb-4 flex flex-wrap gap-2">
+          <span
+            className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold"
+            style={{
+              backgroundColor: client.status === 'published' ? '#10b98120' : '#9ca3af20',
+              color: client.status === 'published' ? '#047857' : '#4b5563',
+            }}
+          >
+            <span
+              className="h-1.5 w-1.5 rounded-full"
+              style={{ backgroundColor: client.status === 'published' ? '#10b981' : '#9ca3af' }}
+            />
+            {client.status === 'published' ? 'Aktif' : 'Draft'}
+          </span>
+          <span className="rounded-full bg-secondary px-2.5 py-1 text-[11px] font-semibold text-muted-foreground">
+            {new Date(client.eventDate).toLocaleDateString('id-ID', {
+              day: 'numeric',
+              month: 'short',
+              year: 'numeric',
+            })}
+          </span>
+          {client.venue && (
+            <span className="rounded-full bg-secondary px-2.5 py-1 text-[11px] font-semibold text-muted-foreground">
+              {client.venue}
+            </span>
+          )}
+        </div>
+      )}
+
+      {/* Delete action */}
+      <div className="flex justify-end">
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-destructive hover:text-destructive hover:bg-destructive/10"
+            >
+              <Trash2 className="h-3.5 w-3.5 mr-1.5" />
+              Delete
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Delete this client?</AlertDialogTitle>
+              <AlertDialogDescription>
+                All related guests, wishes, and gifts will be permanently deleted. This cannot be undone.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction
+                onClick={handleDelete}
+                className="bg-destructive text-white hover:bg-destructive/90"
+              >
+                Delete
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </div>
 
       {/* Tabs */}
       <Tabs defaultValue="overview" onValueChange={() => clearMessages()}>
