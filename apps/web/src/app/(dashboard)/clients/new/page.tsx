@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { ArrowLeft, CalendarIcon, ChevronUp, ChevronDown, X } from 'lucide-react';
+import { CalendarIcon, ChevronUp, ChevronDown, X } from 'lucide-react';
 import { format, parseISO } from 'date-fns';
 import api from '@/lib/api';
 import { cn } from '@/lib/utils';
@@ -16,6 +15,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Separator } from '@/components/ui/separator';
 import { Calendar } from '@/components/ui/calendar';
+import { usePageHeader } from '@/components/admin/PageHeaderProvider';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -32,6 +32,7 @@ interface BasicInfo {
   brideName: string;
   slug: string;
   eventDate: string;
+  venue: string;
 }
 
 interface WizardSection {
@@ -52,20 +53,20 @@ interface WizardGuest {
 // ─── Constants ────────────────────────────────────────────────────────────────
 
 const STEPS = [
-  { number: 1, label: 'Basic Info' },
-  { number: 2, label: 'Template & Sections' },
-  { number: 3, label: 'Guests' },
-  { number: 4, label: 'Review' },
+  { number: 1, label: 'Info Dasar' },
+  { number: 2, label: 'Tema & Section' },
+  { number: 3, label: 'Tamu' },
+  { number: 4, label: 'Tinjau' },
 ];
 
 const GUEST_CATEGORIES: { value: GuestCategory; label: string }[] = [
-  { value: 'family', label: 'Family' },
-  { value: 'friend', label: 'Friend' },
-  { value: 'officeFriend', label: 'Office Friend' },
-  { value: 'fatherFriend', label: "Father's Friend" },
-  { value: 'motherFriend', label: "Mother's Friend" },
-  { value: 'neighbor', label: 'Neighbor' },
-  { value: 'other', label: 'Other' },
+  { value: 'family', label: 'Keluarga' },
+  { value: 'friend', label: 'Teman' },
+  { value: 'officeFriend', label: 'Teman Kantor' },
+  { value: 'fatherFriend', label: 'Teman Ayah' },
+  { value: 'motherFriend', label: 'Teman Ibu' },
+  { value: 'neighbor', label: 'Tetangga' },
+  { value: 'other', label: 'Lainnya' },
 ];
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -144,11 +145,11 @@ function Step1({ info, onChange }: { info: BasicInfo; onChange: (v: BasicInfo) =
 
   return (
     <div className="space-y-4">
-      <p className="text-sm text-muted-foreground">Enter the couple's names and the wedding date to get started.</p>
+      <p className="text-sm text-muted-foreground">Isi nama pasangan dan tanggal pernikahan untuk memulai.</p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-1.5">
-          <Label>Groom Name</Label>
+          <Label>Nama Mempelai Pria</Label>
           <Input
             placeholder="e.g. Budi Santoso"
             value={info.groomName}
@@ -156,7 +157,7 @@ function Step1({ info, onChange }: { info: BasicInfo; onChange: (v: BasicInfo) =
           />
         </div>
         <div className="space-y-1.5">
-          <Label>Bride Name</Label>
+          <Label>Nama Mempelai Wanita</Label>
           <Input
             placeholder="e.g. Sari Dewi"
             value={info.brideName}
@@ -166,7 +167,7 @@ function Step1({ info, onChange }: { info: BasicInfo; onChange: (v: BasicInfo) =
       </div>
 
       <div className="space-y-1.5">
-        <Label>Slug (URL identifier)</Label>
+        <Label>Slug (URL)</Label>
         <Input
           placeholder="e.g. budi-sari"
           value={info.slug}
@@ -180,7 +181,7 @@ function Step1({ info, onChange }: { info: BasicInfo; onChange: (v: BasicInfo) =
       </div>
 
       <div className="space-y-1.5">
-        <Label>Event Date</Label>
+        <Label>Tanggal Acara</Label>
         <Button
           type="button"
           variant="outline"
@@ -190,7 +191,7 @@ function Step1({ info, onChange }: { info: BasicInfo; onChange: (v: BasicInfo) =
           <CalendarIcon className="mr-2 h-4 w-4 text-muted-foreground" />
           {info.eventDate
             ? format(parseISO(info.eventDate), 'PPP')
-            : <span className="text-muted-foreground">Pick a date</span>
+            : <span className="text-muted-foreground">Pilih tanggal</span>
           }
         </Button>
         {calOpen && (
@@ -206,6 +207,15 @@ function Step1({ info, onChange }: { info: BasicInfo; onChange: (v: BasicInfo) =
             />
           </div>
         )}
+      </div>
+
+      <div className="space-y-1.5">
+        <Label>Lokasi Acara</Label>
+        <Input
+          placeholder="Contoh: Gedung Serbaguna, Jakarta"
+          value={info.venue}
+          onChange={(e) => onChange({ ...info, venue: e.target.value })}
+        />
       </div>
     </div>
   );
@@ -317,7 +327,7 @@ function Step2({
 
   return (
     <div className="space-y-5">
-      <p className="text-sm text-muted-foreground">Choose a template for the invitation. You can change this later.</p>
+      <p className="text-sm text-muted-foreground">Pilih tema undangan. Bisa diganti nanti.</p>
 
       {loading ? (
         <p className="text-muted-foreground text-sm">Loading templates...</p>
@@ -363,7 +373,7 @@ function Step2({
               <p className="text-xs text-muted-foreground">Reorder or add/remove sections before creating.</p>
             </div>
             <Button variant="outline" size="sm" onClick={() => setShowAddSection(!showAddSection)}>
-              {showAddSection ? 'Cancel' : '+ Add Section'}
+              {showAddSection ? 'Batal' : '+ Tambah Section'}
             </Button>
           </div>
 
@@ -431,7 +441,7 @@ function Step2({
         </div>
       )}
 
-      <p className="text-xs text-muted-foreground">You can skip this step and assign a template later.</p>
+      <p className="text-xs text-muted-foreground">Lewati langkah ini untuk mengatur tema kemudian.</p>
     </div>
   );
 }
@@ -460,17 +470,17 @@ function Step3({
   return (
     <div className="space-y-4">
       <p className="text-sm text-muted-foreground">
-        Add guests now or skip — more can be added after creation.
+        Tambah tamu sekarang atau lewati — bisa ditambah lagi setelahnya.
       </p>
 
       <div className="rounded-lg border overflow-x-auto">
         <table className="w-full text-sm">
           <thead className="bg-muted/50 border-b">
             <tr>
-              <th className="text-left px-3 py-2 font-medium text-muted-foreground text-xs">Name</th>
-              <th className="text-left px-3 py-2 font-medium text-muted-foreground text-xs">Invitation Name</th>
-              <th className="text-left px-3 py-2 font-medium text-muted-foreground text-xs w-28">Phone</th>
-              <th className="text-left px-3 py-2 font-medium text-muted-foreground text-xs w-36">Category</th>
+              <th className="text-left px-3 py-2 font-medium text-muted-foreground text-xs">Nama</th>
+              <th className="text-left px-3 py-2 font-medium text-muted-foreground text-xs">Nama di Undangan</th>
+              <th className="text-left px-3 py-2 font-medium text-muted-foreground text-xs w-28">Telepon</th>
+              <th className="text-left px-3 py-2 font-medium text-muted-foreground text-xs w-36">Kategori</th>
               <th className="px-2 py-2 w-8" />
             </tr>
           </thead>
@@ -529,7 +539,7 @@ function Step3({
       </div>
 
       <Button variant="outline" size="sm" onClick={addRow}>
-        + Add Row
+        + Tambah Baris
       </Button>
     </div>
   );
@@ -555,29 +565,29 @@ function Step4({
 
   return (
     <div className="space-y-4">
-      <p className="text-sm text-muted-foreground">Review the details before creating the client.</p>
+      <p className="text-sm text-muted-foreground">Tinjau detail sebelum membuat undangan.</p>
 
       <div className="rounded-xl border divide-y">
-        <Row label="Groom" value={info.groomName || '—'} />
-        <Row label="Bride" value={info.brideName || '—'} />
+        <Row label="Mempelai Pria" value={info.groomName || '—'} />
+        <Row label="Mempelai Wanita" value={info.brideName || '—'} />
         <Row label="Slug" value={info.slug || '—'} />
         <Row
-          label="Event Date"
+          label="Tanggal Acara"
           value={info.eventDate ? format(parseISO(info.eventDate), 'PPP') : '—'}
         />
-        <Row label="Template" value={template ? template.name : 'None (set later)'} />
+        <Row label="Tema" value={template ? template.name : 'Belum dipilih (atur nanti)'} />
         <Row
-          label="Sections"
-          value={sections.length > 0 ? `${sections.length} section${sections.length > 1 ? 's' : ''} configured` : 'None'}
+          label="Section"
+          value={sections.length > 0 ? `${sections.length} section${sections.length > 1 ? 's' : ''} configured` : 'Belum ada'}
         />
         <Row
-          label="Guests to add"
-          value={validGuests.length > 0 ? `${validGuests.length} guest${validGuests.length > 1 ? 's' : ''}` : 'None (add later)'}
+          label="Tamu yang ditambahkan"
+          value={validGuests.length > 0 ? `${validGuests.length} guest${validGuests.length > 1 ? 's' : ''}` : 'Belum ada (tambah nanti)'}
         />
       </div>
 
       <p className="text-xs text-muted-foreground">
-        After creation you will be redirected to the client detail page where you can add events, photos, and more guests.
+        Setelah dibuat, kamu akan diarahkan ke halaman detail untuk menambah event, foto, dan tamu lainnya.
       </p>
     </div>
   );
@@ -597,7 +607,13 @@ function Row({ label, value }: { label: string; value: string }) {
 export default function NewClientPage() {
   const router = useRouter();
   const [step, setStep] = useState(1);
-  const [info, setInfo] = useState<BasicInfo>({ groomName: '', brideName: '', slug: '', eventDate: '' });
+  const [info, setInfo] = useState<BasicInfo>({
+    groomName: '',
+    brideName: '',
+    slug: '',
+    eventDate: '',
+    venue: '',
+  });
   const [templateId, setTemplateId] = useState('');
   const [sections, setSections] = useState<WizardSection[]>([]);
   const [bulkGuests, setBulkGuests] = useState<WizardGuest[]>([
@@ -607,12 +623,14 @@ export default function NewClientPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  usePageHeader({ title: 'Buat Undangan Baru', subtitle: 'Isi data pasangan & acara' });
+
   useEffect(() => {
     api.get('/templates').then(({ data }) => setTemplates(data.templates || [])).catch(() => {});
   }, []);
 
   const canAdvance = () => {
-    if (step === 1) return !!(info.groomName && info.brideName && info.slug && info.eventDate);
+    if (step === 1) return !!(info.groomName && info.brideName && info.slug && info.eventDate && info.venue);
     return true;
   };
 
@@ -627,6 +645,7 @@ export default function NewClientPage() {
         brideName: info.brideName,
         slug: info.slug,
         eventDate: info.eventDate,
+        venue: info.venue,
         status: publish ? 'published' : 'draft',
         ...(templateId && { templateId }),
         ...(sections.length > 0 && { sections }),
@@ -649,7 +668,7 @@ export default function NewClientPage() {
 
       router.push(`/clients/${clientId}`);
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to create client');
+      setError(err.response?.data?.message || 'Gagal membuat undangan');
     } finally {
       setLoading(false);
     }
@@ -657,18 +676,6 @@ export default function NewClientPage() {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="pb-5 border-b border-border">
-        <Link
-          href="/clients"
-          className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors mb-3 group"
-        >
-          <ArrowLeft className="h-3 w-3 transition-transform group-hover:-translate-x-0.5" />
-          Clients
-        </Link>
-        <h1 className="text-3xl font-bold tracking-tight leading-none text-foreground">New Client</h1>
-      </div>
-
       {/* Step indicator */}
       <div className="flex items-center gap-0 max-w-2xl">
         {STEPS.map((s, i) => (
@@ -744,20 +751,20 @@ export default function NewClientPage() {
             onClick={() => setStep((s) => s - 1)}
             className={step === 1 ? 'invisible' : ''}
           >
-            Back
+            Kembali
           </Button>
 
           {step < 4 ? (
             <Button disabled={!canAdvance()} onClick={() => setStep((s) => s + 1)}>
-              Next
+              Lanjut
             </Button>
           ) : (
             <div className="flex gap-2">
               <Button variant="outline" disabled={loading} onClick={() => handleCreate(false)}>
-                {loading ? 'Creating...' : 'Save as Draft'}
+                {loading ? 'Membuat...' : 'Simpan sebagai Draft'}
               </Button>
               <Button disabled={loading} onClick={() => handleCreate(true)}>
-                {loading ? 'Creating...' : 'Create & Publish'}
+                {loading ? 'Membuat...' : 'Buat & Terbitkan'}
               </Button>
             </div>
           )}
