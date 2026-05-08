@@ -1,12 +1,13 @@
 'use client';
 
+import { usePageHeader } from '@/components/admin/PageHeaderProvider';
+
 export default function SettingsPage() {
+  usePageHeader({ title: 'Pengaturan', subtitle: 'Akun & preferensi' });
+
   return (
-    <div>
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">Settings</h1>
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-        <p className="text-gray-500">Settings page - coming soon.</p>
-      </div>
+    <div className="overflow-hidden rounded-[10px] border border-border bg-card p-6">
+      <p className="text-gray-500">Settings page - coming soon.</p>
     </div>
   );
 }
