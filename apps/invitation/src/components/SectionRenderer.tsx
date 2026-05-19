@@ -9,6 +9,7 @@ import Wishes from './sections/Wishes';
 import Gift from './sections/Gift';
 import Story from './sections/Story';
 import LocationMap from './sections/LocationMap';
+import DressCode from './sections/DressCode';
 import type { DecorationConfig, SectionVariant } from '@/lib/decorations/types';
 
 interface SectionData {
@@ -132,6 +133,15 @@ export default function SectionRenderer({
                 venue={section.data.venue || ''}
                 address={section.data.address || ''}
                 mapUrl={section.data.mapUrl || ''}
+              />
+            );
+            break;
+
+          case 'dress-code':
+            content = (
+              <DressCode
+                note={section.data.note}
+                groups={section.data.groups || []}
               />
             );
             break;
