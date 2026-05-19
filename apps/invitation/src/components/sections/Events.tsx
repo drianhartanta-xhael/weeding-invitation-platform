@@ -37,7 +37,7 @@ export default function Events({ events }: EventsProps) {
         <p className="text-xs tracking-[0.25em] uppercase mb-2" style={{ color: 'var(--wedding-accent, #C8A84B)' }}>
           Rangkaian Acara
         </p>
-        <h2 className="font-heading text-3xl md:text-4xl italic" style={{ color: 'var(--wedding-primary, #C8A84B)' }}>
+        <h2 className="font-heading text-3xl md:text-4xl italic">
           Hari Istimewa
         </h2>
       </motion.div>
