@@ -37,7 +37,7 @@ export default function Events({ events }: EventsProps) {
         <p className="text-xs tracking-[0.25em] uppercase mb-2" style={{ color: 'var(--wedding-accent, #C8A84B)' }}>
           Rangkaian Acara
         </p>
-        <h2 className="font-heading text-3xl md:text-4xl italic" style={{ color: 'var(--wedding-secondary, #F5EDE0)' }}>
+        <h2 className="font-heading text-3xl md:text-4xl italic" style={{ color: 'var(--wedding-primary, #C8A84B)' }}>
           Hari Istimewa
         </h2>
       </motion.div>
@@ -52,15 +52,15 @@ export default function Events({ events }: EventsProps) {
             transition={{ delay: index * 0.12 }}
             className="rounded-xl p-8"
             style={{
-              backgroundColor: 'rgba(255,255,255,0.07)',
-              border: '1px solid rgba(200,168,75,0.2)',
+              backgroundColor: 'color-mix(in srgb, currentColor 6%, transparent)',
+              border: '1px solid color-mix(in srgb, currentColor 18%, transparent)',
             }}
           >
             <p className="text-xs tracking-widest uppercase mb-5" style={{ color: 'var(--wedding-accent, #C8A84B)' }}>
               {ROMAN[index] || String(index + 1)} · {event.name}
             </p>
 
-            <div className="space-y-3 text-sm" style={{ color: 'var(--wedding-secondary, #F5EDE0)' }}>
+            <div className="space-y-3 text-sm">
               <div>
                 <p className="text-xs uppercase tracking-widest mb-0.5" style={{ opacity: 0.5 }}>Tanggal</p>
                 <p>{formatDate(event.date)}</p>
@@ -69,11 +69,13 @@ export default function Events({ events }: EventsProps) {
                 <p className="text-xs uppercase tracking-widest mb-0.5" style={{ opacity: 0.5 }}>Waktu</p>
                 <p>{event.time}</p>
               </div>
-              <div>
-                <p className="text-xs uppercase tracking-widest mb-0.5" style={{ opacity: 0.5 }}>Tempat</p>
-                <p>{event.venue}</p>
-                {event.address && <p className="text-xs mt-0.5" style={{ opacity: 0.6 }}>{event.address}</p>}
-              </div>
+              {event.venue && (
+                <div>
+                  <p className="text-xs uppercase tracking-widest mb-0.5" style={{ opacity: 0.5 }}>Tempat</p>
+                  <p>{event.venue}</p>
+                  {event.address && <p className="text-xs mt-0.5" style={{ opacity: 0.6 }}>{event.address}</p>}
+                </div>
+              )}
             </div>
 
             {event.mapUrl && (
