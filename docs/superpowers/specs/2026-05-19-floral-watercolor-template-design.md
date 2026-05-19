@@ -50,15 +50,17 @@ Gaya visual Canva: background krem, aksen pink, ornamen **bunga cat air**, ilust
 tangan (cupid, cincin, mobil vintage, gelas sampanye, figur dress code), heading
 **font kaligrafi/script**.
 
+**Tambahan di luar Canva:** atas permintaan user, ditambahkan **Cover/amplop
+pembuka** bertema floral (desain Canva tidak punya, tapi diinginkan untuk template ini).
+
 ## 4. Cakupan
 
-**Termasuk:** template floral baru, decoration style floral berbasis gambar,
-komponen `dress-code`, dukungan foto di Hero, restyle `event-detail`, mekanisme
-ilustrasi aksen per-section, update data klien Dega & Lauditta.
+**Termasuk:** template floral baru, decoration style floral (SVG), komponen
+`dress-code`, Cover/amplop bertema floral, dukungan foto di Hero, restyle
+`event-detail`, motif aksen per-section, update data klien Dega & Lauditta.
 
-**Tidak termasuk (untuk klien ini):** Countdown, Story, Cover envelope — desain
-Canva tidak memilikinya. Komponen-komponen ini tetap tersedia di platform untuk
-klien lain.
+**Tidak termasuk (untuk klien ini):** Countdown & Story — desain Canva tidak
+memilikinya. Komponen-komponen ini tetap tersedia di platform untuk klien lain.
 
 ## 5. Strategi Ornamen
 
@@ -103,8 +105,9 @@ Buat dokumen `Template` (via seed):
   - `accentColor: '#D98FA8'` (rose untuk kartu)
   - `fontHeading: 'Pinyon Script'`, `fontBody: 'Poppins'`
   - `heroTitle`, `bodyGreeting`, `footerTitle`, `footerMessage` sesuai konten Dega & Lauditta.
-- `defaultSections` (8 slot section, urut): couple-profile, gallery, location-map,
-  event-detail, dress-code, rsvp, donation, wishes. (Hero & Footer built-in, tanpa cover.)
+- `defaultSections` (9 slot section, urut): cover, couple-profile, gallery,
+  location-map, event-detail, dress-code, rsvp, donation, wishes. (Hero & Footer
+  built-in. `cover` dirender sebagai overlay amplop sebelum undangan dibuka.)
 - `stylePresets`:
   - `light`: `{ bg: '#F7F3EE', text: '#6E6258' }`
   - `dark`: `{ bg: '#F0E3DC', text: '#8A5A72' }` (varian krem lebih gelap, bukan hitam)
@@ -195,26 +198,46 @@ Tulis ulang `server/src/scripts/seed-dega-lauditta.ts` memakai template
 - Dress code: Gentlemen — Earth tone; Ladies — The shades of flowers, except white flowers.
 - Gift: BCA — Lauditta Soraya Librata — 6044015492.
 - RSVP: batas 15 Juni.
-- 8 slot section sesuai `defaultSections`, plus `accentMotif` (motif SVG) pada
-  couple-profile, location-map, dan donation.
+- 9 slot section sesuai `defaultSections` (termasuk `cover`), plus `accentMotif`
+  (motif SVG) pada couple-profile, location-map, dan donation.
+- Foto: hero = `1.png`; galeri = `2.jpg`–`8.jpg`; `couple-profile` memakai dua
+  foto pasangan (tidak ada foto solo terpisah).
 - `music` diisi (pemutar musik aktif untuk template ini).
-- `customContent.heroPhoto` diisi foto hero.
+- `customContent.heroPhoto` diisi foto hero (`1.png`).
 
 ### Item 8 — Admin template edit
 
 Tambah opsi `floral` pada dropdown `decorationStyle` di form edit template (`apps/web`).
 
-## 7. Aset yang Disediakan User
+### Item 9 — Cover / amplop bertema floral
 
-Dengan pendekatan hybrid, daftar aset jauh lebih kecil — hanya **file gambar**:
+`apps/invitation/src/components/Cover.tsx` sudah ada tapi warnanya hardcoded gelap
+(`#6B1020`, emas `#C8A84B`, teks krem-di-atas-gelap).
 
-- **Foto:** hero couple, foto groom, foto bride, foto-foto galeri, foto orang tua.
-  Diambil dari file foto asli (bukan ekstrak Canva).
-- **Figur dress code:** ilustrasi figur pria & figur wanita (PNG/SVG). Dari sumber
-  royalty-free bebas komersial, atau dibuat sendiri.
+- Buat Cover **theme-aware**: warna background, aksen, dan teks mengikuti style
+  preset / warna dekorasi template, bukan nilai hardcoded.
+- Untuk floral: background krem, aksen pink, ornamen floral SVG (pakai motif dari
+  decoration `floral`) mengelilingi amplop.
+- Monogram & "heart seal" tetap, warnanya menyesuaikan tema.
+- Verifikasi Cover lama (template Nusantara) tetap tampil benar setelah diubah.
 
-Ornamen bunga, sprig, dan motif aksen **tidak perlu aset** — digambar SVG.
-Implementasi memakai placeholder untuk foto/figur sampai aset diterima.
+## 7. Aset
+
+**Foto — sudah disediakan.** 8 foto pasangan ada di `dega-dita-asets/` (root repo):
+
+- `1.png` — foto pasangan cut-out (background transparan) → **Hero** & `customContent.heroPhoto`.
+- `2.jpg`–`8.jpg` — 7 foto prewedding → **galeri**; dua di antaranya juga dipakai
+  pada `couple-profile` (tidak ada foto solo groom/bride terpisah).
+
+Implementasi menyalin foto ke folder publik invitation app
+(mis. `apps/invitation/public/assets/dega-lauditta/`) dan merujuknya via path.
+
+**Belum disediakan:**
+
+- **Figur dress code** — ilustrasi figur pria & wanita belum ada. Sampai dikirim,
+  komponen `dress-code` memakai placeholder (lihat §9).
+
+Ornamen bunga, sprig, motif aksen, dan dekorasi amplop **tidak perlu aset** — SVG.
 
 ## 8. Warna & Font (disetujui)
 
@@ -229,7 +252,8 @@ Implementasi memakai placeholder untuk foto/figur sampai aset diterima.
   weight 400 — perlu diverifikasi agar request tidak gagal.
 - **Estetika flat-vector** — ornamen SVG tidak bertekstur cat air; hasil akhir
   "terinspirasi" Canva, bukan replika tekstur. Sudah disepakati user.
-- **Figur dress code** tetap perlu file gambar — bila belum ada, pakai placeholder.
+- **Figur dress code belum disediakan user** — implementasi memakai placeholder;
+  perlu dikirim user, atau diganti treatment lebih sederhana (siluet/swatch SVG).
 - **Restyle `event-detail`** memengaruhi semua template yang memakai komponen ini —
   pastikan tetap baik di template gelap (Nusantara) setelah diubah jadi theme-aware.
 
@@ -239,9 +263,9 @@ Belum ada test otomatis di repo. Verifikasi manual:
 
 - `npm run lint` (type-check) lolos.
 - Seed dijalankan: `npx tsx server/src/scripts/seed-dega-lauditta.ts` sukses.
-- Undangan dibuka di `http://localhost:3001/dega-lauditta` — 8 section tampil,
-  Hero menampilkan foto, dekorasi floral muncul, komponen `dress-code` tampil benar,
-  pemutar musik berfungsi.
+- Undangan dibuka di `http://localhost:3001/dega-lauditta` — overlay Cover amplop
+  bertema floral tampil; setelah disentuh, Hero (berfoto) + 8 section konten +
+  dekorasi floral muncul, komponen `dress-code` tampil benar, pemutar musik berfungsi.
 - Buka dengan tamu `?to=<slug>` — RSVP tampil.
 - Template Nusantara lama dibuka — memastikan restyle `event-detail` tidak merusak tampilan gelap.
 - Bandingkan berdampingan dengan situs Canva untuk menilai kemiripan.
