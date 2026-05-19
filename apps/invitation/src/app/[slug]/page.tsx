@@ -242,6 +242,10 @@ export default function InvitationPage() {
                     guestName={guest?.invitationName}
                     coverText={coverSection.data.coverText}
                     bg={templateConfig?.stylePresets?.['dark']?.bg}
+                    accent={templateConfig?.config?.accentColor}
+                    textColor={templateConfig?.stylePresets?.['dark']?.text}
+                    HeroDecor={decorConfig.HeroDecor}
+                    decorColors={decorConfig.colors}
                     onOpen={() => setIsOpen(true)}
                   />
                 )}
