@@ -62,13 +62,22 @@ klien lain.
 
 ## 5. Strategi Ornamen
 
-**Keputusan: ornamen berbasis gambar (PNG watercolor)** — bukan SVG vektor.
-Tekstur cat air tidak bisa ditiru meyakinkan dengan SVG. Semua aset (bunga
-watercolor, ilustrasi, foto) **disediakan oleh user** sebagai file PNG transparan / foto.
+**Keputusan: pendekatan hybrid.**
+
+- **Ornamen bunga & aksen kecil → SVG vektor** (gaya flat-vector). Digambar lewat
+  kode seperti dekorasi Nusantara yang sudah ada. Ringan, warna bisa di-theme,
+  100% milik sendiri, tanpa file aset, tanpa masalah lisensi.
+- **Figur dress code & foto → file gambar** disediakan user. Figur pria/wanita
+  detail tidak realistis dikode SVG; foto pasangan jelas berupa file.
+
+Konsekuensi: tampilan akhir = **floral vektor flat**, bukan tekstur watercolor.
+Ini "terinspirasi" desain Canva, bukan replika tekstur persis — disepakati user.
 
 ⚠️ **Lisensi:** ornamen pada situs Canva adalah aset stock milik Canva dan **tidak
-boleh** diekstrak untuk dipakai di situs lain. Aset harus dari sumber royalty-free
-(bebas pakai komersial) atau milik user sendiri.
+boleh** diekstrak untuk dipakai di situs lain (meski punya akses edit). Karena
+ornamen kini berupa SVG buatan sendiri, isu lisensi hilang untuk ornamen. Foto
+pasangan dipakai dari file asli milik user; figur dress code dari sumber
+royalty-free atau dibuat sendiri.
 
 ## 6. Item Kerja
 
@@ -106,18 +115,21 @@ Catatan font: dynamic loader di `page.tsx` menambahkan `:wght@300;400;700` pada 
 Google Fonts. Font script seperti Pinyon Script hanya punya weight 400 — **verifikasi
 loader tidak gagal**; bila perlu, sesuaikan agar weight di-handle per-font.
 
-### Item 2 — Decoration style `floral` (berbasis gambar)
+### Item 2 — Decoration style `floral` (SVG vektor)
 
-- Buat `apps/invitation/src/lib/decorations/floral/index.tsx`:
-  - Export `floralColors: DecorColors` (bg krem, accent/primary pink, dark rose, surface krem).
-  - `HeroDecor`, `SectionDecor`, `FooterDecor` — me-render `<img>` PNG watercolor
-    (bukan SVG), diposisikan absolut di tepi (atas/bawah/sudut), `pointer-events: none`.
-  - `SectionDecor` tetap menerima `variant` namun untuk floral cukup menempatkan
-    border bunga atas + bawah pada semua varian.
+- Buat `apps/invitation/src/lib/decorations/floral/index.tsx`, mengikuti pola
+  dekorasi yang sudah ada (mis. `bali/index.tsx`):
+  - Export `floralColors: DecorColors` (bg krem, accent/primary pink, dark rose,
+    surface krem).
+  - Primitive SVG: kelopak bunga, daun, sprig/ranting — dirangkai jadi motif floral.
+    Komponen dekorasi boleh memakai palet internal kecil (pink bunga + hijau daun)
+    di luar satu `accent` color.
+  - `HeroDecor`, `SectionDecor`, `FooterDecor` — menempatkan motif floral SVG di
+    tepi (atas/bawah/sudut), absolut, `pointer-events: none`.
+  - `SectionDecor` menerima `variant`; untuk floral cukup border bunga atas + bawah
+    pada semua varian.
 - Daftarkan di `registry.ts` dengan key `floral`.
-- Aset di `apps/invitation/public/decorations/floral/`:
-  `border-top.png`, `border-bottom.png`, `corner-sprig.png`, `scatter.png`
-  (nama final menyesuaikan aset yang dikirim user).
+- Tanpa file aset — seluruh ornamen digambar SVG.
 
 ### Item 3 — Komponen `dress-code` (baru)
 
@@ -154,15 +166,21 @@ hardcoded gelap (`rgba(255,255,255,0.07)`, border emas, teks terang).
 - Pertahankan struktur konten (nama acara, waktu, tempat) — untuk itinerary,
   field venue/address/map boleh kosong dan tidak ditampilkan bila kosong.
 
-### Item 6 — Ilustrasi aksen per-section
+### Item 6 — Motif aksen per-section (SVG)
 
-Untuk ilustrasi unik (cupid, cincin, mobil, gelas) yang muncul di section tertentu:
+Beberapa section punya aksen khas (di Canva: cupid, cincin, mobil, gelas). Karena
+jalur SVG, aksen ini disederhanakan jadi **motif SVG flat**.
 
-- **Tanpa perubahan schema** — manfaatkan `section.data` yang bertipe `Mixed`.
-  Konvensi field opsional: `section.data.accentImage` (URL gambar).
-- `SectionRenderer.tsx`: bila `section.data.accentImage` ada, render gambar tersebut
+- Buat pustaka kecil motif SVG (mis. `rings`, `sprig`, `hearts`, `bloom`) di folder
+  dekorasi floral.
+- **Tanpa perubahan schema** — `section.data` bertipe `Mixed`. Konvensi field
+  opsional `section.data.accentMotif` (string key motif).
+- `SectionRenderer.tsx`: bila `section.data.accentMotif` ada, render motif terkait
   (kecil, di tengah, di atas konten komponen).
-- Editor section di admin: tambah satu field generik opsional "Gambar Aksen".
+- Editor section di admin: tambah field generik opsional "Motif Aksen" (dropdown
+  dari daftar motif).
+- Ilustrasi literal Canva (cupid, mobil vintage, gelas sampanye) tidak ditiru
+  persis — digantikan motif floral yang setara.
 
 ### Item 7 — Data klien Dega & Lauditta
 
@@ -177,8 +195,8 @@ Tulis ulang `server/src/scripts/seed-dega-lauditta.ts` memakai template
 - Dress code: Gentlemen — Earth tone; Ladies — The shades of flowers, except white flowers.
 - Gift: BCA — Lauditta Soraya Librata — 6044015492.
 - RSVP: batas 15 Juni.
-- 8 slot section sesuai `defaultSections`, plus `accentImage` pada couple-profile
-  (cupid/cincin), location-map (mobil), donation (gelas sampanye).
+- 8 slot section sesuai `defaultSections`, plus `accentMotif` (motif SVG) pada
+  couple-profile, location-map, dan donation.
 - `music` diisi (pemutar musik aktif untuk template ini).
 - `customContent.heroPhoto` diisi foto hero.
 
@@ -188,16 +206,15 @@ Tambah opsi `floral` pada dropdown `decorationStyle` di form edit template (`app
 
 ## 7. Aset yang Disediakan User
 
-User akan menyediakan **semua aset** sebagai file:
+Dengan pendekatan hybrid, daftar aset jauh lebih kecil — hanya **file gambar**:
 
 - **Foto:** hero couple, foto groom, foto bride, foto-foto galeri, foto orang tua.
-- **Bunga watercolor (PNG transparan):** border atas, border bawah, sprig sudut,
-  scattered blooms.
-- **Ilustrasi (PNG transparan):** cupid, wedding rings, mobil vintage, gelas
-  sampanye, figur dress code pria, figur dress code wanita.
+  Diambil dari file foto asli (bukan ekstrak Canva).
+- **Figur dress code:** ilustrasi figur pria & figur wanita (PNG/SVG). Dari sumber
+  royalty-free bebas komersial, atau dibuat sendiri.
 
-Implementasi yang bergantung pada aset menggunakan placeholder sampai aset diterima;
-penempatan & ukuran final disesuaikan setelah aset masuk.
+Ornamen bunga, sprig, dan motif aksen **tidak perlu aset** — digambar SVG.
+Implementasi memakai placeholder untuk foto/figur sampai aset diterima.
 
 ## 8. Warna & Font (disetujui)
 
@@ -210,7 +227,9 @@ penempatan & ukuran final disesuaikan setelah aset masuk.
   prasyarat sebelum decoration floral bisa aktif.
 - **Loader font Google** menambah `:wght@300;400;700`; font script umumnya hanya
   weight 400 — perlu diverifikasi agar request tidak gagal.
-- **Kualitas aset** menentukan kemiripan akhir; placeholder dipakai sampai aset masuk.
+- **Estetika flat-vector** — ornamen SVG tidak bertekstur cat air; hasil akhir
+  "terinspirasi" Canva, bukan replika tekstur. Sudah disepakati user.
+- **Figur dress code** tetap perlu file gambar — bila belum ada, pakai placeholder.
 - **Restyle `event-detail`** memengaruhi semua template yang memakai komponen ini —
   pastikan tetap baik di template gelap (Nusantara) setelah diubah jadi theme-aware.
 
