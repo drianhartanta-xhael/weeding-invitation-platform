@@ -1,5 +1,7 @@
 'use client';
 
+import type { FC } from 'react';
+
 // Small decorative SVG motifs placed at the top of a section.
 // Selected per-section via section.data.accentMotif.
 
@@ -47,7 +49,7 @@ function Bloom() {
   );
 }
 
-const MOTIFS: Record<string, () => JSX.Element> = {
+const MOTIFS: Record<string, FC> = {
   rings: Rings,
   hearts: Hearts,
   sprig: Sprig,
