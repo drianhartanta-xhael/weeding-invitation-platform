@@ -10,6 +10,7 @@ import Gift from './sections/Gift';
 import Story from './sections/Story';
 import LocationMap from './sections/LocationMap';
 import DressCode from './sections/DressCode';
+import AccentMotif from './AccentMotif';
 import type { DecorationConfig, SectionVariant } from '@/lib/decorations/types';
 
 interface SectionData {
@@ -160,6 +161,7 @@ export default function SectionRenderer({
               </div>
             )}
             <div style={{ position: 'relative', zIndex: 1 }}>
+              {section.data.accentMotif && <AccentMotif name={section.data.accentMotif} />}
               {content}
             </div>
           </div>
