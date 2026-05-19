@@ -45,12 +45,14 @@ interface TemplateData {
   description: string;
   thumbnail: string;
   isActive: boolean;
+  decorationStyle: string;
   config: TemplateConfig;
   defaultSections: DefaultSection[];
   stylePresets: Record<string, StylePreset>;
 }
 
 const AVAILABLE_COMPONENTS = [
+  { id: 'cover', label: 'Cover / Opening' },
   { id: 'couple-profile', label: 'Couple Profile' },
   { id: 'event-detail', label: 'Event Detail' },
   { id: 'gallery', label: 'Gallery' },
@@ -59,7 +61,11 @@ const AVAILABLE_COMPONENTS = [
   { id: 'wishes', label: 'Wishes' },
   { id: 'countdown', label: 'Countdown' },
   { id: 'story', label: 'Our Story' },
+  { id: 'location-map', label: 'Location Map' },
+  { id: 'dress-code', label: 'Dress Code' },
 ];
+
+const DECORATION_STYLES = ['none', 'jawa', 'bali', 'sunda', 'minang', 'betawi', 'batak', 'floral'];
 
 const PRESET_KEYS = ['light', 'dark', 'accent', 'image-1', 'image-2'];
 
@@ -85,7 +91,7 @@ export default function TemplateEditPage() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  const [form, setForm] = useState({ name: '', slug: '', description: '', thumbnail: '', isActive: true });
+  const [form, setForm] = useState({ name: '', slug: '', description: '', thumbnail: '', isActive: true, decorationStyle: 'none' });
 
   const [config, setConfig] = useState<TemplateConfig>({
     primaryColor: '#D4A373', secondaryColor: '#FEFAE0', accentColor: '#606C38',
@@ -101,7 +107,7 @@ export default function TemplateEditPage() {
     api.get(`/templates/${params.id}`)
       .then(({ data }) => {
         const t: TemplateData = data.template;
-        setForm({ name: t.name, slug: t.slug, description: t.description || '', thumbnail: t.thumbnail || '', isActive: t.isActive });
+        setForm({ name: t.name, slug: t.slug, description: t.description || '', thumbnail: t.thumbnail || '', isActive: t.isActive, decorationStyle: t.decorationStyle || 'none' });
         setConfig({
           primaryColor: t.config?.primaryColor || '#D4A373',
           secondaryColor: t.config?.secondaryColor || '#FEFAE0',
@@ -180,6 +186,15 @@ export default function TemplateEditPage() {
             <div className="space-y-1.5">
               <Label>Thumbnail URL</Label>
               <Input value={form.thumbnail} onChange={(e) => setForm({ ...form, thumbnail: e.target.value })} placeholder="https://..." />
+            </div>
+            <div className="space-y-1.5">
+              <Label>Decoration Style</Label>
+              <Select value={form.decorationStyle} onValueChange={(v) => setForm({ ...form, decorationStyle: v })}>
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  {DECORATION_STYLES.map((d) => <SelectItem key={d} value={d}>{d}</SelectItem>)}
+                </SelectContent>
+              </Select>
             </div>
             <div className="flex items-end pb-0.5">
               <div className="flex items-center gap-2">
