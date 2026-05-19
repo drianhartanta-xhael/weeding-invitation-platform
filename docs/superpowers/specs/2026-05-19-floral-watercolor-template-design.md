@@ -66,20 +66,19 @@ memilikinya. Komponen-komponen ini tetap tersedia di platform untuk klien lain.
 
 **Keputusan: pendekatan hybrid.**
 
-- **Ornamen bunga & aksen kecil → SVG vektor** (gaya flat-vector). Digambar lewat
-  kode seperti dekorasi Nusantara yang sudah ada. Ringan, warna bisa di-theme,
-  100% milik sendiri, tanpa file aset, tanpa masalah lisensi.
-- **Figur dress code & foto → file gambar** disediakan user. Figur pria/wanita
-  detail tidak realistis dikode SVG; foto pasangan jelas berupa file.
+- **Ornamen bunga, aksen, & figur dress code → SVG vektor** (gaya flat-vector).
+  Digambar lewat kode seperti dekorasi Nusantara yang sudah ada. Ringan, warna
+  bisa di-theme, 100% milik sendiri, tanpa file aset, tanpa masalah lisensi.
+  Figur dress code dibuat sebagai siluet SVG sederhana (pria & wanita).
+- **Foto pasangan → file gambar** disediakan user.
 
 Konsekuensi: tampilan akhir = **floral vektor flat**, bukan tekstur watercolor.
 Ini "terinspirasi" desain Canva, bukan replika tekstur persis — disepakati user.
 
 ⚠️ **Lisensi:** ornamen pada situs Canva adalah aset stock milik Canva dan **tidak
 boleh** diekstrak untuk dipakai di situs lain (meski punya akses edit). Karena
-ornamen kini berupa SVG buatan sendiri, isu lisensi hilang untuk ornamen. Foto
-pasangan dipakai dari file asli milik user; figur dress code dari sumber
-royalty-free atau dibuat sendiri.
+seluruh ornamen + figur dibuat sebagai SVG sendiri, tidak ada isu lisensi. Hanya
+foto pasangan yang berupa file (foto asli milik user).
 
 ## 6. Item Kerja
 
@@ -136,18 +135,23 @@ loader tidak gagal**; bila perlu, sesuaikan agar weight di-handle per-font.
 
 ### Item 3 — Komponen `dress-code` (baru)
 
-**Varian A** (sesuai Canva, tanpa swatch warna).
+**Varian A** (label + keterangan + figur, tanpa swatch). Figur = **siluet SVG bawaan**.
 
 - `packages/shared/src/types/components.ts`:
   - Tambah `'dress-code'` ke `COMPONENT_IDS`.
-  - Interface `DressCodeData`: `{ note?: string; groups: { label: string; description: string; image: string }[] }`.
+  - Interface `DressCodeData`:
+    `{ note?: string; groups: { label: string; description: string; figure?: string; image?: string }[] }`.
+    `figure` = key siluet SVG bawaan (`gentlemen` | `ladies`); `image` = URL gambar
+    opsional yang meng-override siluet bila diisi (untuk klien lain).
   - Tambah ke `COMPONENT_REGISTRY`: field `note` (text, opsional) + `groups`
-    (array; arrayFields: `label` text, `description` text, `image` url).
+    (array; arrayFields: `label` text, `description` text, `figure` select, `image` url opsional).
   - Tambah case di `getDefaultComponentData`.
 - `apps/invitation/src/components/sections/DressCode.tsx` — komponen baru:
-  judul section, lalu daftar grup; tiap grup = ilustrasi figur + label + deskripsi.
+  judul section, lalu daftar grup; tiap grup = figur + label + deskripsi. Figur
+  dirender dari siluet SVG bawaan (`gentlemen`/`ladies`), atau dari `image` bila diisi.
   Bertumpuk vertikal di layar sempit, 2 kolom di layar lebar. Animasi Framer Motion
   konsisten dengan komponen lain.
+- Siluet SVG `gentlemen` & `ladies` (flat-vector) dibuat sebagai bagian komponen ini.
 - `apps/invitation/src/components/SectionRenderer.tsx`: tambah `case 'dress-code'`.
 
 ### Item 4 — Hero mendukung foto
@@ -202,7 +206,8 @@ Tulis ulang `server/src/scripts/seed-dega-lauditta.ts` memakai template
   (motif SVG) pada couple-profile, location-map, dan donation.
 - Foto: hero = `1.png`; galeri = `2.jpg`–`8.jpg`; `couple-profile` memakai dua
   foto pasangan (tidak ada foto solo terpisah).
-- `music` diisi (pemutar musik aktif untuk template ini).
+- Dress code dua grup dengan `figure: 'gentlemen'` & `figure: 'ladies'` (siluet SVG).
+- `music`: `{ videoId: 'dt25SFw8H4Y', autoplay: true }` (YouTube — pemutar musik aktif).
 - `customContent.heroPhoto` diisi foto hero (`1.png`).
 
 ### Item 8 — Admin template edit
@@ -232,12 +237,10 @@ Tambah opsi `floral` pada dropdown `decorationStyle` di form edit template (`app
 Implementasi menyalin foto ke folder publik invitation app
 (mis. `apps/invitation/public/assets/dega-lauditta/`) dan merujuknya via path.
 
-**Belum disediakan:**
+**Tidak perlu aset** (semuanya SVG): ornamen bunga, sprig, motif aksen, dekorasi
+amplop, dan figur dress code (siluet `gentlemen`/`ladies`).
 
-- **Figur dress code** — ilustrasi figur pria & wanita belum ada. Sampai dikirim,
-  komponen `dress-code` memakai placeholder (lihat §9).
-
-Ornamen bunga, sprig, motif aksen, dan dekorasi amplop **tidak perlu aset** — SVG.
+Tidak ada aset yang tertunda — semua foto sudah ada, sisanya SVG.
 
 ## 8. Warna & Font (disetujui)
 
@@ -252,8 +255,7 @@ Ornamen bunga, sprig, motif aksen, dan dekorasi amplop **tidak perlu aset** — 
   weight 400 — perlu diverifikasi agar request tidak gagal.
 - **Estetika flat-vector** — ornamen SVG tidak bertekstur cat air; hasil akhir
   "terinspirasi" Canva, bukan replika tekstur. Sudah disepakati user.
-- **Figur dress code belum disediakan user** — implementasi memakai placeholder;
-  perlu dikirim user, atau diganti treatment lebih sederhana (siluet/swatch SVG).
+- **Figur dress code = siluet SVG bawaan** — tidak ada dependensi aset eksternal.
 - **Restyle `event-detail`** memengaruhi semua template yang memakai komponen ini —
   pastikan tetap baik di template gelap (Nusantara) setelah diubah jadi theme-aware.
 
