@@ -6,6 +6,7 @@ export const createTemplateSchema = z.object({
   thumbnail: z.string().optional(),
   description: z.string().optional(),
   isActive: z.boolean().optional(),
+  decorationStyle: z.string().optional(),
   config: z
     .object({
       primaryColor: z.string().min(1),

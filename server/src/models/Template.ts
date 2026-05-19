@@ -6,6 +6,7 @@ export interface ITemplateDocument extends Document {
   thumbnail: string;
   description: string;
   isActive: boolean;
+  decorationStyle: string;
   config: {
     primaryColor: string;
     secondaryColor: string;
@@ -54,6 +55,10 @@ const templateSchema = new Schema<ITemplateDocument>(
     isActive: {
       type: Boolean,
       default: true,
+    },
+    decorationStyle: {
+      type: String,
+      default: 'none',
     },
     config: {
       type: Schema.Types.Mixed,
