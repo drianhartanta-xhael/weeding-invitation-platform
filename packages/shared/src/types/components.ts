@@ -82,8 +82,8 @@ export interface DressCodeData {
   groups: {
     label: string;
     description: string;
-    figure?: string; // 'gentlemen' | 'ladies' — selects a built-in SVG silhouette
-    image?: string;   // optional image URL; overrides the silhouette when set
+    figure?: 'gentlemen' | 'ladies'; // selects a built-in SVG silhouette
+    image?: string; // optional image URL; overrides the silhouette when set
   }[];
 }
 
