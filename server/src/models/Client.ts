@@ -45,6 +45,7 @@ export interface IClientDocument extends Document {
     bodyGreeting: string;
     footerTitle: string;
     footerMessage: string;
+    heroPhoto: string;
   };
   sections: {
     id: string;
@@ -143,6 +144,7 @@ const clientSchema = new Schema<IClientDocument>(
       bodyGreeting: { type: String, default: '' },
       footerTitle: { type: String, default: '' },
       footerMessage: { type: String, default: '' },
+      heroPhoto: { type: String, default: '' },
     },
     sections: [
       {

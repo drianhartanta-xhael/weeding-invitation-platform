@@ -10,6 +10,7 @@ interface HeroProps {
   guestName?: string;
   heroTitle?: string;
   bodyGreeting?: string;
+  heroPhoto?: string;
   regionStripe?: string;
   decorConfig?: unknown;
 }
@@ -20,7 +21,7 @@ function formatDate(dateStr: string) {
   return d.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 }
 
-export default function Hero({ groomName, brideName, eventDate, venue, guestName, heroTitle, bodyGreeting, regionStripe }: HeroProps) {
+export default function Hero({ groomName, brideName, eventDate, venue, guestName, heroTitle, bodyGreeting, heroPhoto, regionStripe }: HeroProps) {
   const handleScroll = () => {
     window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
   };
@@ -45,6 +46,23 @@ export default function Hero({ groomName, brideName, eventDate, venue, guestName
         >
           {heroTitle || 'The Wedding of'}
         </motion.p>
+
+        {heroPhoto && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.4, duration: 0.8 }}
+            className="mx-auto mb-6 overflow-hidden"
+            style={{
+              width: 220,
+              height: 260,
+              borderRadius: '110px 110px 18px 18px',
+              border: '3px solid var(--wedding-accent, #C8A84B)',
+            }}
+          >
+            <img src={heroPhoto} alt={`${groomName} & ${brideName}`} className="w-full h-full object-cover" />
+          </motion.div>
+        )}
 
         {bodyGreeting && (
           <motion.div

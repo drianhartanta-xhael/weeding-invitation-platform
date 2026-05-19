@@ -41,6 +41,7 @@ interface CustomContent {
   bodyGreeting?: string;
   footerTitle?: string;
   footerMessage?: string;
+  heroPhoto?: string;
 }
 
 interface SectionData {
@@ -196,6 +197,7 @@ export default function InvitationPage() {
   const bodyGreeting = cc?.bodyGreeting || templateConfig?.config?.bodyGreeting || '';
   const footerTitle = cc?.footerTitle || templateConfig?.config?.footerTitle || 'Thank You';
   const footerMessage = cc?.footerMessage || templateConfig?.config?.footerMessage || '';
+  const heroPhoto = cc?.heroPhoto || '';
 
   const defaultStylePresets = {
     light: { bg: '#FEFAE0', text: '#333333' },
@@ -253,6 +255,7 @@ export default function InvitationPage() {
                 guestName={guest?.invitationName}
                 heroTitle={heroTitle}
                 bodyGreeting={bodyGreeting}
+                heroPhoto={heroPhoto}
                 regionStripe={regionStripe}
                 decorConfig={decorConfig}
               />
