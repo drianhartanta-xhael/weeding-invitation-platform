@@ -2,14 +2,7 @@
 
 import type { FC } from 'react';
 import { motion } from 'framer-motion';
-
-interface DecorColors {
-  bg: string;
-  surface: string;
-  accent: string;
-  primary: string;
-  dark: string;
-}
+import type { DecorColors } from '@/lib/decorations/types';
 
 interface CoverProps {
   groomName: string;
