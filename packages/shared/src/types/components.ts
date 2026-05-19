@@ -11,6 +11,7 @@ export const COMPONENT_IDS = [
   'countdown',
   'story',
   'location-map',
+  'dress-code',
 ] as const;
 
 export type ComponentId = (typeof COMPONENT_IDS)[number];
@@ -76,6 +77,16 @@ export interface LocationMapData {
   mapUrl: string;
 }
 
+export interface DressCodeData {
+  note?: string;
+  groups: {
+    label: string;
+    description: string;
+    figure?: string; // 'gentlemen' | 'ladies' — selects a built-in SVG silhouette
+    image?: string;   // optional image URL; overrides the silhouette when set
+  }[];
+}
+
 export type ComponentData =
   | CoverData
   | CoupleProfileData
@@ -86,7 +97,8 @@ export type ComponentData =
   | WishesData
   | CountdownData
   | StoryData
-  | LocationMapData;
+  | LocationMapData
+  | DressCodeData;
 
 export const STYLE_PRESETS = ['light', 'dark', 'accent', 'image-1', 'image-2'] as const;
 export type StylePreset = (typeof STYLE_PRESETS)[number];
@@ -288,6 +300,26 @@ export const COMPONENT_REGISTRY: ComponentMeta[] = [
       { key: 'mapUrl', label: 'Google Maps Embed URL (optional)', type: 'url', placeholder: 'https://www.google.com/maps/embed?...' },
     ],
   },
+  {
+    id: 'dress-code',
+    label: 'Dress Code',
+    description: 'Dress code guidance per guest group with figure silhouettes',
+    icon: 'shirt',
+    fields: [
+      { key: 'note', label: 'Catatan (opsional)', type: 'textarea', placeholder: 'e.g. Kami akan senang bila tamu mengenakan...' },
+      {
+        key: 'groups',
+        label: 'Grup',
+        type: 'array',
+        arrayFields: [
+          { key: 'label', label: 'Label', type: 'text', required: true, placeholder: 'e.g. Gentlemen' },
+          { key: 'description', label: 'Keterangan', type: 'text', required: true, placeholder: 'e.g. Earth tone' },
+          { key: 'figure', label: 'Siluet (gentlemen / ladies)', type: 'text', placeholder: 'gentlemen' },
+          { key: 'image', label: 'URL Gambar (opsional)', type: 'url' },
+        ],
+      },
+    ],
+  },
 ];
 
 export function getComponentMeta(id: ComponentId): ComponentMeta | undefined {
@@ -332,6 +364,8 @@ export function getDefaultComponentData(id: ComponentId): ComponentData {
       return { stories: [], layout: 'vertical' };
     case 'location-map':
       return { venue: '', address: '', mapUrl: '' };
+    case 'dress-code':
+      return { note: '', groups: [] };
     default:
       return {};
   }
