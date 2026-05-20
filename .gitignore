@@ -44,3 +44,9 @@ Thumbs.db
 
 # Playwright MCP artifacts
 .playwright-mcp/
+
+# Ad-hoc screenshots / design references (not for deploy)
+/*.png
+/dega-dita-asets/
+/.design-cache/
+/.superpowers/brainstorm/
