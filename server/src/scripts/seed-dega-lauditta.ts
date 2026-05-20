@@ -121,7 +121,7 @@ async function seed() {
       {
         id: 's-gallery',
         componentId: 'gallery',
-        data: { images: galleryImages, layout: 'carousel' },
+        data: { images: galleryImages, layout: 'grid' },
         style: 'light',
         order: 2,
       },
