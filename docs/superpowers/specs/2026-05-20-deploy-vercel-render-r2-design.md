@@ -156,11 +156,11 @@ Each step is reversible by simply not advancing to the next. Local dev continues
 - 7-day uptime on Render observed via UptimeRobot.
 - Free tier usage stays below 20% of any quota at 1 active invitation (sanity check).
 
-## Open decisions
+## Decisions
 
-- Branch for first deploy: deploy from `feat/floral-watercolor-template`, or merge to `main` first? Recommend merge to `main` so the prod target is a stable branch.
-- Custom domain: defer.
-- Vercel preview deploy CORS: allow only production URLs; revisit if previews become important.
+- **Branch for first deploy:** merge `feat/floral-watercolor-template` to `main` first, then deploy from `main`.
+- **Custom domain:** deferred. Use `*.vercel.app` + `*.onrender.com` for v1; attach a domain later without redeploy by updating DNS only.
+- **Vercel preview deploy CORS:** `ALLOWED_ORIGINS` on Render contains only the two production Vercel URLs. Preview deploys cannot fetch the API; acceptable because there is no PR-review workflow on this project today.
 
 ## Out of scope (next specs)
 
