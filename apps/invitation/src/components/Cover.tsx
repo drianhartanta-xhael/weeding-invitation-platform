@@ -35,7 +35,7 @@ export default function Cover({
 
   return (
     <motion.div
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center select-none overflow-hidden"
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center select-none overflow-hidden px-5"
       style={{ backgroundColor: bg, cursor: 'pointer' }}
       onClick={onOpen}
       exit={{ opacity: 0, scale: 0.98 }}
@@ -62,7 +62,7 @@ export default function Cover({
 
         {/* Envelope */}
         <div
-          className="relative w-72 h-48 rounded-xl flex flex-col items-center justify-center mb-10"
+          className="relative w-full max-w-[18rem] h-44 sm:h-48 rounded-xl flex flex-col items-center justify-center mb-10"
           style={{
             backgroundColor: `color-mix(in srgb, ${accent} 12%, transparent)`,
             border: `1px solid color-mix(in srgb, ${accent} 35%, transparent)`,

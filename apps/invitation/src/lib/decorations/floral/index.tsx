@@ -88,27 +88,33 @@ function FloralStrip({ width, flip }: { width: number; flip?: boolean }) {
 }
 
 // HeroDecor — large sprig clusters in the four corners.
+// On mobile the corners are scaled down so they don't overlap the centered content.
 export function HeroDecor(_props: DecorProps) {
-  const corner = (style: CSSProperties, rot: number) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={150}
-      height={150}
-      viewBox="0 0 150 150"
-      style={{ position: 'absolute', ...style }}
+  const corner = (style: CSSProperties, extra: string) => (
+    <div
+      className="absolute w-[90px] h-[90px] sm:w-[150px] sm:h-[150px]"
+      style={{ ...style }}
     >
-      <g transform={`translate(40,140) rotate(${rot})`} opacity={0.55}>
-        <Sprig size={90} />
-        <g transform="translate(60,-10)"><Sprig size={60} /></g>
-      </g>
-    </svg>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="100%"
+        height="100%"
+        viewBox="0 0 150 150"
+        style={{ transform: extra }}
+      >
+        <g transform="translate(40,140)" opacity={0.55}>
+          <Sprig size={90} />
+          <g transform="translate(60,-10)"><Sprig size={60} /></g>
+        </g>
+      </svg>
+    </div>
   );
   return (
     <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none', zIndex: 0 }}>
-      {corner({ top: 0, left: 0 }, 0)}
-      {corner({ top: 0, right: 0, transform: 'scaleX(-1)' }, 0)}
-      {corner({ bottom: 0, left: 0, transform: 'scaleY(-1)' }, 0)}
-      {corner({ bottom: 0, right: 0, transform: 'scale(-1,-1)' }, 0)}
+      {corner({ top: 0, left: 0 }, 'none')}
+      {corner({ top: 0, right: 0 }, 'scaleX(-1)')}
+      {corner({ bottom: 0, left: 0 }, 'scaleY(-1)')}
+      {corner({ bottom: 0, right: 0 }, 'scale(-1,-1)')}
     </div>
   );
 }
