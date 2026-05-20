@@ -39,7 +39,7 @@ export default function Couple({
         </h2>
       </motion.div>
 
-      <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-start justify-center gap-6 mb-16">
+      <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center md:items-start justify-center gap-6 mb-16">
         <motion.div {...fade} className="flex-1 text-center">
           <p className="text-xs tracking-[0.2em] uppercase mb-4 font-medium" style={{ color: 'var(--wedding-accent, #C8A84B)' }}>
             Mempelai Pria
