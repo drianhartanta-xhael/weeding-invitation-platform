@@ -161,7 +161,7 @@ export default function SectionRenderer({
               </div>
             )}
             <div style={{ position: 'relative', zIndex: 1 }}>
-              {section.data.accentMotif && <AccentMotif name={section.data.accentMotif} />}
+              {section.data?.accentMotif && <AccentMotif name={section.data.accentMotif} />}
               {content}
             </div>
           </div>
