@@ -6,9 +6,10 @@ interface LocationMapProps {
   venue: string;
   address: string;
   mapUrl?: string;
+  accentImage?: string;
 }
 
-export default function LocationMap({ venue, address, mapUrl }: LocationMapProps) {
+export default function LocationMap({ venue, address, mapUrl, accentImage }: LocationMapProps) {
   if (!venue && !address) return null;
 
   let embedSrc = '';
@@ -39,6 +40,18 @@ export default function LocationMap({ venue, address, mapUrl }: LocationMapProps
           {venue || 'Lokasi Acara'}
         </h2>
       </motion.div>
+
+      {accentImage && (
+        <motion.img
+          src={accentImage}
+          alt=""
+          aria-hidden
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="w-44 sm:w-52 h-auto mx-auto mb-6 object-contain"
+        />
+      )}
 
       <div className="max-w-2xl mx-auto">
         <motion.div

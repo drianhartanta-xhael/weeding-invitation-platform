@@ -11,133 +11,86 @@ export const floralPlumColors: DecorColors = {
   dark: '#d9d5c7',
 };
 
-// Internal palette — flowers/leaves use more than one accent colour.
-const BLOOM = '#c989ae';
-const BLOOM_ALT = '#ba6193';
-const LEAF = '#d9d5c7';
+// Watercolor wildflower pattern (transparent PNG) shared by all dega-ditta sections.
+const FLOWERS = '/assets/dega-ditta/flowers.png';
 
-// A single 5-petal bloom centred at (0,0).
-function Bloom({ size, color = BLOOM }: { size: number; color?: string }) {
-  return (
-    <g>
-      {[0, 72, 144, 216, 288].map((deg) => (
-        <ellipse
-          key={deg}
-          cx={0}
-          cy={-size * 0.55}
-          rx={size * 0.3}
-          ry={size * 0.55}
-          fill={color}
-          transform={`rotate(${deg})`}
-        />
-      ))}
-      <circle r={size * 0.28} fill={BLOOM_ALT} />
-    </g>
-  );
+// A horizontal watercolor floral band that fades toward the section interior.
+function FloralBand({ edge }: { edge: 'top' | 'bottom' }) {
+  const fadeDir = edge === 'top' ? 'to bottom' : 'to top';
+  const mask = `linear-gradient(${fadeDir}, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 100%)`;
+  const style: CSSProperties = {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: edge === 'top' ? 0 : undefined,
+    bottom: edge === 'bottom' ? 0 : undefined,
+    height: 92,
+    backgroundImage: `url('${FLOWERS}')`,
+    backgroundRepeat: 'repeat-x',
+    backgroundSize: 'auto 220px',
+    backgroundPosition: edge === 'top' ? 'center top' : 'center bottom',
+    opacity: 0.85,
+    WebkitMaskImage: mask,
+    maskImage: mask,
+    pointerEvents: 'none',
+  };
+  return <div aria-hidden style={style} />;
 }
 
-// A leafy sprig: a curved stem with three leaves and a bloom at the tip.
-function Sprig({ size }: { size: number }) {
-  const s = size;
-  return (
-    <g>
-      <path
-        d={`M 0,0 Q ${s * 0.4},${-s * 0.4} ${s * 0.2},${-s}`}
-        fill="none"
-        stroke={LEAF}
-        strokeWidth={s * 0.06}
-        strokeLinecap="round"
-      />
-      {[0.25, 0.5, 0.75].map((t, i) => (
-        <ellipse
-          key={i}
-          cx={s * 0.3}
-          cy={-s * t}
-          rx={s * 0.22}
-          ry={s * 0.1}
-          fill={LEAF}
-          transform={`rotate(${i % 2 === 0 ? 35 : -35} ${s * 0.3} ${-s * t})`}
-        />
-      ))}
-      <g transform={`translate(${s * 0.2}, ${-s})`}>
-        <Bloom size={s * 0.4} />
-      </g>
-    </g>
-  );
+// A floral corner cluster, faded radially inward (used on the cover overlay).
+function FloralCorner({ pos }: { pos: 'tl' | 'tr' | 'bl' | 'br' }) {
+  const isTop = pos[0] === 't';
+  const isLeft = pos[1] === 'l';
+  const cornerX = isLeft ? 'left' : 'right';
+  const cornerY = isTop ? 'top' : 'bottom';
+  const mask = `radial-gradient(circle at ${cornerX} ${cornerY}, rgba(0,0,0,1) 38%, rgba(0,0,0,0) 78%)`;
+  const style: CSSProperties = {
+    position: 'absolute',
+    top: isTop ? 0 : undefined,
+    bottom: isTop ? undefined : 0,
+    left: isLeft ? 0 : undefined,
+    right: isLeft ? undefined : 0,
+    width: 150,
+    height: 150,
+    backgroundImage: `url('${FLOWERS}')`,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: '300px auto',
+    backgroundPosition: `${cornerX} ${cornerY}`,
+    opacity: 0.8,
+    WebkitMaskImage: mask,
+    maskImage: mask,
+    pointerEvents: 'none',
+  };
+  return <div aria-hidden style={style} />;
 }
 
-// A horizontal strip of alternating blooms + sprigs, used along section edges.
-function FloralStrip({ width, flip }: { width: number; flip?: boolean }) {
-  const items = Array.from({ length: Math.ceil(width / 90) + 1 }, (_, i) => i);
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="100%"
-      height={70}
-      viewBox={`0 0 ${width} 70`}
-      preserveAspectRatio="xMidYMid slice"
-      style={{ display: 'block', transform: flip ? 'scaleY(-1)' : undefined }}
-    >
-      {items.map((i) => (
-        <g key={i} transform={`translate(${i * 90 + 30}, 56)`} opacity={0.5}>
-          {i % 2 === 0 ? <Sprig size={44} /> : <g transform="translate(0,-18)"><Bloom size={26} /></g>}
-        </g>
-      ))}
-    </svg>
-  );
-}
-
-// HeroDecor — large sprig clusters in the four corners.
-// On mobile the corners are scaled down so they don't overlap the centered content.
+// HeroDecor — watercolor floral clusters in the four corners (rendered on the cover).
 export function HeroDecor(_props: DecorProps) {
-  const corner = (style: CSSProperties, extra: string) => (
-    <div
-      className="absolute w-[90px] h-[90px] sm:w-[150px] sm:h-[150px]"
-      style={{ ...style }}
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="100%"
-        height="100%"
-        viewBox="0 0 150 150"
-        style={{ transform: extra }}
-      >
-        <g transform="translate(40,140)" opacity={0.55}>
-          <Sprig size={90} />
-          <g transform="translate(60,-10)"><Sprig size={60} /></g>
-        </g>
-      </svg>
-    </div>
-  );
   return (
     <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none', zIndex: 0 }}>
-      {corner({ top: 0, left: 0 }, 'none')}
-      {corner({ top: 0, right: 0 }, 'scaleX(-1)')}
-      {corner({ bottom: 0, left: 0 }, 'scaleY(-1)')}
-      {corner({ bottom: 0, right: 0 }, 'scale(-1,-1)')}
+      <FloralCorner pos="tl" />
+      <FloralCorner pos="tr" />
+      <FloralCorner pos="bl" />
+      <FloralCorner pos="br" />
     </div>
   );
 }
 
-// SectionDecor — floral strips along the top and bottom edges of every section.
+// SectionDecor — watercolor floral bands along the top and bottom of every section.
 export function SectionDecor(_props: DecorProps & { variant: SectionVariant }) {
   return (
     <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none', zIndex: 0 }}>
-      <div style={{ position: 'absolute', top: 0, left: 0, right: 0 }}>
-        <FloralStrip width={900} />
-      </div>
-      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0 }}>
-        <FloralStrip width={900} flip />
-      </div>
+      <FloralBand edge="top" />
+      <FloralBand edge="bottom" />
     </div>
   );
 }
 
-// FooterDecor — a single floral strip across the top of the footer.
+// FooterDecor — a single watercolor floral band across the top of the footer.
 export function FooterDecor(_props: DecorProps) {
   return (
-    <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 70, overflow: 'hidden', pointerEvents: 'none', zIndex: 0 }}>
-      <FloralStrip width={1000} />
+    <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 92, overflow: 'hidden', pointerEvents: 'none', zIndex: 0 }}>
+      <FloralBand edge="top" />
     </div>
   );
 }

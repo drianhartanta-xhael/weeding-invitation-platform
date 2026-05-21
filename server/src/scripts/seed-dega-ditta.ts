@@ -57,6 +57,7 @@ async function seed() {
       venue: '',
       address: '',
       mapUrl: '',
+      image: `${P}/champagne.png`,
     },
     {
       name: 'Dinner Reception',
@@ -97,6 +98,8 @@ async function seed() {
       footerTitle: 'Thank You',
       footerMessage: 'We are truly grateful for your heartfelt wishes and prayers for our marriage.',
       heroPhoto,
+      heroAccent: `${P}/rings.png`,
+      footerImage: `${P}/couple-walk.png`,
     },
     sections: [
       {
@@ -135,6 +138,7 @@ async function seed() {
           venue: 'Hilton Garden Inn Bali, Nusa Dua',
           address: 'Jl. Pratama No.57A, Tanjung, Benoa, South Kuta, Badung Regency, Bali 80361',
           mapUrl,
+          accentImage: `${P}/car.png`,
           accentMotif: 'sprig',
         },
         style: 'light',
@@ -153,8 +157,8 @@ async function seed() {
         data: {
           note: '',
           groups: [
-            { label: 'Gentlemen', description: 'Earth tone', figure: 'gentlemen' },
-            { label: 'Ladies', description: 'The shades of flowers, except white flowers', figure: 'ladies' },
+            { label: 'Gentlemen', description: 'Earth tone', figure: 'gentlemen', image: `${P}/gentlemen.png` },
+            { label: 'Ladies', description: 'The shades of flowers, except white flowers', figure: 'ladies', image: `${P}/ladies.png` },
           ],
         },
         style: 'light',

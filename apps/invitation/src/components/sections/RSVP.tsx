@@ -31,9 +31,9 @@ export default function RSVP({ clientSlug, guestSlug, currentStatus }: RSVPProps
   };
 
   const inputStyle = {
-    backgroundColor: 'rgba(255,255,255,0.08)',
-    border: '1px solid rgba(200,168,75,0.25)',
-    color: 'var(--wedding-secondary, #F5EDE0)',
+    backgroundColor: 'color-mix(in srgb, currentColor 6%, transparent)',
+    border: '1px solid color-mix(in srgb, currentColor 25%, transparent)',
+    color: 'currentColor',
   };
 
   return (
@@ -47,7 +47,7 @@ export default function RSVP({ clientSlug, guestSlug, currentStatus }: RSVPProps
         <p className="text-xs tracking-[0.25em] uppercase mb-2" style={{ color: 'var(--wedding-accent, #C8A84B)' }}>
           Konfirmasi Kehadiran
         </p>
-        <h2 className="font-heading text-3xl md:text-4xl italic" style={{ color: 'var(--wedding-secondary, #F5EDE0)' }}>
+        <h2 className="font-heading text-3xl md:text-4xl italic" style={{ color: 'currentColor' }}>
           RSVP
         </h2>
       </motion.div>
@@ -62,7 +62,7 @@ export default function RSVP({ clientSlug, guestSlug, currentStatus }: RSVPProps
             <p className="font-heading text-2xl italic mb-3" style={{ color: 'var(--wedding-accent, #C8A84B)' }}>
               Terima Kasih
             </p>
-            <p className="text-sm" style={{ color: 'rgba(245,237,224,0.7)' }}>
+            <p className="text-sm" style={{ color: 'currentColor', opacity: 0.7 }}>
               Konfirmasi kehadiran Anda telah kami terima.
             </p>
           </motion.div>
@@ -75,7 +75,7 @@ export default function RSVP({ clientSlug, guestSlug, currentStatus }: RSVPProps
             className="space-y-5"
           >
             <div>
-              <p className="text-xs tracking-widest uppercase mb-3" style={{ color: 'rgba(245,237,224,0.6)' }}>
+              <p className="text-xs tracking-widest uppercase mb-3" style={{ color: 'currentColor', opacity: 0.6 }}>
                 Konfirmasi Kehadiran
               </p>
               <div className="flex flex-col gap-2">
@@ -90,7 +90,7 @@ export default function RSVP({ clientSlug, guestSlug, currentStatus }: RSVPProps
                     className="py-3 rounded-lg text-sm transition-all"
                     style={rsvpStatus === opt.value
                       ? { backgroundColor: 'var(--wedding-accent, #C8A84B)', color: '#3D1A0E' }
-                      : { backgroundColor: 'rgba(255,255,255,0.06)', border: '1px solid rgba(200,168,75,0.2)', color: 'var(--wedding-secondary, #F5EDE0)' }
+                      : { backgroundColor: 'color-mix(in srgb, currentColor 6%, transparent)', border: '1px solid color-mix(in srgb, currentColor 22%, transparent)', color: 'currentColor' }
                     }
                   >
                     {opt.label}
@@ -101,7 +101,7 @@ export default function RSVP({ clientSlug, guestSlug, currentStatus }: RSVPProps
 
             {rsvpStatus === 'attending' && (
               <div>
-                <p className="text-xs tracking-widest uppercase mb-2" style={{ color: 'rgba(245,237,224,0.6)' }}>
+                <p className="text-xs tracking-widest uppercase mb-2" style={{ color: 'currentColor', opacity: 0.6 }}>
                   Jumlah Tamu
                 </p>
                 <select

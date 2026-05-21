@@ -134,6 +134,7 @@ export default function SectionRenderer({
                 venue={section.data.venue || ''}
                 address={section.data.address || ''}
                 mapUrl={section.data.mapUrl || ''}
+                accentImage={section.data.accentImage}
               />
             );
             break;

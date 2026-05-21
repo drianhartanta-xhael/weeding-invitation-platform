@@ -65,15 +65,19 @@ export default function DressCode({ note, groups }: DressCodeProps) {
             transition={{ delay: i * 0.15 }}
             className="flex flex-col items-center text-center"
           >
-            <div className="w-28 h-40 flex items-end justify-center mb-3">
-              {g.image ? (
-                <img src={g.image} alt={g.label} className="max-h-full object-contain" />
-              ) : g.figure === 'ladies' ? (
-                <LadiesFigure color="var(--wedding-accent, #D98FA8)" />
-              ) : (
-                <GentlemenFigure color="var(--wedding-accent, #D98FA8)" />
-              )}
-            </div>
+            {g.image ? (
+              <div className="w-full max-w-[300px] mb-3">
+                <img src={g.image} alt={g.label} className="w-full h-auto object-contain" />
+              </div>
+            ) : (
+              <div className="w-28 h-40 flex items-end justify-center mb-3">
+                {g.figure === 'ladies' ? (
+                  <LadiesFigure color="var(--wedding-accent, #D98FA8)" />
+                ) : (
+                  <GentlemenFigure color="var(--wedding-accent, #D98FA8)" />
+                )}
+              </div>
+            )}
             <p className="font-medium text-lg" style={{ color: 'var(--wedding-primary, #C9477E)' }}>
               {g.label}
             </p>

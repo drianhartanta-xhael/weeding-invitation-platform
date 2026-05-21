@@ -9,6 +9,7 @@ interface Event {
   venue: string;
   address: string;
   mapUrl: string;
+  image?: string;
 }
 
 interface EventsProps {
@@ -56,6 +57,15 @@ export default function Events({ events }: EventsProps) {
               border: '1px solid color-mix(in srgb, currentColor 18%, transparent)',
             }}
           >
+            {event.image && (
+              <img
+                src={event.image}
+                alt=""
+                aria-hidden
+                className="w-24 h-auto mx-auto mb-4 object-contain"
+              />
+            )}
+
             <p className="text-xs tracking-widest uppercase mb-5" style={{ color: 'var(--wedding-accent, #C8A84B)' }}>
               {ROMAN[index] || String(index + 1)} · {event.name}
             </p>

@@ -5,6 +5,7 @@ import { useParams, useSearchParams } from 'next/navigation';
 import { AnimatePresence } from 'framer-motion';
 import api from '@/lib/api';
 import Hero from '@/components/sections/Hero';
+import HeroLight from '@/components/sections/HeroLight';
 import BodyGreeting from '@/components/sections/BodyGreeting';
 import Couple from '@/components/sections/Couple';
 import Events from '@/components/sections/Events';
@@ -26,6 +27,7 @@ interface TemplateConfig {
   accentColor: string;
   fontHeading: string;
   fontBody: string;
+  heroVariant?: string;
   heroTitle?: string;
   heroSubtitle?: string;
   bodyGreeting?: string;
@@ -42,6 +44,8 @@ interface CustomContent {
   footerTitle?: string;
   footerMessage?: string;
   heroPhoto?: string;
+  heroAccent?: string;
+  footerImage?: string;
 }
 
 interface SectionData {
@@ -61,6 +65,7 @@ interface InvitationData {
   groomParents: { father: string; mother: string };
   brideParents: { father: string; mother: string };
   eventDate: string;
+  venue?: string;
   events: {
     name: string;
     date: string;
@@ -198,6 +203,7 @@ export default function InvitationPage() {
   const footerTitle = cc?.footerTitle || templateConfig?.config?.footerTitle || 'Thank You';
   const footerMessage = cc?.footerMessage || templateConfig?.config?.footerMessage || '';
   const heroPhoto = cc?.heroPhoto || '';
+  const heroVariant = templateConfig?.config?.heroVariant;
 
   const defaultStylePresets = {
     light: { bg: '#FEFAE0', text: '#333333' },
@@ -251,18 +257,30 @@ export default function InvitationPage() {
                 )}
               </AnimatePresence>
 
-              <Hero
-                groomName={invitation.groomName}
-                brideName={invitation.brideName}
-                eventDate={invitation.eventDate}
-                venue={invitation.events?.[0]?.venue}
-                guestName={guest?.invitationName}
-                heroTitle={heroTitle}
-                bodyGreeting={bodyGreeting}
-                heroPhoto={heroPhoto}
-                regionStripe={regionStripe}
-                decorConfig={decorConfig}
-              />
+              {heroVariant === 'light' ? (
+                <HeroLight
+                  groomName={invitation.groomName}
+                  brideName={invitation.brideName}
+                  eventDate={invitation.eventDate}
+                  venue={invitation.venue || invitation.events?.[0]?.venue}
+                  guestName={guest?.invitationName}
+                  heroPhoto={heroPhoto}
+                  ringsImage={cc?.heroAccent}
+                />
+              ) : (
+                <Hero
+                  groomName={invitation.groomName}
+                  brideName={invitation.brideName}
+                  eventDate={invitation.eventDate}
+                  venue={invitation.events?.[0]?.venue}
+                  guestName={guest?.invitationName}
+                  heroTitle={heroTitle}
+                  bodyGreeting={bodyGreeting}
+                  heroPhoto={heroPhoto}
+                  regionStripe={regionStripe}
+                  decorConfig={decorConfig}
+                />
+              )}
 
               <SectionRenderer
                 sections={contentSections}
@@ -283,6 +301,8 @@ export default function InvitationPage() {
                 regionStripe={regionStripe}
                 regionLabel={regionLabel}
                 decorConfig={decorConfig}
+                light={heroVariant === 'light'}
+                illustration={cc?.footerImage}
               />
             </>
           );
