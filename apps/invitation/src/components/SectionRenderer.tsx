@@ -78,6 +78,13 @@ export default function SectionRenderer({
                 groomParents={section.data.groomParents || { father: '', mother: '' }}
                 brideParents={section.data.brideParents || { father: '', mother: '' }}
                 culturalQuotes={section.data.culturalQuotes}
+                layout={section.data.layout}
+                heading={section.data.heading}
+                centerPhoto={section.data.centerPhoto}
+                bouquetImage={section.data.bouquetImage}
+                ringsImage={section.data.ringsImage}
+                groomLabel={section.data.groomLabel}
+                brideLabel={section.data.brideLabel}
               />
             );
             break;
@@ -138,6 +145,9 @@ export default function SectionRenderer({
                 address={section.data.address || ''}
                 mapUrl={section.data.mapUrl || ''}
                 accentImage={section.data.accentImage}
+                backgroundImage={section.data.backgroundImage}
+                heading={section.data.heading}
+                buttonLabel={section.data.buttonLabel}
               />
             );
             break;
@@ -159,7 +169,7 @@ export default function SectionRenderer({
 
         return (
           <div key={section.id} style={{ ...wrapperStyle, position: 'relative', overflow: 'hidden' }}>
-            {SectionDecor && decorConfig && (
+            {SectionDecor && decorConfig && !section.data?.noDecor && (
               <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0 }}>
                 <SectionDecor colors={decorConfig.colors} variant={variant} />
               </div>
