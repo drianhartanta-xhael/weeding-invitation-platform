@@ -18,9 +18,11 @@ export default function LocationMap({ venue, address, mapUrl }: LocationMapProps
     embedSrc = `https://maps.google.com/maps?q=${encodeURIComponent(address)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
   }
 
-  const mapsLink = address
-    ? `https://maps.google.com/?q=${encodeURIComponent(address)}`
-    : 'https://maps.google.com';
+  const mapsLink = mapUrl
+    ? mapUrl
+    : address
+      ? `https://maps.google.com/?q=${encodeURIComponent(address)}`
+      : 'https://maps.google.com';
 
   return (
     <section className="py-20 px-4">
