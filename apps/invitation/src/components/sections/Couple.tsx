@@ -15,6 +15,13 @@ interface CoupleProps {
   groomParents: { father: string; mother: string };
   brideParents: { father: string; mother: string };
   culturalQuotes?: CulturalQuote[];
+  layout?: string;
+  heading?: string;
+  centerPhoto?: string;
+  bouquetImage?: string;
+  ringsImage?: string;
+  groomLabel?: string;
+  brideLabel?: string;
 }
 
 const fade = {
@@ -27,7 +34,52 @@ const fade = {
 export default function Couple({
   groomName, brideName, groomPhoto, bridePhoto,
   groomParents, brideParents, culturalQuotes,
+  layout, heading, centerPhoto, bouquetImage, ringsImage, groomLabel, brideLabel,
 }: CoupleProps) {
+  if (layout === 'split') {
+    const accent = 'var(--wedding-accent, #ba6193)';
+    const primary = 'var(--wedding-primary, #823460)';
+    const subText = 'color-mix(in srgb, var(--wedding-primary, #823460) 80%, transparent)';
+    const block = (name: string, lbl: string, p: { father: string; mother: string }, order: string) => (
+      <motion.div {...fade} className={`text-center ${order}`}>
+        <h3 className="font-heading text-3xl md:text-4xl italic mb-4" style={{ color: accent }}>{name}</h3>
+        <p className="text-sm tracking-wide mb-3" style={{ color: primary }}>{lbl}</p>
+        <p className="text-sm leading-relaxed" style={{ color: subText }}>
+          {p.father}<br />and<br />{p.mother}
+        </p>
+      </motion.div>
+    );
+    return (
+      <section className="py-20 px-5 overflow-hidden">
+        <motion.div {...fade} className="text-center mb-12">
+          <h2 className="font-heading text-3xl md:text-5xl italic" style={{ color: accent }}>
+            {heading || 'The happy couple and parents'}
+          </h2>
+        </motion.div>
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 items-center gap-12 md:gap-6">
+          {block(groomName, groomLabel || 'First son of', groomParents, 'md:order-1')}
+          <motion.div {...fade} className="order-first md:order-2 flex justify-center">
+            <div className="relative w-60 sm:w-72">
+              <div
+                className="aspect-square rounded-full overflow-hidden border-4"
+                style={{ borderColor: 'color-mix(in srgb, var(--wedding-accent, #ba6193) 30%, transparent)' }}
+              >
+                {centerPhoto && <img src={centerPhoto} alt={`${groomName} & ${brideName}`} className="w-full h-full object-cover" />}
+              </div>
+              {bouquetImage && (
+                <img src={bouquetImage} alt="" aria-hidden className="absolute -left-10 sm:-left-14 bottom-2 w-24 sm:w-32 object-contain pointer-events-none" />
+              )}
+              {ringsImage && (
+                <img src={ringsImage} alt="" aria-hidden className="absolute -right-6 sm:-right-8 -bottom-4 w-20 sm:w-24 object-contain pointer-events-none" />
+              )}
+            </div>
+          </motion.div>
+          {block(brideName, brideLabel || 'First daughter of', brideParents, 'md:order-3')}
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="py-20 px-4">
       <motion.div {...fade} className="text-center mb-16">
