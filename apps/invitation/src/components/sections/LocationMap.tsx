@@ -59,7 +59,7 @@ export default function LocationMap({ venue, address, mapUrl, accentImage, backg
         )}
       </motion.div>
 
-      {accentImage && (
+      {accentImage && !backgroundImage && (
         <motion.img
           src={accentImage}
           alt=""

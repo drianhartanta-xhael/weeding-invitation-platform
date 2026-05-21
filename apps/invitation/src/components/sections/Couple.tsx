@@ -50,7 +50,7 @@ export default function Couple({
       </motion.div>
     );
     return (
-      <section className="py-20 px-5 overflow-hidden">
+      <section className="py-20 px-5">
         <motion.div {...fade} className="text-center mb-12">
           <h2 className="font-heading text-3xl md:text-5xl italic" style={{ color: accent }}>
             {heading || 'The happy couple and parents'}
