@@ -26,8 +26,9 @@ no renderer, no model changes — only additive files plus one registry entry.
 
 ## Non-goals
 
-- No changes to shared section components, `SectionRenderer`, the dual-mode page, or
-  any Mongoose model.
+- No changes to `SectionRenderer`, the dual-mode page, or any Mongoose model. (One
+  small, backward-compatible tweak to the shared `LocationMap` component — see §5 — is
+  in scope, surfaced by the precise-venue requirement.)
 - No admin-UI work — seeding is via scripts, content tweakable later through the
   existing dashboard.
 - Not using the Canva cupid clip-art (licensing).
@@ -124,6 +125,10 @@ Changes:
 - couple-profile `groomPhoto = ${P}/2.jpg`, `bridePhoto = ${P}/5.jpg` (placeholder
   crops from the gallery set; swappable later via the dashboard if solo portraits
   become available)
+- location-map section: `venue: 'Hilton Garden Inn Bali, Nusa Dua'`,
+  `address: 'Jl. Pratama No.57A, Tanjung, Benoa, South Kuta, Badung Regency, Bali 80361'`,
+  `mapUrl:` the full Google Maps place URL for the venue (so the embed pins the exact
+  spot and the button opens the canonical place page — see §5)
 - guests: reuse the same 3 demo guests, scoped to the new client by `clientId`
 
 Idempotent upsert keyed on `slug`. The script prints the local + `?to=` preview URLs,
@@ -145,6 +150,26 @@ Copy from the untracked source `dega-dita-asets2/`:
   the names as Pinyon Script text. Available to wire in later if wanted.
 - `attachments.zip` — source archive, not a web asset.
 
+### 5. LocationMap button enhancement — `apps/invitation/src/components/sections/LocationMap.tsx`
+
+`LocationMap` currently only honours `mapUrl` for the iframe when it contains
+`/maps/embed`, and builds the "Buka di Google Maps" button link from `address` alone —
+so a plain place URL in `mapUrl` is dead data. One backward-compatible change: prefer
+`mapUrl` for the button link when present.
+
+```ts
+const mapsLink = mapUrl
+  ? mapUrl
+  : address
+    ? `https://maps.google.com/?q=${encodeURIComponent(address)}`
+    : 'https://maps.google.com';
+```
+
+The iframe logic is unchanged: a non-embed `mapUrl` still falls through to the
+`address`-based embed, and the precise street address makes that embed pin the exact
+venue. This change also affects `/dega-lauditta` — its button would open its existing
+goo.gl `mapUrl` (the same Bali venue), which remains correct.
+
 ## Data flow (unchanged from existing)
 
 1. Browser hits `/dega-ditta` → `[slug]/page.tsx` fetches `/invitations/dega-ditta`.
@@ -165,8 +190,11 @@ decoration style → `none` fallback; empty section `data` → optional-chaining
    `npx tsx server/src/scripts/seed-floral-plum-template.ts`
    `npx tsx server/src/scripts/seed-dega-ditta.ts`
 3. Confirm `GET /api/invitations/dega-ditta` returns the 8 sections + plum template.
-4. Preview `http://localhost:3001/dega-ditta` locally and via the ngrok tunnel.
-5. Regression: confirm `http://localhost:3001/dega-lauditta` renders unchanged.
+4. Preview `http://localhost:3001/dega-ditta` locally and via the ngrok tunnel;
+   confirm the location embed pins Hilton Garden Inn and the button opens the exact
+   place URL.
+5. Regression: confirm `http://localhost:3001/dega-lauditta` renders unchanged (its
+   location button now opens its own goo.gl link — same venue).
 
 ## Out of scope / follow-ups
 
