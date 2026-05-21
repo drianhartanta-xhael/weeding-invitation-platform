@@ -247,6 +247,9 @@ export default function InvitationPage() {
                     brideName={invitation.brideName}
                     guestName={guest?.invitationName}
                     coverText={coverSection.data.coverText}
+                    coverImage={coverSection.data.coverImage}
+                    inviteText={coverSection.data.inviteText}
+                    openText={coverSection.data.openText}
                     bg={templateConfig?.stylePresets?.['dark']?.bg}
                     accent={templateConfig?.config?.accentColor}
                     textColor={templateConfig?.stylePresets?.['dark']?.text}
@@ -265,7 +268,7 @@ export default function InvitationPage() {
                   venue={invitation.venue || invitation.events?.[0]?.venue}
                   guestName={guest?.invitationName}
                   heroPhoto={heroPhoto}
-                  ringsImage={cc?.heroAccent}
+                  baseImage={cc?.heroAccent}
                 />
               ) : (
                 <Hero
