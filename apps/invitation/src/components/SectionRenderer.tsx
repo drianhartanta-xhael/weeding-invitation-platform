@@ -100,6 +100,8 @@ export default function SectionRenderer({
               <Gift
                 clientId={clientId}
                 bankAccounts={section.data.bankAccounts || []}
+                bankOnly={section.data.bankOnly}
+                text={section.data.text}
               />
             );
             break;
@@ -111,6 +113,7 @@ export default function SectionRenderer({
                   clientSlug={clientSlug}
                   guestSlug={guestSlug}
                   currentStatus={guestRsvpStatus || 'pending'}
+                  text={section.data.text}
                 />
               );
             }

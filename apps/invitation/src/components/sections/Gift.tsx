@@ -13,9 +13,20 @@ interface BankAccount {
 interface GiftProps {
   clientId: string;
   bankAccounts: BankAccount[];
+  bankOnly?: boolean;
+  text?: Record<string, string>;
 }
 
-export default function Gift({ clientId, bankAccounts }: GiftProps) {
+const DEFAULT_TEXT = {
+  subtitle: 'Hadiah',
+  title: 'Amplop Digital',
+  note: 'Doa restu Anda adalah hadiah terbaik bagi kami.',
+  copy: 'Salin Nomor',
+  copied: 'Tersalin ✓',
+};
+
+export default function Gift({ clientId, bankAccounts, bankOnly, text }: GiftProps) {
+  const t = { ...DEFAULT_TEXT, ...(text || {}) };
   const [guestName, setGuestName] = useState('');
   const [amount, setAmount] = useState('');
   const [message, setMessage] = useState('');
@@ -57,13 +68,13 @@ export default function Gift({ clientId, bankAccounts }: GiftProps) {
         className="text-center mb-12"
       >
         <p className="text-xs tracking-[0.25em] uppercase mb-2" style={{ color: 'var(--wedding-primary, #6B1020)' }}>
-          Hadiah
+          {t.subtitle}
         </p>
         <h2 className="font-heading text-3xl md:text-4xl italic mb-3" style={{ color: 'var(--wedding-primary, #6B1020)' }}>
-          Amplop Digital
+          {t.title}
         </h2>
-        <p className="text-sm max-w-sm mx-auto" style={{ color: 'rgba(61,26,14,0.65)' }}>
-          Doa restu Anda adalah hadiah terbaik bagi kami.
+        <p className="text-sm max-w-md mx-auto leading-relaxed" style={{ color: 'rgba(61,26,14,0.65)' }}>
+          {t.note}
         </p>
       </motion.div>
 
@@ -101,13 +112,14 @@ export default function Gift({ clientId, bankAccounts }: GiftProps) {
                     : { border: '1px solid var(--wedding-primary, #6B1020)', color: 'var(--wedding-primary, #6B1020)' }
                   }
                 >
-                  {copied === account.bank ? 'Tersalin ✓' : 'Salin Nomor'}
+                  {copied === account.bank ? t.copied : t.copy}
                 </button>
               </div>
             ))}
           </motion.div>
         )}
 
+        {!bankOnly && (
         <motion.form
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -173,6 +185,7 @@ export default function Gift({ clientId, bankAccounts }: GiftProps) {
             {loading ? 'Memproses...' : 'Kirim Hadiah'}
           </button>
         </motion.form>
+        )}
       </div>
     </section>
   );

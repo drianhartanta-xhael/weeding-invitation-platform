@@ -8,9 +8,24 @@ interface RSVPProps {
   clientSlug: string;
   guestSlug?: string;
   currentStatus?: string;
+  text?: Record<string, string>;
 }
 
-export default function RSVP({ clientSlug, guestSlug, currentStatus }: RSVPProps) {
+const DEFAULT_TEXT = {
+  subtitle: 'Konfirmasi Kehadiran',
+  question: 'Konfirmasi Kehadiran',
+  attend: 'Insya Allah Hadir 🎉',
+  decline: 'Mohon Maaf, Berhalangan',
+  guests: 'Jumlah Tamu',
+  unit: 'orang',
+  sending: 'Mengirim...',
+  submit: 'Kirim Konfirmasi',
+  thanksTitle: 'Terima Kasih',
+  thanksMsg: 'Konfirmasi kehadiran Anda telah kami terima.',
+};
+
+export default function RSVP({ clientSlug, guestSlug, currentStatus, text }: RSVPProps) {
+  const t = { ...DEFAULT_TEXT, ...(text || {}) };
   const [rsvpStatus, setRsvpStatus] = useState(currentStatus || '');
   const [numberOfGuests, setNumberOfGuests] = useState(1);
   const [submitted, setSubmitted] = useState(false);
@@ -45,7 +60,7 @@ export default function RSVP({ clientSlug, guestSlug, currentStatus }: RSVPProps
         className="text-center mb-12"
       >
         <p className="text-xs tracking-[0.25em] uppercase mb-2" style={{ color: 'var(--wedding-accent, #C8A84B)' }}>
-          Konfirmasi Kehadiran
+          {t.subtitle}
         </p>
         <h2 className="font-heading text-3xl md:text-4xl italic" style={{ color: 'currentColor' }}>
           RSVP
@@ -60,10 +75,10 @@ export default function RSVP({ clientSlug, guestSlug, currentStatus }: RSVPProps
             className="text-center py-12"
           >
             <p className="font-heading text-2xl italic mb-3" style={{ color: 'var(--wedding-accent, #C8A84B)' }}>
-              Terima Kasih
+              {t.thanksTitle}
             </p>
             <p className="text-sm" style={{ color: 'currentColor', opacity: 0.7 }}>
-              Konfirmasi kehadiran Anda telah kami terima.
+              {t.thanksMsg}
             </p>
           </motion.div>
         ) : (
@@ -76,12 +91,12 @@ export default function RSVP({ clientSlug, guestSlug, currentStatus }: RSVPProps
           >
             <div>
               <p className="text-xs tracking-widest uppercase mb-3" style={{ color: 'currentColor', opacity: 0.6 }}>
-                Konfirmasi Kehadiran
+                {t.question}
               </p>
               <div className="flex flex-col gap-2">
                 {[
-                  { value: 'attending', label: 'Insya Allah Hadir 🎉' },
-                  { value: 'notAttending', label: 'Mohon Maaf, Berhalangan' },
+                  { value: 'attending', label: t.attend },
+                  { value: 'notAttending', label: t.decline },
                 ].map((opt) => (
                   <button
                     key={opt.value}
@@ -102,7 +117,7 @@ export default function RSVP({ clientSlug, guestSlug, currentStatus }: RSVPProps
             {rsvpStatus === 'attending' && (
               <div>
                 <p className="text-xs tracking-widest uppercase mb-2" style={{ color: 'currentColor', opacity: 0.6 }}>
-                  Jumlah Tamu
+                  {t.guests}
                 </p>
                 <select
                   value={numberOfGuests}
@@ -112,7 +127,7 @@ export default function RSVP({ clientSlug, guestSlug, currentStatus }: RSVPProps
                 >
                   {[1, 2, 3, 4, 5].map((n) => (
                     <option key={n} value={n} style={{ backgroundColor: '#3D1A0E' }}>
-                      {n} orang
+                      {n} {t.unit}
                     </option>
                   ))}
                 </select>
@@ -125,7 +140,7 @@ export default function RSVP({ clientSlug, guestSlug, currentStatus }: RSVPProps
               className="w-full py-3 rounded-lg text-sm tracking-widest uppercase transition-opacity disabled:opacity-40"
               style={{ backgroundColor: 'var(--wedding-accent, #C8A84B)', color: '#3D1A0E' }}
             >
-              {loading ? 'Mengirim...' : 'Kirim Konfirmasi'}
+              {loading ? t.sending : t.submit}
             </button>
           </motion.form>
         )}
