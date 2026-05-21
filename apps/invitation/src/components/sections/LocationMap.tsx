@@ -7,9 +7,12 @@ interface LocationMapProps {
   address: string;
   mapUrl?: string;
   accentImage?: string;
+  backgroundImage?: string;
+  heading?: string;
+  buttonLabel?: string;
 }
 
-export default function LocationMap({ venue, address, mapUrl, accentImage }: LocationMapProps) {
+export default function LocationMap({ venue, address, mapUrl, accentImage, backgroundImage, heading, buttonLabel }: LocationMapProps) {
   if (!venue && !address) return null;
 
   let embedSrc = '';
@@ -25,20 +28,35 @@ export default function LocationMap({ venue, address, mapUrl, accentImage }: Loc
       ? `https://maps.google.com/?q=${encodeURIComponent(address)}`
       : 'https://maps.google.com';
 
+  const sectionStyle = backgroundImage
+    ? { backgroundImage: `url('${backgroundImage}')`, backgroundRepeat: 'no-repeat', backgroundPosition: 'center top', backgroundSize: 'contain' as const }
+    : undefined;
+
   return (
-    <section className="py-20 px-4">
+    <section className="py-20 px-4 relative" style={sectionStyle}>
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="text-center mb-10"
+        className="text-center mb-10 relative z-10"
       >
-        <p className="text-xs tracking-[0.25em] uppercase mb-2" style={{ color: 'var(--wedding-primary, #6B1020)' }}>
-          Lokasi
-        </p>
-        <h2 className="font-heading text-3xl md:text-4xl italic" style={{ color: 'var(--wedding-primary, #6B1020)' }}>
-          {venue || 'Lokasi Acara'}
-        </h2>
+        {backgroundImage ? (
+          <>
+            <h2 className="font-heading text-4xl md:text-5xl italic" style={{ color: 'var(--wedding-accent, #ba6193)' }}>
+              {heading || 'Venue'}
+            </h2>
+            {venue && <p className="mt-2 text-sm" style={{ color: 'var(--wedding-primary, #823460)' }}>{venue}</p>}
+          </>
+        ) : (
+          <>
+            <p className="text-xs tracking-[0.25em] uppercase mb-2" style={{ color: 'var(--wedding-primary, #6B1020)' }}>
+              Lokasi
+            </p>
+            <h2 className="font-heading text-3xl md:text-4xl italic" style={{ color: 'var(--wedding-primary, #6B1020)' }}>
+              {venue || 'Lokasi Acara'}
+            </h2>
+          </>
+        )}
       </motion.div>
 
       {accentImage && (
@@ -53,7 +71,7 @@ export default function LocationMap({ venue, address, mapUrl, accentImage }: Loc
         />
       )}
 
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-2xl mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -93,7 +111,7 @@ export default function LocationMap({ venue, address, mapUrl, accentImage }: Loc
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                 <circle cx="12" cy="10" r="3" />
               </svg>
-              Buka di Google Maps
+              {buttonLabel || 'Buka di Google Maps'}
             </a>
           </div>
         </motion.div>
