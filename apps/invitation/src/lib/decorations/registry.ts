@@ -7,6 +7,7 @@ import { HeroDecor as MinangHeroDecor, SectionDecor as MinangSectionDecor, Foote
 import { HeroDecor as BetawiHeroDecor, SectionDecor as BetawiSectionDecor, FooterDecor as BetawiFooterDecor, betawiColors } from './betawi';
 import { HeroDecor as BatakHeroDecor, SectionDecor as BatakSectionDecor, FooterDecor as BatakFooterDecor, batakColors } from './batak';
 import { HeroDecor as FloralHeroDecor, SectionDecor as FloralSectionDecor, FooterDecor as FloralFooterDecor, floralColors } from './floral';
+import { HeroDecor as FloralPlumHeroDecor, SectionDecor as FloralPlumSectionDecor, FooterDecor as FloralPlumFooterDecor, floralPlumColors } from './floral-plum';
 
 const NullDecor: React.FC<DecorProps> = () => null;
 const NullSectionDecor: React.FC<DecorProps & { variant: SectionVariant }> = () => null;
@@ -67,5 +68,11 @@ export const DECORATION_REGISTRY: Record<string, DecorationConfig> = {
     HeroDecor: FloralHeroDecor,
     SectionDecor: FloralSectionDecor,
     FooterDecor: FloralFooterDecor,
+  },
+  'floral-plum': {
+    colors: floralPlumColors,
+    HeroDecor: FloralPlumHeroDecor,
+    SectionDecor: FloralPlumSectionDecor,
+    FooterDecor: FloralPlumFooterDecor,
   },
 };
