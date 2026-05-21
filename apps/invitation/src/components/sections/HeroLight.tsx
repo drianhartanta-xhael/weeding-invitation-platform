@@ -16,9 +16,8 @@ function formatDateEn(dateStr: string) {
   const d = new Date(dateStr);
   if (isNaN(d.getTime())) return { day: '', date: dateStr };
   const day = d.toLocaleDateString('en-US', { weekday: 'long' }).toUpperCase();
-  const date = d
-    .toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })
-    .toUpperCase();
+  const month = d.toLocaleDateString('en-US', { month: 'long' }).toUpperCase();
+  const date = `${d.getDate()} ${month} ${d.getFullYear()}`;
   return { day, date };
 }
 
