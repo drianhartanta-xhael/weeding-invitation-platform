@@ -22,6 +22,11 @@ const galleryImages = [
   `${P}/2.jpg`, `${P}/3.jpg`, `${P}/4.jpg`, `${P}/5.jpg`,
   `${P}/6.jpg`, `${P}/7.jpg`, `${P}/8.jpg`,
 ];
+const envelopeImg = `${P}/envelope.png`;
+const heroDecorImg = `${P}/hero-decor.png`;
+const bouquetImg = `${P}/bouquet.png`;
+const coupleRingsImg = `${P}/couple-rings.png`;
+const venueBgImg = `${P}/venue-bg.png`;
 
 const mapUrl = 'https://www.google.com/maps/place/Hilton+Garden+Inn+Bali+Nusa+Dua,+Jl.+Pratama+No.57A,+Tanjung,+Benoa,+South+Kuta,+Badung+Regency,+Bali+80361/data=!4m2!3m1!1s0x2dd243a86595d7c9:0xaaf726486ec6ba56!18m1!1e1?utm_source=mstt_1&entry=gps&coh=192189&skid=7bc97085-e063-4bcc-8d12-721072ca4456';
 
@@ -98,14 +103,19 @@ async function seed() {
       footerTitle: 'Thank You',
       footerMessage: 'We are truly grateful for your heartfelt wishes and prayers for our marriage.',
       heroPhoto,
-      heroAccent: `${P}/rings.png`,
+      heroAccent: heroDecorImg,
       footerImage: `${P}/couple-walk.png`,
     },
     sections: [
       {
         id: 's-cover',
         componentId: 'cover',
-        data: { coverText: 'Kepada Yth.' },
+        data: {
+          coverText: 'Kepada Yth.',
+          coverImage: envelopeImg,
+          inviteText: 'You are cordially invited to celebrate the day of',
+          openText: 'Click to open the invitation.',
+        },
         style: 'light',
         order: 0,
       },
@@ -113,12 +123,17 @@ async function seed() {
         id: 's-couple',
         componentId: 'couple-profile',
         data: {
+          layout: 'split',
+          heading: 'The happy couple and parents',
+          centerPhoto: `${P}/2.jpg`,
+          bouquetImage: bouquetImg,
+          ringsImage: coupleRingsImg,
           groomName: 'Dega Aprillian',
           brideName: 'Lauditta Soraya Librata',
-          groomPhoto: galleryImages[0],
-          bridePhoto: galleryImages[3],
-          groomParents: { father: 'Bapak Taufikh (Alm.)', mother: 'Ibu Sri Mujiastuti' },
-          brideParents: { father: 'Bapak Johan Librata (Alm.)', mother: 'Ibu Nina Krisnawati' },
+          groomLabel: 'First son of',
+          brideLabel: 'First daughter of',
+          groomParents: { father: 'Akhmad Taufikh (alm.)', mother: 'Sri Muji Astuti' },
+          brideParents: { father: 'Johan Librata (alm.)', mother: 'Nina Krisnawati' },
           accentMotif: 'hearts',
         },
         style: 'light',
@@ -135,11 +150,13 @@ async function seed() {
         id: 's-location',
         componentId: 'location-map',
         data: {
-          venue: 'Hilton Garden Inn Bali, Nusa Dua',
+          venue: 'Hilton Garden Inn Bali Nusa Dua',
           address: 'Jl. Pratama No.57A, Tanjung, Benoa, South Kuta, Badung Regency, Bali 80361',
           mapUrl,
-          accentImage: `${P}/car.png`,
-          accentMotif: 'sprig',
+          backgroundImage: venueBgImg,
+          heading: 'Venue',
+          buttonLabel: 'GOOGLE MAPS',
+          noDecor: true,
         },
         style: 'light',
         order: 3,
