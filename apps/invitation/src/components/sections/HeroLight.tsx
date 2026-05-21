@@ -9,7 +9,7 @@ interface HeroLightProps {
   venue?: string;
   guestName?: string;
   heroPhoto?: string;
-  ringsImage?: string;
+  baseImage?: string;
 }
 
 function formatDateEn(dateStr: string) {
@@ -51,7 +51,7 @@ export default function HeroLight({
   venue,
   guestName,
   heroPhoto,
-  ringsImage,
+  baseImage,
 }: HeroLightProps) {
   const { day, date } = formatDateEn(eventDate);
   const handleScroll = () => {
@@ -63,18 +63,6 @@ export default function HeroLight({
       className="min-h-[100dvh] flex flex-col items-center justify-center px-5 sm:px-8 py-16 relative overflow-hidden"
       style={{ backgroundColor: 'var(--wedding-secondary, #f5f3eb)' }}
     >
-      {ringsImage && (
-        <motion.img
-          src={ringsImage}
-          alt=""
-          aria-hidden
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="w-14 sm:w-16 mb-3 object-contain"
-        />
-      )}
-
       <motion.h1
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -109,11 +97,21 @@ export default function HeroLight({
             transition={{ delay: 0.3, duration: 0.9 }}
             className="order-1 md:order-2 flex justify-center"
           >
-            <img
-              src={heroPhoto}
-              alt={`${groomName} & ${brideName}`}
-              className="w-60 sm:w-72 md:w-full max-w-sm object-contain"
-            />
+            <div className="relative w-60 sm:w-72 md:w-full max-w-sm">
+              {baseImage && (
+                <img
+                  src={baseImage}
+                  alt=""
+                  aria-hidden
+                  className="absolute left-1/2 -translate-x-1/2 bottom-[-6%] w-[150%] max-w-none object-contain pointer-events-none z-0"
+                />
+              )}
+              <img
+                src={heroPhoto}
+                alt={`${groomName} & ${brideName}`}
+                className="relative z-10 w-full object-contain"
+              />
+            </div>
           </motion.div>
         )}
 
