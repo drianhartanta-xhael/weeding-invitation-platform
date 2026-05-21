@@ -22,6 +22,7 @@ const templateData = {
     accentColor: '#ba6193',
     fontHeading: 'Pinyon Script',
     fontBody: 'Poppins',
+    heroVariant: 'light',
     heroTitle: 'The Wedding of',
     heroSubtitle: 'A small celebration in the island full of memories',
     bodyGreeting: '',
@@ -41,8 +42,8 @@ const templateData = {
   ],
   stylePresets: {
     light: { bg: '#f5f3eb', text: '#6E5A60' },
-    dark: { bg: '#823460', text: '#f5f3eb' },
-    accent: { bg: '#ba6193', text: '#FFFFFF' },
+    dark: { bg: '#f5f3eb', text: '#823460' },
+    accent: { bg: '#f5f3eb', text: '#823460' },
     'image-1': { bg: '#EFEAE0', text: '#6E5A60' },
     'image-2': { bg: '#E7E1D2', text: '#6E5A60' },
   },
