@@ -67,7 +67,7 @@ export default function HeroLight({
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1 }}
-        className="font-heading italic text-center leading-[0.95] text-5xl sm:text-7xl md:text-8xl mb-10 sm:mb-12 break-words"
+        className="relative z-20 font-heading italic text-center leading-[0.95] text-5xl sm:text-7xl md:text-8xl mb-10 sm:mb-14 break-words"
         style={{ color: 'var(--wedding-accent, #ba6193)' }}
       >
         {groomName} and {brideName}
@@ -103,7 +103,7 @@ export default function HeroLight({
                   src={baseImage}
                   alt=""
                   aria-hidden
-                  className="absolute left-1/2 -translate-x-1/2 bottom-[-6%] w-[150%] max-w-none object-contain pointer-events-none z-0"
+                  className="absolute left-1/2 -translate-x-1/2 bottom-[-20%] w-[135%] max-w-none object-contain pointer-events-none z-0"
                 />
               )}
               <img
