@@ -62,7 +62,7 @@ async function seed() {
       venue: '',
       address: '',
       mapUrl: '',
-      image: `${P}/champagne.png`,
+      image: `${P}/cake.png`,
     },
     {
       name: 'Dinner Reception',

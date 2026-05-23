@@ -14,6 +14,9 @@ export const floralPlumColors: DecorColors = {
 // Watercolor wildflower pattern (transparent PNG) shared by all dega-ditta sections.
 const FLOWERS = '/assets/dega-ditta/flowers.png';
 
+// A single watercolor wildflower-meadow cluster used as the per-section divider.
+const BUNGA = '/assets/dega-ditta/bunga.png';
+
 // A horizontal watercolor floral band that fades toward the section interior.
 function FloralBand({ edge }: { edge: 'top' | 'bottom' }) {
   const fadeDir = edge === 'top' ? 'to bottom' : 'to top';
@@ -76,12 +79,27 @@ export function HeroDecor(_props: DecorProps) {
   );
 }
 
-// SectionDecor — watercolor floral bands along the top and bottom of every section.
+// A single watercolor wildflower-meadow cluster, centered at the bottom of a section.
+function FloralDivider() {
+  const style: CSSProperties = {
+    position: 'absolute',
+    left: '50%',
+    bottom: -36,
+    transform: 'translateX(-50%)',
+    width: 320,
+    maxWidth: '85%',
+    height: 'auto',
+    opacity: 0.9,
+    pointerEvents: 'none',
+  };
+  return <img src={BUNGA} alt="" aria-hidden style={style} />;
+}
+
+// SectionDecor — a single watercolor wildflower divider centered at the bottom of every section.
 export function SectionDecor(_props: DecorProps & { variant: SectionVariant }) {
   return (
     <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none', zIndex: 0 }}>
-      <FloralBand edge="top" />
-      <FloralBand edge="bottom" />
+      <FloralDivider />
     </div>
   );
 }
