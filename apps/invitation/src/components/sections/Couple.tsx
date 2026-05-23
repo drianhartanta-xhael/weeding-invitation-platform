@@ -67,7 +67,7 @@ export default function Couple({
                 {centerPhoto && <img src={centerPhoto} alt={`${groomName} & ${brideName}`} className="w-full h-full object-cover" />}
               </div>
               {bouquetImage && (
-                <img src={bouquetImage} alt="" aria-hidden className="absolute -left-14 sm:-left-20 -bottom-14 w-32 sm:w-40 object-contain pointer-events-none" style={{ transform: 'scaleX(-1)' }} />
+                <img src={bouquetImage} alt="" aria-hidden className="absolute -left-14 sm:-left-20 -bottom-14 w-32 sm:w-40 object-contain pointer-events-none" style={{ transform: 'scaleX(-1) rotate(12deg)', transformOrigin: 'bottom center' }} />
               )}
               {ringsImage && (
                 <img src={ringsImage} alt="" aria-hidden className="absolute -right-8 sm:-right-10 -bottom-6 w-28 sm:w-32 object-contain pointer-events-none" />
