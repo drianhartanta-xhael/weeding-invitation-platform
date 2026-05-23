@@ -67,10 +67,10 @@ export default function Couple({
                 {centerPhoto && <img src={centerPhoto} alt={`${groomName} & ${brideName}`} className="w-full h-full object-cover" />}
               </div>
               {bouquetImage && (
-                <img src={bouquetImage} alt="" aria-hidden className="absolute -left-10 sm:-left-14 bottom-2 w-24 sm:w-32 object-contain pointer-events-none" />
+                <img src={bouquetImage} alt="" aria-hidden className="absolute -left-12 sm:-left-16 bottom-1 w-36 sm:w-44 object-contain pointer-events-none" />
               )}
               {ringsImage && (
-                <img src={ringsImage} alt="" aria-hidden className="absolute -right-6 sm:-right-8 -bottom-4 w-20 sm:w-24 object-contain pointer-events-none" />
+                <img src={ringsImage} alt="" aria-hidden className="absolute -right-8 sm:-right-10 -bottom-6 w-28 sm:w-32 object-contain pointer-events-none" />
               )}
             </div>
           </motion.div>
