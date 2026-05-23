@@ -28,6 +28,7 @@ const templateData = {
     bodyGreeting: '',
     footerTitle: 'Thank You',
     footerMessage: 'We are truly grateful for your heartfelt wishes and prayers for our marriage.',
+    regionLabel: '',
   },
   defaultSections: [
     { componentId: 'cover', style: 'light', order: 0 },

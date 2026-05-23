@@ -23,6 +23,7 @@ function formatDateShort(dateStr?: string) {
 }
 
 export default function Footer({ groomName, brideName, eventDate, footerMessage, regionStripe, regionLabel, light, illustration }: FooterProps) {
+  const eyebrowLabel = regionLabel === undefined ? 'Nusantara Wedding' : regionLabel;
   const bg = light ? 'var(--wedding-secondary, #f5f3eb)' : 'var(--wedding-primary, #6B1020)';
   const nameColor = light ? 'var(--wedding-primary, #823460)' : 'var(--wedding-secondary, #F5EDE0)';
   const subText = light ? 'color-mix(in srgb, var(--wedding-primary, #823460) 65%, transparent)' : 'rgba(245,237,224,0.65)';
@@ -53,9 +54,11 @@ export default function Footer({ groomName, brideName, eventDate, footerMessage,
           />
         )}
 
-        <p className="text-xs tracking-[0.3em] uppercase mb-6" style={{ color: 'var(--wedding-accent, #C8A84B)' }}>
-          {regionLabel || 'Nusantara Wedding'}
-        </p>
+        {eyebrowLabel && (
+          <p className="text-xs tracking-[0.3em] uppercase mb-6" style={{ color: 'var(--wedding-accent, #C8A84B)' }}>
+            {eyebrowLabel}
+          </p>
+        )}
 
         <h2 className="font-heading text-4xl md:text-5xl italic mb-2" style={{ color: nameColor }}>
           {groomName} &amp; {brideName}
