@@ -11,16 +11,38 @@ interface Wish {
   createdAt: string;
 }
 
+interface WishesText {
+  eyebrow?: string;
+  title?: string;
+  namePlaceholder?: string;
+  messagePlaceholder?: string;
+  submit?: string;
+  sending?: string;
+  dateLocale?: string;
+}
+
 interface WishesProps {
   clientId: string;
   initialWishes: Wish[];
+  text?: WishesText;
 }
 
-export default function Wishes({ clientId, initialWishes }: WishesProps) {
+export default function Wishes({ clientId, initialWishes, text }: WishesProps) {
   const [wishes, setWishes] = useState<Wish[]>(initialWishes);
   const [guestName, setGuestName] = useState('');
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const t = {
+    eyebrow: 'Pesan & Doa',
+    title: 'Ucapan & Doa',
+    namePlaceholder: 'Nama Anda',
+    messagePlaceholder: 'Tulis ucapan dan doa Anda...',
+    submit: 'Kirim Ucapan 🌸',
+    sending: 'Mengirim...',
+    dateLocale: 'id-ID',
+    ...text,
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -53,10 +75,10 @@ export default function Wishes({ clientId, initialWishes }: WishesProps) {
         className="text-center mb-12"
       >
         <p className="text-xs tracking-[0.25em] uppercase mb-2" style={{ color: 'var(--wedding-primary, #6B1020)' }}>
-          Pesan &amp; Doa
+          {t.eyebrow}
         </p>
         <h2 className="font-heading text-3xl md:text-4xl italic" style={{ color: 'var(--wedding-primary, #6B1020)' }}>
-          Ucapan &amp; Doa
+          {t.title}
         </h2>
       </motion.div>
 
@@ -71,7 +93,7 @@ export default function Wishes({ clientId, initialWishes }: WishesProps) {
         >
           <input
             type="text"
-            placeholder="Nama Anda"
+            placeholder={t.namePlaceholder}
             value={guestName}
             onChange={(e) => setGuestName(e.target.value)}
             className="w-full px-4 py-2.5 rounded-lg text-sm outline-none"
@@ -79,7 +101,7 @@ export default function Wishes({ clientId, initialWishes }: WishesProps) {
             required
           />
           <textarea
-            placeholder="Tulis ucapan dan doa Anda..."
+            placeholder={t.messagePlaceholder}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             rows={3}
@@ -93,7 +115,7 @@ export default function Wishes({ clientId, initialWishes }: WishesProps) {
             className="px-6 py-2.5 rounded-full text-xs tracking-widest uppercase transition-opacity disabled:opacity-40"
             style={{ backgroundColor: 'var(--wedding-primary, #6B1020)', color: '#F5EDE0' }}
           >
-            {loading ? 'Mengirim...' : 'Kirim Ucapan 🌸'}
+            {loading ? t.sending : t.submit}
           </button>
         </motion.form>
 
@@ -116,7 +138,7 @@ export default function Wishes({ clientId, initialWishes }: WishesProps) {
                 &ldquo;{wish.message}&rdquo;
               </p>
               <p className="text-xs mt-2" style={{ color: 'rgba(61,26,14,0.4)' }}>
-                {new Date(wish.createdAt).toLocaleDateString('id-ID')}
+                {new Date(wish.createdAt).toLocaleDateString(t.dateLocale)}
               </p>
             </motion.div>
           ))}

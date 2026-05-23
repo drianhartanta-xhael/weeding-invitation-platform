@@ -222,7 +222,17 @@ async function seed() {
       {
         id: 's-wishes',
         componentId: 'wishes',
-        data: {},
+        data: {
+          text: {
+            eyebrow: 'Wishes & Prayers',
+            title: 'Send Your Wishes',
+            namePlaceholder: 'Your name',
+            messagePlaceholder: 'Write your wishes and prayers...',
+            submit: 'Send Wish 🌸',
+            sending: 'Sending...',
+            dateLocale: 'en-US',
+          },
+        },
         style: 'accent',
         order: 8,
       },

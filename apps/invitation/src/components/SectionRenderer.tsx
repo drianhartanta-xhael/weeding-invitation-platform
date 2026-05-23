@@ -127,7 +127,7 @@ export default function SectionRenderer({
             break;
 
           case 'wishes':
-            content = <Wishes clientId={clientId} initialWishes={[]} />;
+            content = <Wishes clientId={clientId} initialWishes={[]} text={section.data.text} />;
             break;
 
           case 'countdown':
