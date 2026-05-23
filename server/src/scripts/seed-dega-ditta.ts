@@ -164,7 +164,13 @@ async function seed() {
       {
         id: 's-itinerary',
         componentId: 'event-detail',
-        data: { events },
+        data: {
+          events,
+          heading: 'Rundown',
+          eyebrow: '',
+          dateLocale: 'en-US',
+          text: { dateLabel: 'Date', timeLabel: 'Time', venueLabel: 'Venue', mapLabel: 'View Map' },
+        },
         style: 'light',
         order: 4,
       },

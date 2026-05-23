@@ -90,7 +90,15 @@ export default function SectionRenderer({
             break;
 
           case 'event-detail':
-            content = <Events events={section.data.events || []} />;
+            content = (
+              <Events
+                events={section.data.events || []}
+                eyebrow={section.data.eyebrow}
+                heading={section.data.heading}
+                text={section.data.text}
+                dateLocale={section.data.dateLocale}
+              />
+            );
             break;
 
           case 'gallery':
