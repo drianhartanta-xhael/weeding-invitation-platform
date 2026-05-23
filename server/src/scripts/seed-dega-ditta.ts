@@ -191,6 +191,7 @@ async function seed() {
         id: 's-rsvp',
         componentId: 'rsvp',
         data: {
+          noDecor: true,
           text: {
             subtitle: "We can't wait to celebrate with you!",
             question: 'Will you celebrate with us?',
@@ -229,6 +230,7 @@ async function seed() {
         id: 's-wishes',
         componentId: 'wishes',
         data: {
+          noDecor: true,
           text: {
             eyebrow: 'Wishes & Prayers',
             title: 'Send Your Wishes',
