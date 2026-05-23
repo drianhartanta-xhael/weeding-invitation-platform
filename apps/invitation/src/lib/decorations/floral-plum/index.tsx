@@ -79,27 +79,26 @@ export function HeroDecor(_props: DecorProps) {
   );
 }
 
-// A single watercolor wildflower-meadow cluster, centered at the bottom of a section.
-function FloralDivider() {
-  const style: CSSProperties = {
-    position: 'absolute',
-    left: '50%',
-    bottom: -36,
-    transform: 'translateX(-50%)',
-    width: 320,
-    maxWidth: '85%',
-    height: 'auto',
-    opacity: 0.9,
-    pointerEvents: 'none',
-  };
-  return <img src={BUNGA} alt="" aria-hidden style={style} />;
+// SectionDecor — no overlay for the plum theme; the per-section motif is the in-flow SectionDivider below.
+export function SectionDecor(_props: DecorProps & { variant: SectionVariant }) {
+  return null;
 }
 
-// SectionDecor — a single watercolor wildflower divider centered at the bottom of every section.
-export function SectionDecor(_props: DecorProps & { variant: SectionVariant }) {
+// SectionDivider — a single trimmed wildflower-meadow cluster, centered and rendered in
+// normal flow at the bottom of each section, with soft side fades so it blends in.
+export function SectionDivider(_props: DecorProps) {
+  const mask = 'linear-gradient(to right, transparent 0%, rgba(0,0,0,1) 14%, rgba(0,0,0,1) 86%, transparent 100%)';
+  const imgStyle: CSSProperties = {
+    width: 'min(320px, 70%)',
+    height: 'auto',
+    opacity: 0.9,
+    WebkitMaskImage: mask,
+    maskImage: mask,
+    pointerEvents: 'none',
+  };
   return (
-    <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none', zIndex: 0 }}>
-      <FloralDivider />
+    <div aria-hidden style={{ display: 'flex', justifyContent: 'center', paddingTop: 8, paddingBottom: 28 }}>
+      <img src={BUNGA} alt="" style={imgStyle} />
     </div>
   );
 }

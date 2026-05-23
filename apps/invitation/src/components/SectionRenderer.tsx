@@ -49,6 +49,7 @@ export default function SectionRenderer({
 }: SectionRendererProps) {
   const sorted = [...sections].sort((a, b) => a.order - b.order);
   const SectionDecor = decorConfig?.SectionDecor;
+  const SectionDivider = decorConfig?.SectionDivider;
 
   return (
     <>
@@ -185,6 +186,7 @@ export default function SectionRenderer({
             <div style={{ position: 'relative', zIndex: 1 }}>
               {section.data?.accentMotif && <AccentMotif name={section.data.accentMotif} />}
               {content}
+              {SectionDivider && !section.data?.noDecor && <SectionDivider colors={decorConfig!.colors} />}
             </div>
           </div>
         );

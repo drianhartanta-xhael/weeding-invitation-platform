@@ -20,5 +20,6 @@ export interface DecorationConfig {
   fontBody?: string;
   HeroDecor: FC<DecorProps>;
   SectionDecor: FC<DecorProps & { variant: SectionVariant }>;
+  SectionDivider?: FC<DecorProps>;   // optional in-flow divider rendered after each section
   FooterDecor: FC<DecorProps>;
 }
