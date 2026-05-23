@@ -62,7 +62,7 @@ export default function Events({ events, eyebrow, heading, text, dateLocale }: E
             {eb}
           </p>
         )}
-        <h2 className="font-heading text-3xl md:text-4xl italic">
+        <h2 className="font-heading text-3xl md:text-4xl italic" style={{ color: 'var(--wedding-accent, #ba6193)' }}>
           {hd}
         </h2>
       </motion.div>
