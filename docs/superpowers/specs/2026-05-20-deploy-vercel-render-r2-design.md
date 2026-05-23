@@ -37,7 +37,7 @@ All free.
 ### Repo hygiene before pushing
 
 - Push the branch to GitHub (or merge to `main`).
-- `.gitignore` additions: `*.png` at repo root, `dega-dita-asets/`, `out/`.
+- `.gitignore` additions: `*.png` at repo root, `dega-dita-asets/`, `dega-dita-asets2/`, `out/`.
 - Remove or move ad-hoc screenshots currently sitting in repo root (`canva-p*.png`, `dashboard*.png`, `clients*.png`, etc.) so they do not end up in deploys.
 
 ## Architecture
@@ -112,7 +112,7 @@ Comfortable for 2–3 concurrent client invitations on the same free stack.
 
 | File | Change |
 | --- | --- |
-| `.gitignore` | Add the ad-hoc screenshots + `dega-dita-asets/` + `out/`. |
+| `.gitignore` | Add the ad-hoc screenshots + `dega-dita-asets/`, `dega-dita-asets2/` + `out/`. |
 | `docker-compose.yml` | Untouched; still used for local dev. |
 
 Estimated change: ~6 files modified, 3 files added, ~150 LOC.
@@ -125,9 +125,9 @@ Each step is reversible by simply not advancing to the next. Local dev continues
 | --- | --- | --- | --- |
 | 1 | Provision Atlas M0, R2 bucket + token. No code changes. | Connect to Atlas from local; `aws s3 ls` against R2 endpoint. | Drop cluster/bucket — zero cost. |
 | 2 | Land the R2 storage code with disk fallback. | Local dev still uses disk when R2 env absent; toggling R2 env makes uploads land in the bucket. | Env flag flip. |
-| 3 | Seed Atlas from local (`MONGODB_URI=<atlas-uri>` + run `seed-floral-template.ts` then `seed-dega-lauditta.ts`). | Inspect documents in the Atlas data browser. | Drop cluster. |
+| 3 | Seed Atlas from local (`MONGODB_URI=<atlas-uri>` + run `seed-floral-plum-template.ts` then `seed-dega-ditta.ts`; optionally also `seed-floral-template.ts` + `seed-dega-lauditta.ts` to keep that variant). | Inspect documents in the Atlas data browser. | Drop cluster. |
 | 4 | Deploy server to Render (build `npm run build:server`, start `node server/dist/index.js`). Add env vars. | `curl /health` → 200; `curl /api/templates` → JSON array. | Pause service. |
-| 5 | Deploy invitation to Vercel. Set `API_PROXY_TARGET=<render-url>`. | Open `<vercel-url>/dega-lauditta` on phone; sections + R2 photos render. | Pause project. |
+| 5 | Deploy invitation to Vercel. Set `API_PROXY_TARGET=<render-url>` and `NEXT_PUBLIC_API_URL=/api`. | Open `<vercel-url>/dega-ditta?to=wayan-sudana` on phone; cover + sections + photos render. | Pause project. |
 | 6 | Deploy admin to Vercel. Set `NEXT_PUBLIC_API_URL=<render-url>/api`. | Log in; create a test client; upload a photo and verify the URL lives on R2. | Pause project. |
 | 7 | Set `ALLOWED_ORIGINS` on Render to the two Vercel URLs, redeploy. | No CORS errors in browser console. | Edit env, redeploy. |
 | 8 | Update Midtrans dashboard webhook URL to `<render-url>/api/gifts/notification`. | Trigger a sandbox transaction; gift status flips correctly. | Revert to previous URL. |
@@ -149,7 +149,7 @@ Each step is reversible by simply not advancing to the next. Local dev continues
 
 ## Success criteria
 
-- Invitation `https://<vercel-app>/dega-lauditta` loads on a fresh phone (no laptop running), shows Cover → 8 sections → music player, no console errors.
+- Invitation `https://<vercel-app>/dega-ditta` loads on a fresh phone (no laptop running), shows Cover → sections → music player, no console errors.
 - `?to=wayan-sudana` renders the personalized greeting.
 - Admin login works at `https://<vercel-admin>/login`; creating a client + uploading a photo persists the photo URL on R2 and renders in the invitation.
 - `npm run lint` passes on the branch.
