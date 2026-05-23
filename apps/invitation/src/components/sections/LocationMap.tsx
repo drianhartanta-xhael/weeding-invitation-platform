@@ -40,7 +40,7 @@ export default function LocationMap({ venue, address, mapUrl, accentImage, backg
         viewport={{ once: true }}
         className="text-center mb-10 relative z-10"
       >
-        {backgroundImage ? (
+        {(heading || backgroundImage) ? (
           <>
             <h2 className="font-heading text-4xl md:text-5xl italic" style={{ color: 'var(--wedding-accent, #ba6193)' }}>
               {heading || 'Venue'}
