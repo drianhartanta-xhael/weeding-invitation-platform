@@ -54,15 +54,23 @@ folder at the repo root is **out of scope** for this work.
 - Starting values (to be tuned by running the page): each cluster ~50–60% of the
   couple container width, anchored at the bottom corners, slight outward offset.
 
-### 3. Remove "Nusantara Wedding" label
-- **File:** `apps/invitation/src/components/sections/Footer.tsx`
+### 3. Remove "Nusantara Wedding" label (plum / dega-ditta only)
+- **Files:** `apps/invitation/src/components/sections/Footer.tsx`,
+  `server/src/scripts/seed-floral-plum-template.ts`
 - Currently: `{regionLabel || 'Nusantara Wedding'}`.
-- Change to render the eyebrow `<p>` **only when `regionLabel` is a non-empty
-  string**, removing the hardcoded fallback.
-- Verified safe: the nusantara region templates set `regionLabel` explicitly in
-  `server/src/scripts/seed-regions.ts`, so they keep their labels. Templates that
-  never set it (plum, mvp, floral) simply stop showing the (incorrect)
-  "Nusantara Wedding" eyebrow. This is a correctness improvement.
+- Scope decision: change is **limited to the plum template** (used only by
+  dega-ditta). Other demo templates (mvp/budi-sari, floral) keep showing
+  "Nusantara Wedding" exactly as today.
+- Mechanism: Footer treats an **explicit empty string** as "hide" while keeping
+  the fallback for `undefined`:
+  ```
+  const label = regionLabel === undefined ? 'Nusantara Wedding' : regionLabel;
+  // render the eyebrow <p> only when `label` is a non-empty string
+  ```
+  Then set `config.regionLabel: ''` on the plum template seed.
+- Result: plum (`''`) → hidden; mvp/floral (`undefined`) → still
+  "Nusantara Wedding"; region templates (`'Jakarta · Betawi'`, etc., set in
+  `seed-regions.ts`) → unchanged.
 
 ### 4. Wishes section → English
 - **Files:** `apps/invitation/src/components/sections/Wishes.tsx`,
@@ -110,8 +118,8 @@ folder at the repo root is **out of scope** for this work.
 ### 8. Dress-code text
 - **File:** `server/src/scripts/seed-dega-ditta.ts`
 - Ladies description `'The shades of flowers, except white flowers'` →
-  `'The shades of flowers in pastel colours, except white flowers'`
-  (in-place phrase swap; keeps the white-flowers guidance).
+  `'The shades of flowers in pastel colours'` (the "except white flowers"
+  clause is dropped entirely).
 
 ### 9. Remove the maps background
 - **Files:** `apps/invitation/src/components/sections/LocationMap.tsx`,
@@ -175,8 +183,9 @@ Components / page:
    - Happy Couple: larger bouquet & rings, no clipping.
    - Location: clean English "Venue" header, no backdrop.
    - Music: new track plays on open.
-4. Spot-check a nusantara invitation to confirm Indonesian defaults and the
-   region footer label are unchanged.
+4. Spot-check a nusantara invitation (Indonesian defaults + region footer label
+   unchanged) and a non-region demo (mvp/floral) to confirm it still shows the
+   "Nusantara Wedding" fallback — i.e. change #3 is plum-only.
 
 ## Out of scope
 
