@@ -294,6 +294,7 @@ export default function InvitationPage() {
                 guestSlug={guest?.slug}
                 guestRsvpStatus={guest?.rsvpStatus}
                 decorConfig={decorConfig}
+                initialWishes={wishes}
               />
 
               <Footer

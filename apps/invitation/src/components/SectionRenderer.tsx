@@ -26,6 +26,13 @@ interface StylePreset {
   text: string;
 }
 
+interface WishItem {
+  _id: string;
+  guestName: string;
+  message: string;
+  createdAt: string;
+}
+
 interface SectionRendererProps {
   sections: SectionData[];
   stylePresets: Record<string, StylePreset>;
@@ -34,6 +41,7 @@ interface SectionRendererProps {
   guestSlug?: string;
   guestRsvpStatus?: string;
   decorConfig?: DecorationConfig;
+  initialWishes?: WishItem[];
 }
 
 const VALID_VARIANTS = new Set<string>(['light', 'dark', 'accent', 'image-1', 'image-2']);
@@ -46,6 +54,7 @@ export default function SectionRenderer({
   guestSlug,
   guestRsvpStatus,
   decorConfig,
+  initialWishes,
 }: SectionRendererProps) {
   const sorted = [...sections].sort((a, b) => a.order - b.order);
   const SectionDecor = decorConfig?.SectionDecor;
@@ -138,7 +147,7 @@ export default function SectionRenderer({
             break;
 
           case 'wishes':
-            content = <Wishes clientId={clientId} initialWishes={[]} text={section.data.text} />;
+            content = <Wishes clientId={clientId} initialWishes={initialWishes || []} text={section.data.text} />;
             break;
 
           case 'countdown':
