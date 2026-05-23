@@ -99,12 +99,24 @@ export default function HeroLight({
           >
             <div className="relative w-60 sm:w-72 md:w-full max-w-sm">
               {baseImage && (
-                <img
-                  src={baseImage}
-                  alt=""
-                  aria-hidden
-                  className="absolute left-1/2 -translate-x-1/2 bottom-[-20%] w-[135%] max-w-none object-contain pointer-events-none z-0"
-                />
+                <>
+                  {/* bottom-left cluster, mirrored */}
+                  <img
+                    src={baseImage}
+                    alt=""
+                    aria-hidden
+                    className="absolute bottom-[-6%] left-0 w-[60%] max-w-none object-contain pointer-events-none z-0"
+                    style={{ transform: 'translateX(-32%) scaleX(-1)' }}
+                  />
+                  {/* bottom-right cluster */}
+                  <img
+                    src={baseImage}
+                    alt=""
+                    aria-hidden
+                    className="absolute bottom-[-6%] right-0 w-[60%] max-w-none object-contain pointer-events-none z-0"
+                    style={{ transform: 'translateX(32%)' }}
+                  />
+                </>
               )}
               <img
                 src={heroPhoto}
