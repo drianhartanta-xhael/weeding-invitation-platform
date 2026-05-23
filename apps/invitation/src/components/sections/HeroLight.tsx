@@ -106,7 +106,7 @@ export default function HeroLight({
                     alt=""
                     aria-hidden
                     className="absolute bottom-[-2%] left-0 w-[52%] max-w-none object-contain pointer-events-none z-20"
-                    style={{ transform: 'translateX(-12%) scaleX(-1)' }}
+                    style={{ transform: 'translateX(-30%) translateY(25px) scaleX(-1)' }}
                   />
                   {/* bottom-right cluster, in front of the couple */}
                   <img
@@ -114,7 +114,7 @@ export default function HeroLight({
                     alt=""
                     aria-hidden
                     className="absolute bottom-[-2%] right-0 w-[52%] max-w-none object-contain pointer-events-none z-20"
-                    style={{ transform: 'translateX(12%)' }}
+                    style={{ transform: 'translateX(30%) translateY(25px)' }}
                   />
                 </>
               )}
