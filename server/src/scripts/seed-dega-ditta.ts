@@ -92,7 +92,7 @@ async function seed() {
     slug: 'dega-ditta',
     venue: 'Hilton Garden Inn Bali, Nusa Dua',
     music: {
-      videoId: 'dt25SFw8H4Y',
+      videoId: 'DBoaOnj6Ll4',
       autoplay: true,
     },
     bankAccounts,
@@ -181,7 +181,7 @@ async function seed() {
           note: '',
           groups: [
             { label: 'Gentlemen', description: 'Earth tone', figure: 'gentlemen', image: `${P}/gentlemen.png` },
-            { label: 'Ladies', description: 'The shades of flowers, except white flowers', figure: 'ladies', image: `${P}/ladies.png` },
+            { label: 'Ladies', description: 'The shades of flowers in pastel colours', figure: 'ladies', image: `${P}/ladies.png` },
           ],
         },
         style: 'light',
