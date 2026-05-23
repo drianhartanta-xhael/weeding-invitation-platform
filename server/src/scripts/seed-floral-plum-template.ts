@@ -20,7 +20,7 @@ const templateData = {
     primaryColor: '#823460',
     secondaryColor: '#f5f3eb',
     accentColor: '#ba6193',
-    fontHeading: 'Pinyon Script',
+    fontHeading: 'Imperial Script',
     fontBody: 'Poppins',
     heroVariant: 'light',
     heroTitle: 'The Wedding of',
