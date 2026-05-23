@@ -107,6 +107,8 @@ export default function SectionRenderer({
               <Gallery
                 images={section.data.images || []}
                 layout={section.data.layout}
+                eyebrow={section.data.eyebrow}
+                heading={section.data.heading}
               />
             );
             break;

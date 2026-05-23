@@ -143,7 +143,7 @@ async function seed() {
       {
         id: 's-gallery',
         componentId: 'gallery',
-        data: { images: galleryImages, layout: 'grid' },
+        data: { images: galleryImages, layout: 'grid', eyebrow: 'Gallery', heading: 'Happy moments' },
         style: 'light',
         order: 2,
       },
@@ -254,9 +254,9 @@ async function seed() {
   console.log(`Client "${client.groomName} & ${client.brideName}" upserted (${client._id})`);
 
   const guestData = [
-    { name: 'Wayan Sudana', invitationName: 'Bapak & Ibu Wayan Sudana', slug: 'wayan-sudana', phone: '081234500001', category: 'family' as const },
-    { name: 'Komang Ayu', invitationName: 'Komang Ayu & Keluarga', slug: 'komang-ayu', phone: '081234500002', category: 'friend' as const },
-    { name: 'Ahmad Rizki', invitationName: 'Ahmad Rizki & Pasangan', slug: 'ahmad-rizki', phone: '081234500003', category: 'officeFriend' as const },
+    { name: 'Wayan Sudana', invitationName: 'Mr. & Mrs. Wayan Sudana', slug: 'wayan-sudana', phone: '081234500001', category: 'family' as const },
+    { name: 'Komang Ayu', invitationName: 'Komang Ayu & Family', slug: 'komang-ayu', phone: '081234500002', category: 'friend' as const },
+    { name: 'Ahmad Rizki', invitationName: 'Ahmad Rizki & Partner', slug: 'ahmad-rizki', phone: '081234500003', category: 'officeFriend' as const },
   ];
 
   let guestCount = 0;

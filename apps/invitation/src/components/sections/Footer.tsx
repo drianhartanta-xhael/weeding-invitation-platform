@@ -13,16 +13,17 @@ interface FooterProps {
   decorConfig?: unknown;
   light?: boolean;
   illustration?: string;
+  dateLocale?: string;
 }
 
-function formatDateShort(dateStr?: string) {
+function formatDateShort(dateStr?: string, locale = 'id-ID') {
   if (!dateStr) return '';
   const d = new Date(dateStr);
   if (isNaN(d.getTime())) return dateStr;
-  return d.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+  return d.toLocaleDateString(locale, { day: 'numeric', month: 'long', year: 'numeric' });
 }
 
-export default function Footer({ groomName, brideName, eventDate, footerMessage, regionStripe, regionLabel, light, illustration }: FooterProps) {
+export default function Footer({ groomName, brideName, eventDate, footerMessage, regionStripe, regionLabel, light, illustration, dateLocale }: FooterProps) {
   const eyebrowLabel = regionLabel === undefined ? 'Nusantara Wedding' : regionLabel;
   const bg = light ? 'var(--wedding-secondary, #f5f3eb)' : 'var(--wedding-primary, #6B1020)';
   const nameColor = light ? 'var(--wedding-primary, #823460)' : 'var(--wedding-secondary, #F5EDE0)';
@@ -66,7 +67,7 @@ export default function Footer({ groomName, brideName, eventDate, footerMessage,
 
         {eventDate && (
           <p className="text-sm mb-8" style={{ color: dateText }}>
-            {formatDateShort(eventDate)}
+            {formatDateShort(eventDate, dateLocale)}
           </p>
         )}
 

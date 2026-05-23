@@ -67,7 +67,7 @@ export default function HeroLight({
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1 }}
-        className="relative z-20 font-heading italic text-center leading-[0.95] text-5xl sm:text-7xl md:text-8xl mb-10 sm:mb-14 break-words"
+        className="relative z-20 font-heading italic text-center leading-[0.95] text-4xl sm:text-6xl md:text-7xl mb-10 sm:mb-14 whitespace-nowrap"
         style={{ color: 'var(--wedding-accent, #ba6193)' }}
       >
         {groomName} and {brideName}
@@ -149,7 +149,7 @@ export default function HeroLight({
           className="mt-10 text-xs tracking-widest text-center"
           style={{ color: 'color-mix(in srgb, var(--wedding-primary, #823460) 65%, transparent)' }}
         >
-          Kepada Yth. {guestName}
+          Dear {guestName}
         </motion.p>
       )}
 
@@ -161,7 +161,7 @@ export default function HeroLight({
         className="absolute bottom-8 text-xs tracking-widest hover:opacity-70 transition-opacity"
         style={{ color: 'color-mix(in srgb, var(--wedding-primary, #823460) 55%, transparent)' }}
       >
-        Gulir ↓
+        Scroll ↓
       </motion.button>
     </section>
   );

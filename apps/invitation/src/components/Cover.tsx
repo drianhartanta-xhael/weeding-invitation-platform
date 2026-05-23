@@ -71,7 +71,7 @@ export default function Cover({
           <p className="text-sm sm:text-base mb-6" style={{ color: accent }}>
             {inviteText || 'You are cordially invited to celebrate the day of'}
           </p>
-          <h1 className="font-heading italic text-5xl sm:text-7xl leading-[0.95] mb-8 break-words" style={{ color: accent }}>
+          <h1 className="font-heading italic text-4xl sm:text-6xl leading-[0.95] mb-8 whitespace-nowrap" style={{ color: accent }}>
             {groomName} and {brideName}
           </h1>
           <img src={coverImage} alt="" aria-hidden className="w-56 sm:w-72 h-auto object-contain mb-8" />
@@ -85,7 +85,7 @@ export default function Cover({
           </motion.p>
           {guestName && (
             <p className="mt-4 text-xs tracking-widest" style={{ color: textColor }}>
-              Kepada Yth. {guestName}
+              Dear {guestName}
             </p>
           )}
         </motion.div>

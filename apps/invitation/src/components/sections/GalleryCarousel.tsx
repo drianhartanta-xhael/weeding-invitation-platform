@@ -6,9 +6,11 @@ import { useLightbox } from './useLightbox';
 
 interface GalleryCarouselProps {
   images: string[];
+  eyebrow?: string;
+  heading?: string;
 }
 
-export default function GalleryCarousel({ images }: GalleryCarouselProps) {
+export default function GalleryCarousel({ images, eyebrow, heading }: GalleryCarouselProps) {
   const { open, lightbox } = useLightbox(images);
   const [current, setCurrent] = useState(0);
   const [visibleCount, setVisibleCount] = useState(1);
@@ -38,10 +40,10 @@ export default function GalleryCarousel({ images }: GalleryCarouselProps) {
         className="text-center mb-12"
       >
         <p className="text-xs tracking-[0.25em] uppercase mb-2" style={{ color: 'var(--wedding-primary, #6B1020)' }}>
-          Galeri
+          {eyebrow || 'Galeri'}
         </p>
         <h2 className="font-heading text-3xl md:text-4xl italic" style={{ color: 'var(--wedding-primary, #6B1020)' }}>
-          Momen Berharga
+          {heading || 'Momen Berharga'}
         </h2>
       </motion.div>
 

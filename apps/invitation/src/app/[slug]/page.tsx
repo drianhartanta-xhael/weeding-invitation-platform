@@ -306,6 +306,7 @@ export default function InvitationPage() {
                 regionLabel={regionLabel}
                 decorConfig={decorConfig}
                 light={heroVariant === 'light'}
+                dateLocale={heroVariant === 'light' ? 'en-US' : 'id-ID'}
                 illustration={cc?.footerImage}
               />
             </>

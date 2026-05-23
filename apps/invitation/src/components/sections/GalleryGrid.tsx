@@ -5,9 +5,11 @@ import { useLightbox } from './useLightbox';
 
 interface GalleryGridProps {
   images: string[];
+  eyebrow?: string;
+  heading?: string;
 }
 
-export default function GalleryGrid({ images }: GalleryGridProps) {
+export default function GalleryGrid({ images, eyebrow, heading }: GalleryGridProps) {
   const { open, lightbox } = useLightbox(images);
   const count = images.length;
 
@@ -30,13 +32,13 @@ export default function GalleryGrid({ images }: GalleryGridProps) {
           className="text-xs tracking-[0.25em] uppercase mb-2"
           style={{ color: 'var(--wedding-primary, #6B1020)' }}
         >
-          Galeri
+          {eyebrow || 'Galeri'}
         </p>
         <h2
           className="font-heading text-3xl md:text-4xl italic"
           style={{ color: 'var(--wedding-primary, #6B1020)' }}
         >
-          Momen Berharga
+          {heading || 'Momen Berharga'}
         </h2>
       </motion.div>
 
