@@ -86,7 +86,7 @@ export default function Events({ events, eyebrow, heading, text, dateLocale }: E
                 src={event.image}
                 alt=""
                 aria-hidden
-                className="w-24 h-auto mx-auto mb-4 object-contain"
+                className="w-44 sm:w-52 h-auto mx-auto mb-4 object-contain"
               />
             )}
 
