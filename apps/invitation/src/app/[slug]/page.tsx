@@ -248,6 +248,7 @@ export default function InvitationPage() {
                     guestName={guest?.invitationName}
                     coverText={coverSection.data.coverText}
                     coverImage={coverSection.data.coverImage}
+                    backgroundImage={coverSection.data.coverBackground}
                     inviteText={coverSection.data.inviteText}
                     openText={coverSection.data.openText}
                     bg={templateConfig?.stylePresets?.['dark']?.bg}

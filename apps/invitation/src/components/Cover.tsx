@@ -15,6 +15,7 @@ interface CoverProps {
   HeroDecor?: FC<{ colors: DecorColors }>;
   decorColors?: DecorColors;
   coverImage?: string;
+  backgroundImage?: string;
   inviteText?: string;
   openText?: string;
   onOpen: () => void;
@@ -31,6 +32,7 @@ export default function Cover({
   HeroDecor,
   decorColors,
   coverImage,
+  backgroundImage,
   inviteText,
   openText,
   onOpen,
@@ -48,6 +50,18 @@ export default function Cover({
         exit={{ opacity: 0, scale: 0.98 }}
         transition={{ duration: 0.6 }}
       >
+        {backgroundImage && (
+          <div
+            aria-hidden
+            className="absolute inset-0 z-0 pointer-events-none"
+            style={{
+              backgroundImage: `linear-gradient(${bg}cc, ${bg}cc), url('${backgroundImage}')`,
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'center',
+              backgroundSize: 'cover',
+            }}
+          />
+        )}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

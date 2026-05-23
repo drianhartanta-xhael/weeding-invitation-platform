@@ -113,6 +113,7 @@ async function seed() {
         data: {
           coverText: 'Kepada Yth.',
           coverImage: envelopeImg,
+          coverBackground: venueBgImg,
           inviteText: 'You are cordially invited to celebrate the day of',
           openText: 'Click to open the invitation.',
         },
@@ -153,7 +154,6 @@ async function seed() {
           venue: 'Hilton Garden Inn Bali Nusa Dua',
           address: 'Jl. Pratama No.57A, Tanjung, Benoa, South Kuta, Badung Regency, Bali 80361',
           mapUrl,
-          backgroundImage: venueBgImg,
           heading: 'Venue',
           buttonLabel: 'GOOGLE MAPS',
           noDecor: true,
