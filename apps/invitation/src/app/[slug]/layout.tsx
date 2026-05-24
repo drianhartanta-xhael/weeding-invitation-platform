@@ -18,6 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const description = `You are cordially invited to the wedding of ${invitation.groomName} and ${invitation.brideName}.`;
 
     return {
+      metadataBase: new URL(process.env.NEXT_PUBLIC_INVITATION_URL || 'http://localhost:3001'),
       title,
       description,
       openGraph: {
@@ -35,6 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   } catch {
     return {
+      metadataBase: new URL(process.env.NEXT_PUBLIC_INVITATION_URL || 'http://localhost:3001'),
       title: 'Wedding Invitation',
       description: 'You are cordially invited.',
     };
