@@ -93,12 +93,14 @@ export const bulkCreateGuests = async (
     const { clientId } = req.params;
     const guestsData = bulkGuestSchema.parse(req.body.guests);
 
-    const guests = await Guest.insertMany(
-      guestsData.map((g) => ({ ...g, clientId }))
-    );
+    const { ops, slugs } = buildGuestUpserts(clientId, guestsData);
+    const result = await Guest.bulkWrite(ops, { ordered: false });
+    const guests = await Guest.find({ clientId, slug: { $in: slugs } }).sort({ createdAt: -1 });
 
     res.status(201).json({
-      message: `${guests.length} guests created`,
+      message: `${result.upsertedCount} added, ${result.matchedCount} updated`,
+      created: result.upsertedCount,
+      updated: result.matchedCount,
       guests,
     });
   } catch (error) {
@@ -114,6 +116,34 @@ function slugify(text: string): string {
     .replace(/[^\w\s-]/g, '')
     .replace(/\s+/g, '-')
     .replace(/-+/g, '-');
+}
+
+// Build idempotent upsert ops keyed on (clientId, slug). Duplicate slugs within
+// the SAME batch are disambiguated (ahmad-rizki, ahmad-rizki-2, ...) so two guests
+// with the same name become distinct. Re-importing the same list updates instead
+// of throwing a duplicate-key error.
+function buildGuestUpserts(
+  clientId: string,
+  guestsData: Array<Record<string, any>>
+): { ops: any[]; slugs: string[] } {
+  const seen = new Set<string>();
+  const slugs: string[] = [];
+  const ops = guestsData.map((g) => {
+    const base = (g.slug && String(g.slug).trim()) || slugify(g.name) || 'guest';
+    let candidate = base;
+    let n = 2;
+    while (seen.has(candidate)) candidate = `${base}-${n++}`;
+    seen.add(candidate);
+    slugs.push(candidate);
+    return {
+      updateOne: {
+        filter: { clientId, slug: candidate },
+        update: { $set: { ...g, slug: candidate, clientId } },
+        upsert: true,
+      },
+    };
+  });
+  return { ops, slugs };
 }
 
 export const bulkUploadGuests = async (
@@ -152,12 +182,14 @@ export const bulkUploadGuests = async (
     }));
 
     const validated = bulkGuestSchema.parse(guestsData);
-    const guests = await Guest.insertMany(
-      validated.map((g) => ({ ...g, clientId }))
-    );
+    const { ops, slugs } = buildGuestUpserts(clientId, validated);
+    const result = await Guest.bulkWrite(ops, { ordered: false });
+    const guests = await Guest.find({ clientId, slug: { $in: slugs } }).sort({ createdAt: -1 });
 
     res.status(201).json({
-      message: `${guests.length} guests imported`,
+      message: `${result.upsertedCount} imported, ${result.matchedCount} updated`,
+      created: result.upsertedCount,
+      updated: result.matchedCount,
       guests,
     });
   } catch (error) {
