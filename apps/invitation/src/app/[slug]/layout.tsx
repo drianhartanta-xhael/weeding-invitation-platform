@@ -1,5 +1,14 @@
 import type { Metadata } from 'next';
 
+// Resolve once at module load, guarded so a malformed env value can't throw inside generateMetadata.
+const METADATA_BASE = (() => {
+  try {
+    return new URL(process.env.NEXT_PUBLIC_INVITATION_URL || 'http://localhost:3001');
+  } catch {
+    return new URL('http://localhost:3001');
+  }
+})();
+
 interface Props {
   params: { slug: string };
 }
@@ -18,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const description = `You are cordially invited to the wedding of ${invitation.groomName} and ${invitation.brideName}.`;
 
     return {
-      metadataBase: new URL(process.env.NEXT_PUBLIC_INVITATION_URL || 'http://localhost:3001'),
+      metadataBase: METADATA_BASE,
       title,
       description,
       openGraph: {
@@ -36,7 +45,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   } catch {
     return {
-      metadataBase: new URL(process.env.NEXT_PUBLIC_INVITATION_URL || 'http://localhost:3001'),
+      metadataBase: METADATA_BASE,
       title: 'Wedding Invitation',
       description: 'You are cordially invited.',
     };
