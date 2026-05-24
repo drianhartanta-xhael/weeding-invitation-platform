@@ -100,7 +100,7 @@ export default function ImportGuestsDialog({ open, onOpenChange, clientId, onImp
     try {
       const { data } = await api.post(`/guests/bulk/${clientId}`, { guests: preview });
       onImported(data.guests);
-      setSuccess(`${data.guests.length} guests imported`);
+      setSuccess(`${data.created} imported${data.updated ? `, ${data.updated} updated` : ''}`);
       setTimeout(() => setSuccess(''), 3000);
       setColumns([]);
       setRows([]);

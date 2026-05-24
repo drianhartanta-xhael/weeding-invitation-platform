@@ -117,10 +117,10 @@ export default function GuestsTab({ client, setError, setSuccess }: Props) {
     }));
     try {
       const { data } = await api.post(`/guests/bulk/${client._id}`, { guests: payload });
-      setGuests([...data.guests, ...guests]);
+      mergeGuests(data.guests);
       setBulkRows([{ ...EMPTY_BULK_ROW }]);
       setShowBulkAdd(false);
-      setSuccess(`${data.guests.length} guests added`);
+      setSuccess(`${data.created} added${data.updated ? `, ${data.updated} updated` : ''}`);
       setTimeout(() => setSuccess(''), 3000);
     } catch (err: any) {
       setError(err.response?.data?.message || 'Failed to bulk add guests');
@@ -129,6 +129,12 @@ export default function GuestsTab({ client, setError, setSuccess }: Props) {
 
   const replaceGuest = (updated: Guest) =>
     setGuests((gs) => gs.map((g) => (g._id === updated._id ? updated : g)));
+
+  const mergeGuests = (incoming: Guest[]) =>
+    setGuests((prev) => {
+      const ids = new Set(incoming.map((g) => g._id));
+      return [...incoming, ...prev.filter((g) => !ids.has(g._id))];
+    });
 
   const toggleSelect = (id: string) =>
     setSelectedIds((prev) => {
@@ -439,7 +445,7 @@ export default function GuestsTab({ client, setError, setSuccess }: Props) {
           open={showImport}
           onOpenChange={setShowImport}
           clientId={client._id}
-          onImported={(gs) => setGuests((prev) => [...gs, ...prev])}
+          onImported={(gs) => mergeGuests(gs)}
           setError={setError}
           setSuccess={setSuccess}
         />
