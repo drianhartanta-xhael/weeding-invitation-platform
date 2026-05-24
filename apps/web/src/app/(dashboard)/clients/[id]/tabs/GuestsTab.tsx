@@ -120,7 +120,7 @@ export default function GuestsTab({ client, setError, setSuccess }: Props) {
       mergeGuests(data.guests);
       setBulkRows([{ ...EMPTY_BULK_ROW }]);
       setShowBulkAdd(false);
-      setSuccess(`${data.created} added${data.updated ? `, ${data.updated} updated` : ''}`);
+      setSuccess(`${data.created ?? data.guests.length} added${data.updated ? `, ${data.updated} updated` : ''}`);
       setTimeout(() => setSuccess(''), 3000);
     } catch (err: any) {
       setError(err.response?.data?.message || 'Failed to bulk add guests');
