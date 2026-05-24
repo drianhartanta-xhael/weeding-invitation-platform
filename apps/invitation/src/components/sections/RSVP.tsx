@@ -126,7 +126,7 @@ export default function RSVP({ clientSlug, guestSlug, currentStatus, text }: RSV
                   style={inputStyle}
                 >
                   {[1, 2, 3, 4, 5].map((n) => (
-                    <option key={n} value={n} style={{ backgroundColor: '#3D1A0E' }}>
+                    <option key={n} value={n} style={{ backgroundColor: 'var(--wedding-secondary, #f5f3eb)', color: 'var(--wedding-primary, #823460)' }}>
                       {n} {t.unit}
                     </option>
                   ))}
