@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import mongoose from 'mongoose';
 import Papa from 'papaparse';
 import { Guest } from '../models';
 import { createGuestSchema, updateGuestSchema, rsvpSchema, bulkGuestSchema } from '../validators/guest';
@@ -126,6 +127,8 @@ function buildGuestUpserts(
   clientId: string,
   guestsData: Array<Record<string, any>>
 ): { ops: any[]; slugs: string[] } {
+  // bulkWrite bypasses Mongoose schema casting, so cast clientId to ObjectId ourselves.
+  const clientOid = new mongoose.Types.ObjectId(clientId);
   const seen = new Set<string>();
   const slugs: string[] = [];
   const ops = guestsData.map((g) => {
@@ -137,8 +140,10 @@ function buildGuestUpserts(
     slugs.push(candidate);
     return {
       updateOne: {
-        filter: { clientId, slug: candidate },
-        update: { $set: { ...g, slug: candidate, clientId } },
+        filter: { clientId: clientOid, slug: candidate },
+        // $set is intentionally limited to bulkGuestSchema fields (name, invitationName,
+        // slug, phone, email, category) so re-import never overwrites rsvpStatus / invitedAt.
+        update: { $set: { ...g, slug: candidate, clientId: clientOid } },
         upsert: true,
       },
     };
