@@ -1,17 +1,18 @@
 'use client';
 
-import { useEffect, useRef, useState, useMemo } from 'react';
-import Papa from 'papaparse';
+import { useEffect, useState, useMemo } from 'react';
 import api from '@/lib/api';
 import type { Client, Guest, BulkGuestRow, GuestCategory } from '../types';
 import { GUEST_CATEGORIES, EMPTY_BULK_ROW } from '../constants';
-import { categoryLabel, slugify } from '../helpers';
+import { categoryLabel, slugify, DEFAULT_WA_TEMPLATE, buildWaMessage, invitationUrl, normalizePhone, waLink } from '../helpers';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
+import SendWhatsAppQueue from './guests/SendWhatsAppQueue';
+import ImportGuestsDialog from './guests/ImportGuestsDialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
@@ -35,9 +36,9 @@ export default function GuestsTab({ client, setError, setSuccess }: Props) {
   const [showAddGuest, setShowAddGuest] = useState(false);
   const [showBulkAdd, setShowBulkAdd] = useState(false);
   const [bulkRows, setBulkRows] = useState<BulkGuestRow[]>([{ ...EMPTY_BULK_ROW }]);
-  const [showCsvUpload, setShowCsvUpload] = useState(false);
-  const [csvPreview, setCsvPreview] = useState<BulkGuestRow[]>([]);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [showImport, setShowImport] = useState(false);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [showQueue, setShowQueue] = useState(false);
   const [page, setPage] = useState(1);
   const PAGE_SIZE = 20;
 
@@ -126,40 +127,61 @@ export default function GuestsTab({ client, setError, setSuccess }: Props) {
     }
   };
 
-  const handleCsvSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    Papa.parse(file, {
-      header: true,
-      skipEmptyLines: true,
-      transformHeader: (h: string) => h.trim().toLowerCase(),
-      complete: (results) => {
-        const rows: BulkGuestRow[] = results.data.map((row: any) => ({
-          name: row.name?.trim() || '',
-          invitationName: row.invitationname?.trim() || row.invitation_name?.trim() || row.name?.trim() || '',
-          slug: row.slug?.trim() || slugify(row.name || ''),
-          phone: row.phone?.trim() || '',
-          category: (row.category?.trim() || 'other') as GuestCategory,
-        }));
-        setCsvPreview(rows.filter((r) => r.name));
-      },
+  const replaceGuest = (updated: Guest) =>
+    setGuests((gs) => gs.map((g) => (g._id === updated._id ? updated : g)));
+
+  const toggleSelect = (id: string) =>
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+
+  const toggleSelectPage = () => {
+    const ids = paginatedGuests.map((g) => g._id);
+    const allSelected = ids.every((id) => selectedIds.has(id));
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      ids.forEach((id) => (allSelected ? next.delete(id) : next.add(id)));
+      return next;
     });
   };
 
-  const handleCsvSubmit = async () => {
-    if (csvPreview.length === 0) return;
+  const sendWhatsApp = async (g: Guest) => {
+    const tmpl =
+      (typeof window !== 'undefined' && window.localStorage.getItem(`wa-template-${client._id}`)) ||
+      DEFAULT_WA_TEMPLATE;
+    const msg = buildWaMessage(tmpl, {
+      invitationName: g.invitationName,
+      couple: `${client.groomName} & ${client.brideName}`,
+      link: invitationUrl(client.slug, g.slug),
+    });
+    window.open(waLink(g.phone, msg), '_blank');
     try {
-      const { data } = await api.post(`/guests/bulk/${client._id}`, { guests: csvPreview });
-      setGuests([...data.guests, ...guests]);
-      setCsvPreview([]);
-      setShowCsvUpload(false);
-      if (fileInputRef.current) fileInputRef.current.value = '';
-      setSuccess(`${data.guests.length} guests imported from CSV`);
-      setTimeout(() => setSuccess(''), 3000);
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to import CSV');
+      const { data } = await api.patch(`/guests/${g._id}/invited`, { invited: true });
+      replaceGuest(data.guest);
+    } catch {
+      /* ignore */
     }
   };
+
+  const toggleInvited = async (g: Guest) => {
+    try {
+      const { data } = await api.patch(`/guests/${g._id}/invited`, { invited: !g.invitedAt });
+      replaceGuest(data.guest);
+    } catch {
+      setError('Failed to update invited status');
+    }
+  };
+
+  const copyLink = (g: Guest) => {
+    navigator.clipboard.writeText(invitationUrl(client.slug, g.slug));
+    setSuccess('Link copied');
+    setTimeout(() => setSuccess(''), 1500);
+  };
+
+  const selectedGuests = guests.filter((g) => selectedIds.has(g._id));
 
   const rsvpVariant = (status: string): 'default' | 'secondary' | 'destructive' | 'outline' => {
     if (status === 'attending') return 'default';
@@ -174,13 +196,16 @@ export default function GuestsTab({ client, setError, setSuccess }: Props) {
           Guests {guestsLoaded && <span className="text-muted-foreground font-normal text-sm ml-1">({guests.length})</span>}
         </CardTitle>
         <div className="flex flex-wrap items-center gap-2">
-          <Button variant="outline" size="sm" onClick={() => { setShowCsvUpload(!showCsvUpload); setShowBulkAdd(false); setShowAddGuest(false); }}>
-            {showCsvUpload ? 'Cancel CSV' : 'Upload CSV'}
-          </Button>
-          <Button variant="outline" size="sm" onClick={() => { setShowBulkAdd(!showBulkAdd); setShowCsvUpload(false); setShowAddGuest(false); }}>
+          {selectedIds.size > 0 && (
+            <Button size="sm" onClick={() => setShowQueue(true)}>
+              Send WhatsApp ({selectedIds.size})
+            </Button>
+          )}
+          <Button variant="outline" size="sm" onClick={() => setShowImport(true)}>Import</Button>
+          <Button variant="outline" size="sm" onClick={() => { setShowBulkAdd(!showBulkAdd); setShowAddGuest(false); }}>
             {showBulkAdd ? 'Cancel Bulk' : '+ Bulk Add'}
           </Button>
-          <Button variant="outline" size="sm" onClick={() => { setShowAddGuest(!showAddGuest); setShowBulkAdd(false); setShowCsvUpload(false); }}>
+          <Button variant="outline" size="sm" onClick={() => { setShowAddGuest(!showAddGuest); setShowBulkAdd(false); }}>
             {showAddGuest ? 'Cancel' : '+ Add Guest'}
           </Button>
           {guestsLoaded && guests.length > 0 && (
@@ -189,51 +214,6 @@ export default function GuestsTab({ client, setError, setSuccess }: Props) {
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
-        {showCsvUpload && (
-          <div className="p-4 bg-muted/40 rounded-lg border space-y-3">
-            <p className="text-sm text-muted-foreground">
-              Upload a CSV with columns: <code className="bg-muted px-1 rounded text-xs">name, invitationName, slug, phone, category</code>
-            </p>
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept=".csv"
-              onChange={handleCsvSelect}
-              className="block text-sm text-muted-foreground file:mr-3 file:py-1.5 file:px-3 file:rounded file:border file:border-border file:text-sm file:bg-background hover:file:bg-muted"
-            />
-            {csvPreview.length > 0 && (
-              <>
-                <p className="text-sm font-medium">{csvPreview.length} guests found:</p>
-                <div className="overflow-x-auto max-h-60 overflow-y-auto rounded-lg border">
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>Name</TableHead>
-                        <TableHead>Invitation Name</TableHead>
-                        <TableHead>Slug</TableHead>
-                        <TableHead>Category</TableHead>
-                        <TableHead>Phone</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {csvPreview.map((row, i) => (
-                        <TableRow key={i}>
-                          <TableCell>{row.name}</TableCell>
-                          <TableCell>{row.invitationName}</TableCell>
-                          <TableCell className="text-muted-foreground">{row.slug}</TableCell>
-                          <TableCell>{categoryLabel(row.category)}</TableCell>
-                          <TableCell className="text-muted-foreground">{row.phone}</TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </div>
-                <Button size="sm" onClick={handleCsvSubmit}>Import {csvPreview.length} Guests</Button>
-              </>
-            )}
-          </div>
-        )}
-
         {showBulkAdd && (
           <div className="p-4 bg-muted/40 rounded-lg border space-y-3">
             {bulkRows.map((row, i) => (
@@ -345,11 +325,18 @@ export default function GuestsTab({ client, setError, setSuccess }: Props) {
               <Table>
                 <TableHeader>
                   <TableRow>
+                    <TableHead className="w-8">
+                      <input
+                        type="checkbox"
+                        className="h-4 w-4 accent-primary align-middle"
+                        checked={paginatedGuests.length > 0 && paginatedGuests.every((g) => selectedIds.has(g._id))}
+                        onChange={toggleSelectPage}
+                        aria-label="Select page"
+                      />
+                    </TableHead>
                     <TableHead>Name</TableHead>
                     <TableHead>Category</TableHead>
-                    <TableHead>Slug</TableHead>
                     <TableHead>RSVP</TableHead>
-                    <TableHead>Guests</TableHead>
                     <TableHead className="text-right">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -357,40 +344,72 @@ export default function GuestsTab({ client, setError, setSuccess }: Props) {
                   {paginatedGuests.map((g) => (
                     <TableRow key={g._id}>
                       <TableCell>
-                        <p className="font-medium text-sm">{g.name}</p>
-                        <p className="text-xs text-muted-foreground">{g.invitationName}</p>
+                        <input
+                          type="checkbox"
+                          className="h-4 w-4 accent-primary align-middle"
+                          checked={selectedIds.has(g._id)}
+                          onChange={() => toggleSelect(g._id)}
+                          aria-label={`Select ${g.name}`}
+                        />
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          <div>
+                            <p className="font-medium text-sm">{g.name}</p>
+                            <p className="text-xs text-muted-foreground">{g.invitationName}</p>
+                          </div>
+                          {g.invitedAt && (
+                            <Badge
+                              variant="outline"
+                              className="cursor-pointer text-green-600 border-green-600/40"
+                              title={`Invited ${new Date(g.invitedAt).toLocaleString('id-ID')} — click to clear`}
+                              onClick={() => toggleInvited(g)}
+                            >
+                              Invited ✓
+                            </Badge>
+                          )}
+                        </div>
                       </TableCell>
                       <TableCell>
                         <Badge variant="secondary">{categoryLabel(g.category)}</Badge>
                       </TableCell>
-                      <TableCell className="text-muted-foreground text-sm">{g.slug}</TableCell>
                       <TableCell>
                         <Badge variant={rsvpVariant(g.rsvpStatus)}>{g.rsvpStatus}</Badge>
                       </TableCell>
-                      <TableCell className="text-muted-foreground">{g.numberOfGuests}</TableCell>
                       <TableCell className="text-right">
-                        <AlertDialog>
-                          <AlertDialogTrigger asChild>
-                            <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive">Delete</Button>
-                          </AlertDialogTrigger>
-                          <AlertDialogContent>
-                            <AlertDialogHeader>
-                              <AlertDialogTitle>Delete guest?</AlertDialogTitle>
-                              <AlertDialogDescription>
-                                This will permanently delete {g.name} and all their RSVP data.
-                              </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                              <AlertDialogCancel>Cancel</AlertDialogCancel>
-                              <AlertDialogAction
-                                onClick={() => handleDeleteGuest(g._id)}
-                                className="bg-destructive text-white hover:bg-destructive/90"
-                              >
-                                Delete
-                              </AlertDialogAction>
-                            </AlertDialogFooter>
-                          </AlertDialogContent>
-                        </AlertDialog>
+                        <div className="flex items-center justify-end gap-1">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            disabled={!normalizePhone(g.phone)}
+                            onClick={() => sendWhatsApp(g)}
+                          >
+                            WhatsApp
+                          </Button>
+                          <Button variant="ghost" size="sm" onClick={() => copyLink(g)}>Copy link</Button>
+                          <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                              <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive">Delete</Button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                              <AlertDialogHeader>
+                                <AlertDialogTitle>Delete guest?</AlertDialogTitle>
+                                <AlertDialogDescription>
+                                  This will permanently delete {g.name} and all their RSVP data.
+                                </AlertDialogDescription>
+                              </AlertDialogHeader>
+                              <AlertDialogFooter>
+                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                <AlertDialogAction
+                                  onClick={() => handleDeleteGuest(g._id)}
+                                  className="bg-destructive text-white hover:bg-destructive/90"
+                                >
+                                  Delete
+                                </AlertDialogAction>
+                              </AlertDialogFooter>
+                            </AlertDialogContent>
+                          </AlertDialog>
+                        </div>
                       </TableCell>
                     </TableRow>
                   ))}
@@ -416,6 +435,21 @@ export default function GuestsTab({ client, setError, setSuccess }: Props) {
             )}
           </>
         )}
+        <ImportGuestsDialog
+          open={showImport}
+          onOpenChange={setShowImport}
+          clientId={client._id}
+          onImported={(gs) => setGuests((prev) => [...gs, ...prev])}
+          setError={setError}
+          setSuccess={setSuccess}
+        />
+        <SendWhatsAppQueue
+          open={showQueue}
+          onOpenChange={setShowQueue}
+          client={client}
+          guests={selectedGuests}
+          onGuestUpdated={replaceGuest}
+        />
       </CardContent>
     </Card>
   );
