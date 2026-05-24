@@ -73,15 +73,18 @@ export default function SendWhatsAppQueue({ open, onOpenChange, client, guests, 
     setStatus((s) => ({ ...s, [g._id]: 'opened' }));
   };
 
-  // Primary queue action: confirm the currently-opened guest as sent, then open the next pending one.
-  // Each tap therefore means "I sent that one — open the next".
+  // Primary queue action. Open the next pending guest FIRST — window.open must run
+  // inside the click's user-activation window or the browser blocks it as a popup.
+  // Then mark the previously-opened guest sent (a background PATCH). Net effect per
+  // tap: "I sent that one — open the next". markSent/openOne use functional setState
+  // keyed by id, so the end state (old → sent, new → opened) is order-independent.
   const advance = async () => {
-    if (openedGuest) await markSent(openedGuest);
     if (nextPending) openOne(nextPending);
+    if (openedGuest) await markSent(openedGuest);
   };
 
   const copyMessage = (g: Guest) => {
-    navigator.clipboard.writeText(messageFor(g));
+    navigator.clipboard.writeText(messageFor(g)).catch(() => {});
   };
 
   const advanceLabel = nextPending
