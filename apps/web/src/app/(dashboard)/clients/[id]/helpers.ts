@@ -44,7 +44,7 @@ export const DEFAULT_WA_TEMPLATE =
   "Dear {invitationName}, you're warmly invited to {couple}'s wedding. Please open your personal invitation here: {link}";
 
 const INVITATION_BASE_URL =
-  process.env.NEXT_PUBLIC_INVITATION_BASE_URL || 'http://localhost:3001';
+  process.env.NEXT_PUBLIC_INVITATION_URL || 'http://localhost:3001';
 
 export function normalizePhone(raw: string): string {
   if (!raw) return '';
