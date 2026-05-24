@@ -69,6 +69,7 @@ export interface Guest {
   category: GuestCategory;
   rsvpStatus: 'pending' | 'attending' | 'notAttending';
   numberOfGuests: number;
+  invitedAt?: string | null;
 }
 
 export interface Wish {

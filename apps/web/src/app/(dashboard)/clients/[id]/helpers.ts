@@ -40,3 +40,35 @@ export function slugify(text: string): string {
     .replace(/-+/g, '-');
 }
 
+export const DEFAULT_WA_TEMPLATE =
+  "Dear {invitationName}, you're warmly invited to {couple}'s wedding. Please open your personal invitation here: {link}";
+
+const INVITATION_BASE_URL =
+  process.env.NEXT_PUBLIC_INVITATION_BASE_URL || 'http://localhost:3001';
+
+export function normalizePhone(raw: string): string {
+  if (!raw) return '';
+  let digits = raw.replace(/[^\d]/g, '');
+  if (!digits) return '';
+  if (digits.startsWith('0')) digits = '62' + digits.slice(1);
+  return digits.length >= 8 ? digits : '';
+}
+
+export function invitationUrl(clientSlug: string, guestSlug: string): string {
+  return `${INVITATION_BASE_URL}/${clientSlug}?to=${encodeURIComponent(guestSlug)}`;
+}
+
+export function buildWaMessage(
+  template: string,
+  vars: { invitationName: string; couple: string; link: string }
+): string {
+  return template
+    .replace(/\{invitationName\}/g, vars.invitationName)
+    .replace(/\{couple\}/g, vars.couple)
+    .replace(/\{link\}/g, vars.link);
+}
+
+export function waLink(phone: string, message: string): string {
+  return `https://wa.me/${normalizePhone(phone)}?text=${encodeURIComponent(message)}`;
+}
+
