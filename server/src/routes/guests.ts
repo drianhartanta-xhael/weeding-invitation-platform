@@ -9,6 +9,7 @@ import {
   bulkCreateGuests,
   bulkUploadGuests,
   submitRSVP,
+  markInvited,
 } from '../controllers/guestController';
 import { authenticate } from '../middleware/auth';
 import { rsvpLimiter } from '../middleware/rateLimiter';
@@ -21,6 +22,7 @@ router.get('/client/:clientId', authenticate, getGuests);
 router.get('/:id', authenticate, getGuestById);
 router.post('/', authenticate, createGuest);
 router.put('/:id', authenticate, updateGuest);
+router.patch('/:id/invited', authenticate, markInvited);
 router.delete('/:id', authenticate, deleteGuest);
 router.post('/bulk/:clientId', authenticate, bulkCreateGuests);
 router.post('/bulk-upload/:clientId', authenticate, upload.single('file'), bulkUploadGuests);

@@ -13,6 +13,7 @@ export interface IGuestDocument extends Document {
   rsvpStatus: 'pending' | 'attending' | 'notAttending';
   numberOfGuests: number;
   rsvpDate: Date | null;
+  invitedAt: Date | null;
   createdAt: Date;
 }
 
@@ -61,6 +62,10 @@ const guestSchema = new Schema<IGuestDocument>(
       default: 1,
     },
     rsvpDate: {
+      type: Date,
+      default: null,
+    },
+    invitedAt: {
       type: Date,
       default: null,
     },

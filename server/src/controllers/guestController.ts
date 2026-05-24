@@ -191,3 +191,25 @@ export const submitRSVP = async (
     next(error);
   }
 };
+
+export const markInvited = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const invited = req.body?.invited === true;
+    const guest = await Guest.findByIdAndUpdate(
+      req.params.id,
+      { invitedAt: invited ? new Date() : null },
+      { new: true }
+    );
+    if (!guest) {
+      res.status(404).json({ message: 'Guest not found' });
+      return;
+    }
+    res.json({ guest });
+  } catch (error) {
+    next(error);
+  }
+};
