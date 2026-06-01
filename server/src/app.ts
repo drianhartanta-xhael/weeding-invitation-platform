@@ -5,6 +5,7 @@ import pinoHttp from 'pino-http';
 import routes from './routes';
 import { errorHandler } from './middleware/errorHandler';
 import { logger } from './logger';
+import { r2Configured } from './lib/r2';
 
 const app = express();
 
@@ -17,7 +18,9 @@ app.use(cors({ origin: allowedOrigins, credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+if (!r2Configured) {
+  app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+}
 
 app.use('/api', routes);
 
