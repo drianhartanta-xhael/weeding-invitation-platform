@@ -22,8 +22,6 @@ const galleryImages = [
   `${P}/invitation/01.jpg`, `${P}/invitation/02.jpg`, `${P}/invitation/03.jpg`,
   `${P}/invitation/04.jpg`, `${P}/invitation/05.jpg`, `${P}/invitation/06.jpg`,
   `${P}/invitation/07.jpg`, `${P}/invitation/08.jpg`, `${P}/invitation/09.jpg`,
-  `${P}/invitation/10.jpg`, `${P}/invitation/11.jpg`, `${P}/invitation/12.jpg`,
-  `${P}/invitation/13.jpg`, `${P}/invitation/14.jpg`, `${P}/invitation/15.jpg`,
 ];
 const envelopeImg = `${P}/envelope.png`;
 const heroDecorImg = `${P}/hero-decor.png`;
@@ -146,7 +144,7 @@ async function seed() {
       {
         id: 's-gallery',
         componentId: 'gallery',
-        data: { images: galleryImages, layout: 'carousel', eyebrow: 'Gallery', heading: 'Happy moments' },
+        data: { images: galleryImages, layout: 'grid', eyebrow: 'Gallery', heading: 'Happy moments' },
         style: 'light',
         order: 2,
       },

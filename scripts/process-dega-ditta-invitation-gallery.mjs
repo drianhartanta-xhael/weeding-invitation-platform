@@ -8,13 +8,23 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const src = path.join(root, 'dega-dita-asets2/gallery/INVITATION');
+// Source: the curated gallery dump from the photographer. Supported layouts:
+//   dega-dita-asets2/gallery/INVITATION/                                  (flat)
+//   dega-dita-asets2/gallery/INVITATION-<timestamp>/INVITATION/           (Google Drive export)
+// Update this path when a fresh export arrives.
+const src = path.join(
+  root,
+  'dega-dita-asets2/gallery/INVITATION-20260601T061335Z-3-001/INVITATION'
+);
 const out = path.join(root, 'apps/invitation/public/assets/dega-ditta/invitation');
 
 await fs.mkdir(out, { recursive: true });
 
 const files = (await fs.readdir(src))
   .filter((f) => /\.(jpe?g|png)$/i.test(f))
+  // Skip anything tagged with "NAMA" in the filename — the photographer marks photos
+  // that are NOT meant for the gallery (e.g. "FOTO NAMA, GA USAH DI GALLERY.jpg").
+  .filter((f) => !/nama/i.test(f))
   .sort();
 
 const MAX_LONG_EDGE = 1400;
