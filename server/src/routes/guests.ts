@@ -9,6 +9,7 @@ import {
   bulkCreateGuests,
   bulkUploadGuests,
   submitRSVP,
+  submitOpenRSVP,
   markInvited,
 } from '../controllers/guestController';
 import { authenticate } from '../middleware/auth';
@@ -29,5 +30,6 @@ router.post('/bulk-upload/:clientId', authenticate, upload.single('file'), bulkU
 
 // Public RSVP
 router.post('/rsvp/:clientSlug/:guestSlug', rsvpLimiter, submitRSVP);
+router.post('/rsvp/:clientSlug', rsvpLimiter, submitOpenRSVP);
 
 export default router;

@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import mongoose from 'mongoose';
 import Papa from 'papaparse';
-import { Guest } from '../models';
-import { createGuestSchema, updateGuestSchema, rsvpSchema, bulkGuestSchema } from '../validators/guest';
+import { Guest, Client } from '../models';
+import { createGuestSchema, updateGuestSchema, rsvpSchema, openRsvpSchema, bulkGuestSchema } from '../validators/guest';
 import { AuthRequest } from '../middleware/auth';
 
 export const getGuests = async (
@@ -202,7 +202,7 @@ export const bulkUploadGuests = async (
   }
 };
 
-// Public - for invitation page RSVP
+// Public - for invitation page RSVP via a personalized ?to=<slug> link.
 export const submitRSVP = async (
   req: Request,
   res: Response,
@@ -224,6 +224,58 @@ export const submitRSVP = async (
     await guest.save();
 
     res.json({ message: 'RSVP submitted', guest });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Public - open RSVP: any visitor (no personalized slug) can submit with a name.
+// Upsert behavior: same name (case-insensitive) under the same client = update;
+// different name that slugifies to an existing slug = disambiguate with -2, -3, ...
+export const submitOpenRSVP = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const data = openRsvpSchema.parse(req.body);
+    const { clientSlug } = req.params;
+
+    const client = await Client.findOne({ slug: clientSlug });
+    if (!client) {
+      res.status(404).json({ message: 'Invitation not found' });
+      return;
+    }
+
+    const trimmedName = data.name.trim();
+    const base = slugify(trimmedName) || 'guest';
+    let slug = base;
+    let n = 2;
+    while (true) {
+      const existing = await Guest.findOne({ clientId: client._id, slug });
+      if (!existing) break;
+      if (existing.name.trim().toLowerCase() === trimmedName.toLowerCase()) {
+        existing.rsvpStatus = data.rsvpStatus;
+        existing.numberOfGuests = data.numberOfGuests;
+        existing.rsvpDate = new Date();
+        await existing.save();
+        res.json({ message: 'RSVP updated', guest: existing });
+        return;
+      }
+      slug = `${base}-${n++}`;
+    }
+
+    const guest = await Guest.create({
+      clientId: client._id,
+      name: trimmedName,
+      invitationName: trimmedName,
+      slug,
+      category: 'other',
+      rsvpStatus: data.rsvpStatus,
+      numberOfGuests: data.numberOfGuests,
+      rsvpDate: new Date(),
+    });
+    res.status(201).json({ message: 'RSVP submitted', guest });
   } catch (error) {
     next(error);
   }

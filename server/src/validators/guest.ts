@@ -21,6 +21,14 @@ export const rsvpSchema = z.object({
   numberOfGuests: z.number().int().min(0).max(10),
 });
 
+// Open RSVP: anyone can submit (no guest slug in URL), name is required so the
+// backend can upsert a Guest record under the client.
+export const openRsvpSchema = z.object({
+  name: z.string().min(1, 'Name is required').max(120),
+  rsvpStatus: z.enum(['attending', 'notAttending']),
+  numberOfGuests: z.number().int().min(0).max(10),
+});
+
 export const bulkGuestSchema = z.array(
   z.object({
     name: z.string().min(1),

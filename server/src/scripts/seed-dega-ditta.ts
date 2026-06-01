@@ -204,6 +204,8 @@ async function seed() {
             submit: 'RSVP here',
             thanksTitle: 'Thank You',
             thanksMsg: "Your RSVP has been received. We can't wait to celebrate with you!",
+            nameLabel: 'Your name',
+            namePlaceholder: 'Enter your name',
           },
         },
         style: 'accent',

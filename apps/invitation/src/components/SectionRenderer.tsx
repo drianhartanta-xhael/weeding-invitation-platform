@@ -134,16 +134,16 @@ export default function SectionRenderer({
             break;
 
           case 'rsvp':
-            if (guestSlug) {
-              content = (
-                <RSVP
-                  clientSlug={clientSlug}
-                  guestSlug={guestSlug}
-                  currentStatus={guestRsvpStatus || 'pending'}
-                  text={section.data.text}
-                />
-              );
-            }
+            // RSVP renders for all visitors. With a guestSlug it updates that guest;
+            // without it the form asks for a name and the server upserts a Guest record.
+            content = (
+              <RSVP
+                clientSlug={clientSlug}
+                guestSlug={guestSlug}
+                currentStatus={guestRsvpStatus || 'pending'}
+                text={section.data.text}
+              />
+            );
             break;
 
           case 'wishes':
