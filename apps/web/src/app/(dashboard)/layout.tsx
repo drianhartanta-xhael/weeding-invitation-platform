@@ -29,7 +29,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from '@/components/ui/sidebar';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import api from '@/lib/api';
@@ -238,6 +238,7 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
 }
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+  // TooltipProvider lives in the root layout now (apps/web/src/app/layout.tsx).
   return (
     <PageHeaderProvider>
       <DashboardShell>{children}</DashboardShell>
