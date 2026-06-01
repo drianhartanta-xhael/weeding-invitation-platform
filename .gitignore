@@ -48,5 +48,9 @@ Thumbs.db
 # Ad-hoc screenshots / design references (not for deploy)
 /*.png
 /dega-dita-asets/
+/dega-dita-asets2/
 /.design-cache/
 /.superpowers/brainstorm/
+
+# Local secrets adjacent to notes (e.g. notes/deploy-secrets.local.md)
+notes/*.local.md
