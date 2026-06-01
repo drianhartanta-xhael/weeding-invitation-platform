@@ -54,3 +54,24 @@ console.log(
   `\nTotal: ${(totalIn / 1024 / 1024).toFixed(1)} MB -> ${(totalOut / 1024 / 1024).toFixed(2)} MB ` +
   `(${(100 - (totalOut / totalIn) * 100).toFixed(1)}% smaller)`
 );
+
+// Separately process the "FOTO NAMA" file (if present) to dega-ditta/couple-name.jpg —
+// the photographer tags one image "FOTO NAMA, GA USAH DI GALLERY" meaning "not for
+// gallery"; we use it as the centerPhoto in the couple-profile section instead.
+const namaFile = (await fs.readdir(src))
+  .find((f) => /\.(jpe?g|png)$/i.test(f) && /nama/i.test(f));
+if (namaFile) {
+  const inFile = path.join(src, namaFile);
+  const outFile = path.join(path.dirname(out), 'couple-name.jpg');
+  const before = (await fs.stat(inFile)).size;
+  await sharp(inFile)
+    .rotate()
+    .resize({ width: MAX_LONG_EDGE, height: MAX_LONG_EDGE, fit: 'inside', withoutEnlargement: true })
+    .jpeg({ quality: QUALITY, mozjpeg: true })
+    .toFile(outFile);
+  const after = (await fs.stat(outFile)).size;
+  console.log(
+    `\n[couple-name] ${namaFile} -> ${path.relative(root, outFile)}  ` +
+    `${(before / 1024).toFixed(0)} KB -> ${(after / 1024).toFixed(0)} KB`
+  );
+}

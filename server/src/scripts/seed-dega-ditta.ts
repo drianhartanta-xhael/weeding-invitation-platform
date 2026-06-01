@@ -127,7 +127,7 @@ async function seed() {
         data: {
           layout: 'split',
           heading: 'The happy couple and parents',
-          centerPhoto: `${P}/2.jpg`,
+          centerPhoto: `${P}/couple-name.jpg`,
           bouquetImage: bouquetImg,
           ringsImage: coupleRingsImg,
           groomName: 'Dega Aprillian',
