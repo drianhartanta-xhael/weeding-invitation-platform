@@ -29,14 +29,16 @@
 
 - https://cloud.mongodb.com → register (email + password) or sign-in via Google.
 - Create a free **M0** cluster:
-  - Provider: **AWS**
-  - Region: **Singapore (ap-southeast-1)**
-  - Name: `wedding-prod` (or anything)
+    - Provider: **AWS**
+    - Region: **Singapore (ap-southeast-1)**
+    - Name: `wedding-prod` (or anything)
 - After the cluster boots, two manual settings (in Atlas UI):
-  - **Database Access → Add New Database User** — username `wedding-app`, generate a random
-    password (save it), role `Read and write to any database`. **Save the password.**
-  - **Network Access → Add IP Address** — `0.0.0.0/0` (required: Render egress IPs are
-    dynamic on free tier).
+    - **Database Access → Add New Database User** — username (e.g. `weddingadmin`),
+      click **Autogenerate Secure Password** (alphanumeric, no `@`/`:`/`/`/`?` which
+      break the URI), save it to `notes/deploy-secrets.local.md`. Role:
+      `Read and write to any database`.
+    - **Network Access → Add IP Address** — `0.0.0.0/0` (required: Render egress IPs are
+      dynamic on free tier).
 - Hand me the connection string from **Database → Connect → Drivers → Node.js** (looks like
   `mongodb+srv://wedding-app:<pwd>@<host>/...`) — I'll patch the database name and use it.
 
@@ -49,9 +51,9 @@
 - **Bucket settings → Public Access → Allow Access** — Cloudflare gives you a
   `https://pub-<hash>.r2.dev` URL. Save it.
 - **R2 → Manage R2 API Tokens → Create API Token:**
-  - Permissions: **Object Read & Write**
-  - Specify bucket: `wedding-uploads`
-  - Save: **Account ID**, **Access Key ID**, **Secret Access Key** — I need all three.
+    - Permissions: **Object Read & Write**
+    - Specify bucket: `wedding-uploads`
+    - Save: **Account ID**, **Access Key ID**, **Secret Access Key** — I need all three.
 
 ## 6. UptimeRobot
 
@@ -87,5 +89,6 @@ Midtrans sandbox keys are already in your local `server/.env`.
 
 All zero. The only escape-hatch I'd recommend if Render free's cold-start latency proves
 annoying near the wedding day:
+
 - **Render Starter — $7/mo** (≈ Rp 110k/mo): no hibernation, instant response. Easy upgrade
   later via Render dashboard, no redeploy.
