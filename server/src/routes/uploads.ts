@@ -5,6 +5,7 @@ import fs from 'fs/promises';
 import sharp from 'sharp';
 import { authenticate, AuthRequest } from '../middleware/auth';
 import { Response, NextFunction } from 'express';
+import { r2Configured, uploadBuffer } from '../lib/r2';
 
 const router = Router();
 
@@ -35,18 +36,25 @@ router.post(
         return;
       }
 
-      await fs.mkdir(UPLOAD_DIR, { recursive: true });
+      if (!r2Configured) {
+        await fs.mkdir(UPLOAD_DIR, { recursive: true });
+      }
 
       const urls = await Promise.all(
         files.map(async (file) => {
           const filename = `${Date.now()}-${Math.random().toString(36).slice(2, 7)}.webp`;
-          const dest = path.join(UPLOAD_DIR, filename);
 
-          await sharp(file.buffer)
+          const webp = await sharp(file.buffer)
             .resize({ width: 1200, withoutEnlargement: true })
             .webp({ quality: 82 })
-            .toFile(dest);
+            .toBuffer();
 
+          if (r2Configured) {
+            return await uploadBuffer(`uploads/${filename}`, webp, 'image/webp');
+          }
+
+          const dest = path.join(UPLOAD_DIR, filename);
+          await fs.writeFile(dest, webp);
           return `/uploads/${filename}`;
         })
       );
