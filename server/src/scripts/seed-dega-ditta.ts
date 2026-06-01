@@ -193,6 +193,7 @@ async function seed() {
         componentId: 'rsvp',
         data: {
           noDecor: true,
+          hideGuestCount: true,
           text: {
             subtitle: "We can't wait to celebrate with you!",
             question: 'Will you celebrate with us?',
@@ -259,9 +260,9 @@ async function seed() {
   console.log(`Client "${client.groomName} & ${client.brideName}" upserted (${client._id})`);
 
   const guestData = [
-    { name: 'Wayan Sudana', invitationName: 'Mr. & Mrs. Wayan Sudana', slug: 'wayan-sudana', phone: '081234500001', category: 'family' as const },
-    { name: 'Komang Ayu', invitationName: 'Komang Ayu & Family', slug: 'komang-ayu', phone: '081234500002', category: 'friend' as const },
-    { name: 'Ahmad Rizki', invitationName: 'Ahmad Rizki & Partner', slug: 'ahmad-rizki', phone: '081234500003', category: 'officeFriend' as const },
+    { name: 'Wayan Sudana', invitationName: 'Wayan Sudana', slug: 'wayan-sudana', phone: '081234500001', category: 'family' as const },
+    { name: 'Komang Ayu', invitationName: 'Komang Ayu', slug: 'komang-ayu', phone: '081234500002', category: 'friend' as const },
+    { name: 'Ahmad Rizki', invitationName: 'Ahmad Rizki', slug: 'ahmad-rizki', phone: '081234500003', category: 'officeFriend' as const },
   ];
 
   let guestCount = 0;

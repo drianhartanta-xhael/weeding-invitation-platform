@@ -9,6 +9,9 @@ interface RSVPProps {
   guestSlug?: string;
   currentStatus?: string;
   text?: Record<string, string>;
+  // When true, skip the "Number of Guests" select and lock numberOfGuests=1.
+  // Used by clients whose invites are 1-guest-per-link.
+  hideGuestCount?: boolean;
 }
 
 const DEFAULT_TEXT = {
@@ -26,7 +29,7 @@ const DEFAULT_TEXT = {
   namePlaceholder: 'Tulis nama lengkap',
 };
 
-export default function RSVP({ clientSlug, guestSlug, currentStatus, text }: RSVPProps) {
+export default function RSVP({ clientSlug, guestSlug, currentStatus, text, hideGuestCount }: RSVPProps) {
   const t = { ...DEFAULT_TEXT, ...(text || {}) };
   const [rsvpStatus, setRsvpStatus] = useState(currentStatus || '');
   const [numberOfGuests, setNumberOfGuests] = useState(1);
@@ -148,7 +151,7 @@ export default function RSVP({ clientSlug, guestSlug, currentStatus, text }: RSV
               </div>
             </div>
 
-            {rsvpStatus === 'attending' && (
+            {rsvpStatus === 'attending' && !hideGuestCount && (
               <div>
                 <p className="text-xs tracking-widest uppercase mb-2" style={{ color: 'currentColor', opacity: 0.6 }}>
                   {t.guests}

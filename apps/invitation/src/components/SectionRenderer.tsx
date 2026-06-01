@@ -142,6 +142,7 @@ export default function SectionRenderer({
                 guestSlug={guestSlug}
                 currentStatus={guestRsvpStatus || 'pending'}
                 text={section.data.text}
+                hideGuestCount={section.data.hideGuestCount}
               />
             );
             break;
