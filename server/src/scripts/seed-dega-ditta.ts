@@ -19,8 +19,11 @@ const MONGO_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/wedding-
 const P = '/assets/dega-ditta';
 const heroPhoto = `${P}/couple.png`;
 const galleryImages = [
-  `${P}/2.jpg`, `${P}/3.jpg`, `${P}/4.jpg`, `${P}/5.jpg`,
-  `${P}/6.jpg`, `${P}/7.jpg`, `${P}/8.jpg`,
+  `${P}/invitation/01.jpg`, `${P}/invitation/02.jpg`, `${P}/invitation/03.jpg`,
+  `${P}/invitation/04.jpg`, `${P}/invitation/05.jpg`, `${P}/invitation/06.jpg`,
+  `${P}/invitation/07.jpg`, `${P}/invitation/08.jpg`, `${P}/invitation/09.jpg`,
+  `${P}/invitation/10.jpg`, `${P}/invitation/11.jpg`, `${P}/invitation/12.jpg`,
+  `${P}/invitation/13.jpg`, `${P}/invitation/14.jpg`, `${P}/invitation/15.jpg`,
 ];
 const envelopeImg = `${P}/envelope.png`;
 const heroDecorImg = `${P}/hero-decor.png`;
@@ -82,8 +85,8 @@ async function seed() {
     userId: user._id,
     groomName: 'Dega',
     brideName: 'Ditta',
-    groomPhoto: galleryImages[0],
-    bridePhoto: galleryImages[3],
+    groomPhoto: `${P}/2.jpg`,
+    bridePhoto: `${P}/5.jpg`,
     groomParents: { father: 'Bapak Taufikh (Alm.)', mother: 'Ibu Sri Mujiastuti' },
     brideParents: { father: 'Bapak Johan Librata (Alm.)', mother: 'Ibu Nina Krisnawati' },
     eventDate: new Date(eventDate),
@@ -92,7 +95,7 @@ async function seed() {
     slug: 'dega-ditta',
     venue: 'Hilton Garden Inn Bali, Nusa Dua',
     music: {
-      videoId: 'DBoaOnj6Ll4',
+      videoId: 'X5UqR-fzGm0',
       autoplay: true,
     },
     bankAccounts,
@@ -143,7 +146,7 @@ async function seed() {
       {
         id: 's-gallery',
         componentId: 'gallery',
-        data: { images: galleryImages, layout: 'grid', eyebrow: 'Gallery', heading: 'Happy moments' },
+        data: { images: galleryImages, layout: 'carousel', eyebrow: 'Gallery', heading: 'Happy moments' },
         style: 'light',
         order: 2,
       },
