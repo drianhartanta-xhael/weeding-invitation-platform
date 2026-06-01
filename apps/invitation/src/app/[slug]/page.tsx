@@ -170,14 +170,8 @@ export default function InvitationPage() {
   }, [slug, guestSlug]);
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-wedding-secondary">
-        <div className="text-center">
-          <div className="w-8 h-8 border-4 border-wedding-accent border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-gray-500">Loading invitation...</p>
-        </div>
-      </div>
-    );
+    // No spinner — render a dark blank page so the Cover overlay slides in seamlessly.
+    return <div className="min-h-screen bg-black" />;
   }
 
   if (error || !invitation) {
