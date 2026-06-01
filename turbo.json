@@ -1,5 +1,13 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "globalEnv": [
+    "NODE_ENV",
+    "API_PROXY_TARGET",
+    "NEXT_PUBLIC_API_URL",
+    "NEXT_PUBLIC_INVITATION_URL",
+    "NEXT_PUBLIC_APP_URL",
+    "NEXT_PUBLIC_MIDTRANS_CLIENT_KEY"
+  ],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
