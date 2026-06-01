@@ -18,8 +18,11 @@ export default function LocationMap({ venue, address, mapUrl, accentImage, backg
   let embedSrc = '';
   if (mapUrl && mapUrl.includes('/maps/embed')) {
     embedSrc = mapUrl;
-  } else if (address) {
-    embedSrc = `https://maps.google.com/maps?q=${encodeURIComponent(address)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+  } else if (venue || address) {
+    // Combine venue + address so Google's geocoder pins at the named place
+    // (e.g. "Hilton Garden Inn Bali Nusa Dua") rather than just the street.
+    const query = [venue, address].filter(Boolean).join(', ');
+    embedSrc = `https://maps.google.com/maps?q=${encodeURIComponent(query)}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
   }
 
   const mapsLink = mapUrl

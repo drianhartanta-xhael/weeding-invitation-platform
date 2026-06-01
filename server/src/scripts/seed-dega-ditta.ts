@@ -29,7 +29,7 @@ const bouquetImg = `${P}/bouquet.png`;
 const coupleRingsImg = `${P}/couple-rings.png`;
 const venueBgImg = `${P}/venue-bg.png`;
 
-const mapUrl = 'https://www.google.com/maps/place/Hilton+Garden+Inn+Bali+Nusa+Dua,+Jl.+Pratama+No.57A,+Tanjung,+Benoa,+South+Kuta,+Badung+Regency,+Bali+80361/data=!4m2!3m1!1s0x2dd243a86595d7c9:0xaaf726486ec6ba56!18m1!1e1?utm_source=mstt_1&entry=gps&coh=192189&skid=7bc97085-e063-4bcc-8d12-721072ca4456';
+const mapUrl = 'https://maps.app.goo.gl/yQuyAHsE3w7NWfix7';
 
 async function seed() {
   await mongoose.connect(MONGO_URI);
