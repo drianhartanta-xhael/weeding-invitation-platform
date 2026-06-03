@@ -25,6 +25,7 @@ export default function LoadingSkeleton() {
     <div
       className="fixed inset-0 z-50 flex flex-col items-center justify-center px-6"
       style={{ backgroundColor: PLUM }}
+      role="status"
       aria-busy="true"
       aria-label="Loading invitation"
     >
