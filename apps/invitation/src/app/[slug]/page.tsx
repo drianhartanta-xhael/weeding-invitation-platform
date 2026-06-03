@@ -18,6 +18,7 @@ import Footer from '@/components/sections/Footer';
 import MusicPlayer from '@/components/sections/MusicPlayer';
 import SectionRenderer from '@/components/SectionRenderer';
 import Cover from '@/components/Cover';
+import LoadingSkeleton from '@/components/LoadingSkeleton';
 import { DECORATION_REGISTRY } from '@/lib/decorations/registry';
 import { REGION_STRIPES } from '@/lib/regionStripes';
 
@@ -170,8 +171,8 @@ export default function InvitationPage() {
   }, [slug, guestSlug]);
 
   if (loading) {
-    // No spinner — render a dark blank page so the Cover overlay slides in seamlessly.
-    return <div className="min-h-screen bg-black" />;
+    // Branded shimmer placeholder (plum bg) so the Cover overlay slides in seamlessly.
+    return <LoadingSkeleton />;
   }
 
   if (error || !invitation) {
