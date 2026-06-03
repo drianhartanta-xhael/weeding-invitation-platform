@@ -14,7 +14,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 // Update this path when a fresh export arrives.
 const src = path.join(
   root,
-  'dega-dita-asets2/gallery/INVITATION-20260601T061335Z-3-001/INVITATION'
+  'dega-dita-asets2/gallery/INVITATION-20260603T043247Z-3-001/INVITATION'
 );
 const out = path.join(root, 'apps/invitation/public/assets/dega-ditta/invitation');
 
@@ -25,7 +25,8 @@ const files = (await fs.readdir(src))
   // Skip anything tagged with "NAMA" in the filename — the photographer marks photos
   // that are NOT meant for the gallery (e.g. "FOTO NAMA, GA USAH DI GALLERY.jpg").
   .filter((f) => !/nama/i.test(f))
-  .sort();
+  // Natural/numeric sort so "2.jpg" precedes "10.jpg" — filenames define gallery order.
+  .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
 
 const MAX_LONG_EDGE = 1400;
 const QUALITY = 80;
