@@ -15,3 +15,21 @@ html {
 body {
   font-family: var(--font-body), 'Lato', sans-serif;
 }
+
+/* Loading skeleton shimmer — gold sweep over translucent blocks (LoadingSkeleton.tsx). */
+@keyframes skeleton-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton-shimmer {
+  background-image: linear-gradient(
+    90deg,
+    rgba(200, 168, 75, 0) 0%,
+    rgba(200, 168, 75, 0.35) 50%,
+    rgba(200, 168, 75, 0) 100%
+  );
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+  animation: skeleton-shimmer 1.6s ease-in-out infinite;
+}
