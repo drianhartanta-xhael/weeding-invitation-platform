@@ -2,15 +2,16 @@
 
 import { useEffect, useState } from 'react';
 
-// dega-ditta cover palette. Hardcoded because the template's colors arrive with
-// the API response and are not yet available while the page is loading.
-const PLUM = '#6B1020';
-const GOLD = '#C8A84B';
+// dega-ditta cover/envelope palette (floral-plum template). Hardcoded because the
+// template's colors arrive with the API response and are not yet available while
+// the page is loading.
+const CREAM = '#f5f3eb'; // cover / envelope background
+const BLOCK = '#823460'; // plum — soft tint for placeholder blocks
 
 /**
  * Branded loading placeholder shown while the invitation page fetches its data.
  * Mirrors dega-ditta's Cover layout (the coverImage variant) so the real Cover
- * overlay fades in seamlessly. The plum background paints instantly; the shimmer
+ * overlay fades in seamlessly. The cream background paints instantly; the shimmer
  * blocks fade in after a short delay so a fast load doesn't flash a skeleton.
  */
 export default function LoadingSkeleton() {
@@ -24,7 +25,7 @@ export default function LoadingSkeleton() {
   return (
     <div
       className="fixed inset-0 z-50 flex flex-col items-center justify-center px-6"
-      style={{ backgroundColor: PLUM }}
+      style={{ backgroundColor: CREAM }}
       role="status"
       aria-busy="true"
       aria-label="Loading invitation"
@@ -50,7 +51,7 @@ function Block({ className = '' }: { className?: string }) {
   return (
     <div
       className={`skeleton-shimmer ${className}`}
-      style={{ backgroundColor: `${GOLD}22` }}
+      style={{ backgroundColor: `${BLOCK}24` }}
     />
   );
 }
